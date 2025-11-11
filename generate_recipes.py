@@ -153,15 +153,15 @@ TPL = '''<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{title} • Cook Family Recipes</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="Icon.png" type="image/png">
-  <link rel="apple-touch-icon" href="Icon.png">
+  <link rel="icon" href="Icon.PNG" type="image/png">
+  <link rel="apple-touch-icon" href="Icon.PNG">
 </head>
 <body>
   <div class="container">
     <div class="recipe-header">
       <header>
         <div class="brand">
-          <img src="Icon.png" class="logo" alt="Cook Family Recipes logo">
+          <img src="Icon.PNG" class="logo" alt="Cook Family Recipes logo">
           <div>
             <div class="brand-title">Cook Family Recipes</div>
             <div class="brand-sub">{title}</div>
