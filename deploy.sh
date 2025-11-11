@@ -69,3 +69,6 @@ else
 fi
 
 echo "[deploy.sh] Deploy complete."
+
+
+#Note to self ./deploy.sh is the command to run this script, but it needs to be after cd ~/Desktop/"Recipes HTML"

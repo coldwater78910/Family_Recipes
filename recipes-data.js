@@ -3,28 +3,6 @@
 */
 const RECIPES = [
     {
-        "title": "One-pot Lemon Chicken",
-        "tags": "dinner,quick",
-        "time": "30 min",
-        "difficulty": "Easy",
-        "img": "https://source.unsplash.com/800x600/?chicken,dinner",
-        "desc": "Bright, savory chicken with lemon and herbs — all in one pan.",
-        "ingredients": [
-            "4 chicken thighs",
-            "2 lemons, sliced",
-            "4 cloves garlic, minced",
-            "2 tablespoons olive oil",
-            "1 tablespoon fresh rosemary",
-            "1 tablespoon fresh thyme",
-            "Salt and pepper to taste"
-        ],
-        "steps": [
-            "Preheat oven to 200°C (400°F).",
-            "Sear chicken in a pan.",
-            "Add lemon, herbs and roast until cooked through."
-        ]
-    },
-    {
         "title": "Chicken Curry",
         "tags": "dinner,curry,easy",
         "time": "45 min",
@@ -62,49 +40,6 @@ const RECIPES = [
             "Add in the tin of diced tomatoes and tomato puree, and cook down for 5 to 10 minutes.",
             "Add in your tin of coconut cream, bay leaf and cloves.",
             "Leave lid partially off and simmer until cooked down to the preferred consistency."
-        ]
-    },
-    {
-        "title": "Classic Pancakes",
-        "tags": "breakfast,sweet",
-        "time": "20 min",
-        "difficulty": "Easy",
-        "img": "https://source.unsplash.com/800x600/?pancakes,breakfast",
-        "desc": "Fluffy pancakes perfect for a weekend brunch.",
-        "ingredients": [
-            "1 1/2 cups all-purpose flour",
-            "3 1/2 teaspoons baking powder",
-            "1/4 teaspoon salt",
-            "1 tablespoon sugar",
-            "1 1/4 cups milk",
-            "1 egg",
-            "3 tablespoons butter, melted"
-        ],
-        "steps": [
-            "Mix dry ingredients.",
-            "Whisk in milk and eggs.",
-            "Cook on a hot griddle."
-        ]
-    },
-    {
-        "title": "Avocado Toast",
-        "tags": "vegetarian,breakfast",
-        "time": "10 min",
-        "difficulty": "Vegetarian",
-        "img": "https://source.unsplash.com/800x600/?avocado,toast",
-        "desc": "Quick, healthy, and customizable.",
-        "ingredients": [
-            "2 slices whole grain bread",
-            "1 ripe avocado",
-            "1/2 lemon",
-            "Red pepper flakes",
-            "Salt and pepper to taste",
-            "Optional: cherry tomatoes, microgreens"
-        ],
-        "steps": [
-            "Toast bread.",
-            "Mash avocado with lemon.",
-            "Assemble and season."
         ]
     }
 ];

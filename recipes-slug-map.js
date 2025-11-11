@@ -5,10 +5,7 @@
 //
 // Format: "Recipe Title": "file-name.html"
 window.SLUG_MAP = window.SLUG_MAP || {
-    "One-pot Lemon Chicken": "one-pot-lemon-chicken.html",
-    "Chicken Curry": "chicken-curry.html",
-    "Classic Pancakes": "classic-pancakes.html",
-    "Avocado Toast": "avocado-toast.html"
+    "Chicken Curry": "chicken-curry.html"
 };
 
 // Keep backwards compatibility if other scripts reassign window.SLUG_MAP
