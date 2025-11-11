@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Import Recipe from Screenshot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="upload-page">
+  <div class="container">
+    <header>
+      <a href="Cook Family Recipes.html" class="brand">
+        <div>
+          <div class="brand-title">Cook Family Recipes</div>
+          <div class="brand-sub">Import from Screenshot</div>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="Cook Family Recipes.html">Home</a>
+        <a href="recipes.html">Recipes</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
+
+    <main style="margin-top:20px">
+      <h1>Import Recipe from Screenshot</h1>
+      <p>Upload a screenshot of a recipe and the server will run OCR and generate a new recipe page for you.</p>
+
+      <form id="upload-form">
+        <label for="image">Choose image (png/jpg)</label><br/>
+        <input id="image" name="image" type="file" accept="image/*" required>
+        <div style="margin-top:8px">
+          <button id="upload-btn" type="submit">Upload & Generate</button>
+        </div>
+      </form>
+
+      <div id="status" style="margin-top:16px;color:var(--muted)"></div>
+      <div id="result" style="margin-top:12px"></div>
+    </main>
+  </div>
+
+  <script src="js/upload.js"></script>
+</body>
+</html>

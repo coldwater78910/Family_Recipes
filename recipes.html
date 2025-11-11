@@ -1,0 +1,97 @@
+<!doctype html>
+<!-- Recipes page — lists all recipes and supports client-side filtering by query or tag -->
+<html lang="en">
+<!-- ===== HEAD: metadata and styles (copied from main page for consistency) ===== -->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cook Family Recipes • Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header/nav -->
+        <header>
+            <a href="Cook Family Recipes.html" class="brand">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <div class="brand-title">Cook Family Recipes</div>
+                    <div class="brand-sub">All Recipes</div>
+                </div>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="Cook Family Recipes.html">Home</a>
+                <a href="recipes.html">Recipes</a>
+                <a href="categories.html">Categories</a>
+                <a href="about.html">About</a>
+            </nav>
+        </header>
+
+        <h1 style="margin-top:22px">All Recipes</h1>
+
+        <!-- Search box: supports quick filtering on this page -->
+        <div style="margin-top:12px;display:flex;gap:8px">
+            <input id="q" placeholder="Search recipes or tags" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid #eee">
+            <button id="btn" style="background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700">Filter</button>
+        </div>
+
+    <!-- Recipes grid -->
+    <div class="grid" id="recipes" style="margin-top:18px">
+        <!-- Cards will be dynamically added by JavaScript -->
+    </div>
+
+    <div style="text-align:center;margin-top:12px">
+        <button id="loadMore" class="load-more">Load more</button>
+    </div>
+
+        <footer>
+            © <span id="year"></span>&nbsp;Cook Family Recipes — Simple, tested home cooking.
+        </footer>
+    </div>
+
+    <script src="recipes-data.js"></script>
+    <script src="recipes-slug-map.js"></script>
+    <script src="js/filter-render.js"></script>
+    <script>
+        // set year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // Build cards from the canonical RECIPES data using shared renderer
+        const recipesContainer = document.getElementById('recipes');
+        const cards = window.FILTER ? FILTER.mountRecipesFromData('#recipes', window.RECIPES || []) : Array.from(document.querySelectorAll('#recipes .card'));
+
+    const input = document.getElementById('q');
+    const btn = document.getElementById('btn');
+    const loadMoreBtn = document.getElementById('loadMore');
+        const pageSize = 6;
+        let visible = pageSize;
+        let currentTerm = '';
+
+        function matches(card, term){
+            const t = term.trim().toLowerCase();
+            if(!t) return true;
+            const title = (card.dataset.title||'').toLowerCase();
+            const tags = (card.dataset.tags||'').toLowerCase();
+            return title.includes(t) || tags.includes(t);
+        }
+
+        function render(){
+            const matched = cards.filter(c=> matches(c, currentTerm));
+            cards.forEach(c=> c.style.display = 'none');
+            matched.slice(0, visible).forEach(c=> c.style.display = '');
+            if(matched.length > visible) loadMoreBtn.style.display = '';
+            else loadMoreBtn.style.display = 'none';
+        }
+
+        function applyFilter(term){ currentTerm = term||''; visible = pageSize; render(); }
+
+        loadMoreBtn.addEventListener('click', ()=>{ visible += pageSize; render(); });
+        btn.addEventListener('click', (e)=>{ e.preventDefault(); applyFilter(input.value); });
+        input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); applyFilter(input.value); } });
+
+        const params = new URLSearchParams(location.search);
+        if(params.get('tag')){ input.value = params.get('tag'); applyFilter(params.get('tag')); }
+        else if(params.get('q')){ input.value = params.get('q'); applyFilter(params.get('q')); }
+        else render();
+    </script>
+</body>
+</html>

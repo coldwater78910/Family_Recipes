@@ -1,0 +1,66 @@
+<!doctype html>
+<!-- Categories page — shows recipe categories and links to recipes page filtered by tag -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cook Family Recipes • Categories</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header style="display:flex;justify-content:space-between;align-items:center">
+            <a href="Cook Family Recipes.html" class="brand">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <div class="brand-title">Cook Family Recipes</div>
+                    <div class="brand-sub">Categories</div>
+                </div>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="Cook Family Recipes.html">Home</a>
+                <a href="recipes.html">Recipes</a>
+                <a href="categories.html">Categories</a>
+                <a href="about.html">About</a>
+            </nav>
+        </header>
+
+        <h1 style="margin-top:22px">Categories</h1>
+
+        <div class="list" id="categoryList">
+            <!-- Category items will be rendered by JS with counts -->
+        </div>
+
+    <footer style="margin-top:26px">© <span id="year"></span>&nbsp;Cook Family Recipes</footer>
+    </div>
+
+    <script src="recipes-data.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Build category counts from RECIPES
+        const counts = {};
+        (window.RECIPES || []).forEach(r=>{
+            (r.tags||'').split(',').map(t=>t.trim()).forEach(tag=>{
+                if(!tag) return;
+                counts[tag] = (counts[tag] || 0) + 1;
+            });
+        });
+
+        const categoryList = document.getElementById('categoryList');
+        const categories = Object.keys(counts).sort();
+        categories.forEach(cat=>{
+            const btn = document.createElement('button');
+            btn.className = 'cat';
+            btn.type = 'button';
+            btn.setAttribute('aria-label', `Show recipes tagged ${cat}`);
+            btn.innerHTML = `<span>${cat.charAt(0).toUpperCase()+cat.slice(1)}</span><span class="tag">${counts[cat]}</span>`;
+            btn.addEventListener('click', ()=>{
+                // navigate to recipes page pre-filtered by tag
+                location.href = `recipes.html?tag=${encodeURIComponent(cat)}`;
+            });
+            categoryList.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

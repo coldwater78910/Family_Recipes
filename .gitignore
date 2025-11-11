@@ -1,0 +1,25 @@
+# Local Python virtual env
+.venv/
+
+# Uploaded images / user data
+uploads/
+
+# Python cache / compiled
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Logs
+*.log

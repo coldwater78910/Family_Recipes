@@ -1,0 +1,113 @@
+/* Shared recipes data — used by dynamic pages and scripts
+   Keep this as the single source of truth for recipe data on the site.
+*/
+const RECIPES = [
+    {
+        "title": "One-pot Lemon Chicken",
+        "tags": "dinner,quick",
+        "time": "30 min",
+        "difficulty": "Easy",
+        "img": "https://source.unsplash.com/800x600/?chicken,dinner",
+        "desc": "Bright, savory chicken with lemon and herbs — all in one pan.",
+        "ingredients": [
+            "4 chicken thighs",
+            "2 lemons, sliced",
+            "4 cloves garlic, minced",
+            "2 tablespoons olive oil",
+            "1 tablespoon fresh rosemary",
+            "1 tablespoon fresh thyme",
+            "Salt and pepper to taste"
+        ],
+        "steps": [
+            "Preheat oven to 200°C (400°F).",
+            "Sear chicken in a pan.",
+            "Add lemon, herbs and roast until cooked through."
+        ]
+    },
+    {
+        "title": "Chicken Curry",
+        "tags": "dinner,curry,easy",
+        "time": "45 min",
+        "difficulty": "Medium",
+        "img": "https://source.unsplash.com/800x600/?chicken,curry",
+        "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
+        "ingredients": [
+            "3 chicken breasts",
+            "1 tin of coconut cream",
+            "1 tin of diced tomatoes",
+            "1 tin of tomato puree",
+            "1 Onion",
+            "1 1/2 teaspoons of crushed garlic",
+            "Dash of oil",
+            "1 1/2 teaspoons of chicken spice",
+            "1 teaspoon of coriander",
+            "3 cloves",
+            "1 bay leaf",
+            "1/4 teaspoon of cinnamon",
+            "1 teaspoon of cumin",
+            "Squeeze of lemon juice or 1/2 a lemon",
+            "1 1/2 teaspoons of curry powder",
+            "1 teaspoon of sugar"
+        ],
+        "steps": [
+            "Cut the chicken breasts into strips and place in a bowl.",
+            "Pour a dash of oil over the chicken breasts.",
+            "Add all the spices (besides cloves and bay leaves), garlic and lemon juice into the bowl with the chicken.",
+            "Cover with a plate and let marinade for 30+ minutes.",
+            "Begin heating your pot while you dice your onion.",
+            "After 5 minutes your pot should be thoroughly heated, add a dash of oil to the pot and let heat.",
+            "Add your onion in and cook till it's translucent.",
+            "Add in your sugar (be careful not to caramelize the onions or burn the sugar).",
+            "Add in your marinated chicken breast, and sauté until outside is browned.",
+            "Add in the tin of diced tomatoes and tomato puree, and cook down for 5 to 10 minutes.",
+            "Add in your tin of coconut cream, bay leaf and cloves.",
+            "Leave lid partially off and simmer until cooked down to the preferred consistency."
+        ]
+    },
+    {
+        "title": "Classic Pancakes",
+        "tags": "breakfast,sweet",
+        "time": "20 min",
+        "difficulty": "Easy",
+        "img": "https://source.unsplash.com/800x600/?pancakes,breakfast",
+        "desc": "Fluffy pancakes perfect for a weekend brunch.",
+        "ingredients": [
+            "1 1/2 cups all-purpose flour",
+            "3 1/2 teaspoons baking powder",
+            "1/4 teaspoon salt",
+            "1 tablespoon sugar",
+            "1 1/4 cups milk",
+            "1 egg",
+            "3 tablespoons butter, melted"
+        ],
+        "steps": [
+            "Mix dry ingredients.",
+            "Whisk in milk and eggs.",
+            "Cook on a hot griddle."
+        ]
+    },
+    {
+        "title": "Avocado Toast",
+        "tags": "vegetarian,breakfast",
+        "time": "10 min",
+        "difficulty": "Vegetarian",
+        "img": "https://source.unsplash.com/800x600/?avocado,toast",
+        "desc": "Quick, healthy, and customizable.",
+        "ingredients": [
+            "2 slices whole grain bread",
+            "1 ripe avocado",
+            "1/2 lemon",
+            "Red pepper flakes",
+            "Salt and pepper to taste",
+            "Optional: cherry tomatoes, microgreens"
+        ],
+        "steps": [
+            "Toast bread.",
+            "Mash avocado with lemon.",
+            "Assemble and season."
+        ]
+    }
+];
+
+// Expose for older browsers; pages simply include this file before any scripts that use RECIPES.
+if(typeof window !== 'undefined') window.RECIPES = RECIPES;

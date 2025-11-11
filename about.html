@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About • Cook Family Recipes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="Cook Family Recipes.html" class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <div>
+          <div style="font-weight:800">Cook Family Recipes</div>
+          <div style="font-size:13px;color:var(--muted)">About</div>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="Cook Family Recipes.html">Home</a>
+        <a href="recipes.html">Recipes</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
+
+    <h1 style="margin-top:22px">About Cook Family Recipes</h1>
+    <div class="content" style="margin-top:12px">
+      <p>This site is a simple family collection of tested, easy-to-follow recipes. It’s hand-crafted for clarity and to help you find a great meal quickly.</p>
+      <p>If you’d like to contribute a recipe or photo, save it as a simple HTML snippet and I can help add it to the site.</p>
+    </div>
+
+  <footer>© <span id="year"></span>&nbsp;Cook Family Recipes</footer>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
