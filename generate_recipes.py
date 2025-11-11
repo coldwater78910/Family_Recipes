@@ -161,7 +161,7 @@ TPL = '''<!doctype html>
     <div class="recipe-header">
       <header>
         <div class="brand">
-          <span class="logo" aria-hidden="true"></span>
+          <img src="Icon.png" class="logo" alt="Cook Family Recipes logo">
           <div>
             <div class="brand-title">Cook Family Recipes</div>
             <div class="brand-sub">{title}</div>

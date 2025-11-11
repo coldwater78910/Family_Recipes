@@ -44,6 +44,8 @@ nav a{pointer-events:auto}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
 .brand:hover{opacity:0.9}
 .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f4a261);display:inline-block}
+/* When the logo is an <img> element use the image and remove the background gradient. */
+.brand img.logo{background:none;display:block;object-fit:cover}
 nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600}
 nav a:hover{color:var(--accent)}
 .hero{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:22px;align-items:center}
