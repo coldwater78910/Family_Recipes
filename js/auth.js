@@ -4,6 +4,8 @@
 
 (function(){
   'use strict';
+  let _prevBodyVisibility = null;
+  let _prevDocOverflow = null;
   async function sha256Hex(str){
     const enc = new TextEncoder();
     const data = enc.encode(str);
@@ -15,8 +17,9 @@
   function createOverlay(){
     const ov = document.createElement('div');
     ov.id = 'site-auth-overlay';
+    // Use a fully opaque overlay so the page behind cannot be seen.
     Object.assign(ov.style,{
-      position:'fixed',inset:'0',zIndex:99999,display:'flex',alignItems:'center',justifyContent:'center',background:'rgba(0,0,0,0.6)'
+      position:'fixed',inset:'0',zIndex:2147483647,display:'flex',alignItems:'center',justifyContent:'center',background:'#ffffff',color:'#111'
     });
 
     const card = document.createElement('div');
@@ -45,7 +48,18 @@
       if(sessionStorage.getItem('site_authed') === '1') return;
 
       const ov = createOverlay();
-      document.body.appendChild(ov);
+      // Hide page content while overlay is active so users cannot see underlying content.
+      try{
+        _prevBodyVisibility = document.body.style.visibility || '';
+        _prevDocOverflow = document.documentElement.style.overflow || '';
+        // hide the body (overlay will be appended to the documentElement so it stays visible)
+        document.body.style.visibility = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      } catch(e) {
+        console.warn('Could not modify document visibility/overflow', e);
+      }
+      // Append to the root element so it's not hidden when body.visibility is set to hidden
+      document.documentElement.appendChild(ov);
 
       const input = document.getElementById('site-auth-input');
       const btn = document.getElementById('site-auth-btn');
@@ -56,7 +70,12 @@
         const h = await sha256Hex(val);
         if(h === hash){
           sessionStorage.setItem('site_authed','1');
-          ov.remove();
+          // restore document state
+          try{
+            ov.remove();
+            if(_prevBodyVisibility !== null) document.body.style.visibility = _prevBodyVisibility;
+            if(_prevDocOverflow !== null) document.documentElement.style.overflow = _prevDocOverflow;
+          }catch(e){ /* ignore restore errors */ }
         } else {
           err.textContent = 'Incorrect password'; err.style.display = '';
         }
@@ -68,6 +87,11 @@
     }catch(e){
       // if crypto API missing, allow access (fail open) and log
       console.error('auth init failed', e);
+      // Attempt to restore any visibility changes we made
+      try{
+        if(_prevBodyVisibility !== null) document.body.style.visibility = _prevBodyVisibility;
+        if(_prevDocOverflow !== null) document.documentElement.style.overflow = _prevDocOverflow;
+      }catch(_){ }
     }
   }
 
