@@ -116,8 +116,6 @@
     
     // Recipe scaling functionality
     function parseAmount(str) {
-  <script src="js/auth-config.js"></script>
-  <script src="js/auth.js"></script>
       if (!str) return 0;
       const parts = str.trim().split(' ');
       let total = 0;
@@ -173,20 +171,6 @@
       }
       
       return whole ? `${whole} ${closestFraction}` : closestFraction;
-      
-      // Convert decimal to fraction
-      let fraction = '';
-      if (decimal > 0) {
-        if (Math.abs(decimal - 0.25) < 0.01) fraction = '1/4';
-        else if (Math.abs(decimal - 0.5) < 0.01) fraction = '1/2';
-        else if (Math.abs(decimal - 0.75) < 0.01) fraction = '3/4';
-        else fraction = decimal.toFixed(2);
-      }
-      
-      // Combine whole number and fraction
-      if (whole === 0) return fraction;
-      if (fraction) return `${whole} ${fraction}`;
-      return whole.toString();
     }
 
     function updateIngredients(newServings) {
@@ -247,5 +231,7 @@
     }
 
   </script>
+  <script src="js/auth-config.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
