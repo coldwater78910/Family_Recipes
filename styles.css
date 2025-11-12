@@ -225,9 +225,8 @@ footer{
     /* make footer taller so content sits lower visually */
     min-height:96px;
     padding:14px 16px 20px;
-    display:flex;
-    align-items:flex-end; /* align footer content to the bottom */
-    justify-content:center;
+    /* Use block layout with centered text for consistent centering of inline content */
+    display:block;
 }
 .load-more{background:transparent;border:1px solid #eee;padding:10px 14px;border-radius:10px;cursor:pointer}
 
