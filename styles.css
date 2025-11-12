@@ -9,6 +9,8 @@
     --radius:12px;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
+/* Prevent iOS from auto-resizing text unexpectedly; keep control over font sizes */
+html { -webkit-text-size-adjust: 100%; }
 html,body{
     height:100%;
     margin:0;
@@ -66,7 +68,7 @@ h5{margin:0 0 8px 0;font-size:16px}
 h6{margin:0 0 8px 0;font-size:14px}
 p.lead{margin:0;color:var(--muted)}
 .search{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
-.search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:15px;background:var(--card);color:inherit;min-width:0}
+.search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:16px;background:var(--card);color:inherit;min-width:0}
 .search button{background:var(--accent);color:white;border:none;padding:0 14px;border-radius:10px;font-weight:700}
 
 /* Prevent search controls from forcing a larger minimum width on small screens */
@@ -325,6 +327,8 @@ footer{
     .search{flex-direction:column;align-items:stretch;gap:10px}
     .search input{width:100%}
     .search button{width:100%}
+    /* Ensure form controls are sufficiently large on mobile to avoid browser auto-zoom */
+    input, textarea, select, button { font-size: 16px; }
     /* override inline min-width on tag input when present */
     #tagFilter{min-width:0 !important;width:100% !important}
 }

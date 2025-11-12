@@ -4,7 +4,6 @@
 
 (function(){
   'use strict';
-  let _prevBodyVisibility = null;
   let _prevDocOverflow = null;
   async function sha256Hex(str){
     const enc = new TextEncoder();
@@ -27,7 +26,7 @@
     card.innerHTML = `
       <h2 style="margin:0 0 12px 0;font-size:20px">Enter site password</h2>
       <p style="margin:0 0 12px 0;color:#333">This site is private. Enter the password to continue.</p>
-      <input id="site-auth-input" type="password" placeholder="Password" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;">
+      <input id="site-auth-input" type="password" placeholder="Password" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;font-size:16px;">
       <div style="display:flex;gap:8px;justify-content:flex-end">
         <button id="site-auth-btn" style="background:#e76f51;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:700">Enter</button>
       </div>
@@ -48,18 +47,13 @@
       if(sessionStorage.getItem('site_authed') === '1') return;
 
       const ov = createOverlay();
-      // Hide page content while overlay is active so users cannot see underlying content.
+      // Prevent the page behind from scrolling while the overlay is visible.
       try{
-        _prevBodyVisibility = document.body.style.visibility || '';
         _prevDocOverflow = document.documentElement.style.overflow || '';
-        // hide the body (overlay will be appended to the documentElement so it stays visible)
-        document.body.style.visibility = 'hidden';
         document.documentElement.style.overflow = 'hidden';
-      } catch(e) {
-        console.warn('Could not modify document visibility/overflow', e);
-      }
-      // Append to the root element so it's not hidden when body.visibility is set to hidden
-      document.documentElement.appendChild(ov);
+      }catch(e){ /* ignore */ }
+      // Append overlay to body (fixed positioning keeps it above content)
+      document.body.appendChild(ov);
 
       const input = document.getElementById('site-auth-input');
       const btn = document.getElementById('site-auth-btn');
@@ -73,7 +67,6 @@
           // restore document state
           try{
             ov.remove();
-            if(_prevBodyVisibility !== null) document.body.style.visibility = _prevBodyVisibility;
             if(_prevDocOverflow !== null) document.documentElement.style.overflow = _prevDocOverflow;
           }catch(e){ /* ignore restore errors */ }
         } else {
@@ -81,15 +74,14 @@
         }
       }
 
-      btn.addEventListener('click', attempt);
-      input.addEventListener('keydown', e=>{ if(e.key === 'Enter') attempt(); });
-      input.focus();
+  btn.addEventListener('click', attempt);
+  input.addEventListener('keydown', e=>{ if(e.key === 'Enter') attempt(); });
+  // Do not auto-focus the input to avoid forcing mobile browsers to zoom; allow the user to tap it.
     }catch(e){
       // if crypto API missing, allow access (fail open) and log
       console.error('auth init failed', e);
-      // Attempt to restore any visibility changes we made
+      // Attempt to restore any overflow changes we made
       try{
-        if(_prevBodyVisibility !== null) document.body.style.visibility = _prevBodyVisibility;
         if(_prevDocOverflow !== null) document.documentElement.style.overflow = _prevDocOverflow;
       }catch(_){ }
     }
