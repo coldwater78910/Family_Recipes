@@ -11,6 +11,9 @@ __pycache__/
 # Environment files
 .env
 
+# Local auth config (contains password hash) — do not commit secrets
+js/auth-config.js
+
 # macOS
 .DS_Store
 
