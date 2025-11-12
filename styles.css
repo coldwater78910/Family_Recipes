@@ -17,6 +17,9 @@ html,body{
     box-sizing:border-box;
 }
 
+/* use border-box everywhere to avoid unexpected overflow from padding/borders */
+*, *::before, *::after { box-sizing: border-box; }
+
 /* Heading font for body content (Dancing Script) — exclude h4 per request */
 h1,h2,h3,h5,h6{
     font-family: 'Dancing Script', cursive;
@@ -48,8 +51,8 @@ nav a{pointer-events:auto}
 .brand img.logo{background:none;display:block;object-fit:cover}
 nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600}
 nav a:hover{color:var(--accent)}
-.hero{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:22px;align-items:center}
-.hero-card{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(16,24,40,0.08);border:1px solid rgba(0,0,0,0.04);color:var(--text-dark)}
+.hero{display:grid;grid-template-columns:1fr minmax(0,360px);gap:20px;margin-top:22px;align-items:center}
+.hero-card{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(16,24,40,0.08);border:1px solid rgba(0,0,0,0.04);color:var(--text-dark);max-width:100%;box-sizing:border-box}
 /* Ensure headings inside the hero/search card use dark color (override global heading color) */
 .hero-card h1, .hero-card h2, .hero-card h3, .hero-card h4{
     color: var(--text-dark);
@@ -62,9 +65,12 @@ h4{margin:0 0 8px 0;font-size:18px}
 h5{margin:0 0 8px 0;font-size:16px}
 h6{margin:0 0 8px 0;font-size:14px}
 p.lead{margin:0;color:var(--muted)}
-.search{margin-top:16px;display:flex;gap:8px}
-.search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:15px;background:var(--card);color:inherit}
+.search{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:15px;background:var(--card);color:inherit;min-width:0}
 .search button{background:var(--accent);color:white;border:none;padding:0 14px;border-radius:10px;font-weight:700}
+
+/* Prevent search controls from forcing a larger minimum width on small screens */
+.search button{flex:0 0 auto}
 
 /* Filters row styling (small, compact controls) */
 .filters-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
@@ -315,6 +321,12 @@ footer{
     .side-card{order:2}
     .container{padding:0.5rem}
     h1{font-size:22px}
+    /* Stack search controls vertically on narrow screens to avoid horizontal overflow */
+    .search{flex-direction:column;align-items:stretch;gap:10px}
+    .search input{width:100%}
+    .search button{width:100%}
+    /* override inline min-width on tag input when present */
+    #tagFilter{min-width:0 !important;width:100% !important}
 }
 
 @media (max-width:500px){
