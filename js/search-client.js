@@ -44,19 +44,181 @@
 
     function doSearchAndRender(qv){
         const resultsEl = ensureResultsContainer();
-        const qterm = (qv||'').trim().toLowerCase();
-        const list = qterm ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(qterm) || (r.tags||'').toLowerCase().includes(qterm)) : (window.RECIPES || []);
+        const qterm = (qv||'').toString().trim().toLowerCase();
+        const all = (window.RECIPES || []).slice();
+
         if(!resultsEl){
             console.warn('doSearchAndRender: no results element available');
             return;
         }
-        if(window.FILTER) FILTER.renderList(resultsEl, list);
-        else renderFallback(list, resultsEl);
+
+        // Read common filter controls (homepage may provide these)
+        const timeFilter = document.getElementById('timeFilter');
+        const difficultyFilter = document.getElementById('difficultyFilter');
+        const tagFilter = document.getElementById('tagFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const tagMode = document.getElementById('tagMode');
+
+        const selectedTime = (timeFilter && timeFilter.value) ? timeFilter.value : 'any';
+        const selectedDifficulty = (difficultyFilter && difficultyFilter.value) ? difficultyFilter.value : 'any';
+        const rawTag = (tagFilter && tagFilter.value) ? tagFilter.value : '';
+        const tagList = rawTag.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+
+        // Matching function uses FILTER helpers when available
+        function matchesRecipe(r){
+            const title = (r.title||'');
+            const tags = (r.tags||'').toString();
+            // text match
+            if(qterm){
+                const titleOk = title.toLowerCase().includes(qterm) || (window.FILTER && FILTER.fuzzyMatch(title, qterm));
+                const tagsOk = tags.toLowerCase().includes(qterm) || (window.FILTER && FILTER.fuzzyMatch(tags, qterm));
+                if(!(titleOk || tagsOk)) return false;
+            }
+
+            // time filter
+            if(selectedTime === 'over60'){
+                const mt = (window.FILTER && typeof FILTER.parseMinutes === 'function') ? FILTER.parseMinutes(r.time) : (parseInt(String(r.time||'').replace(/[^0-9]/g,''),10) || null);
+                if(mt === null || mt <= 60) return false;
+            } else if(selectedTime !== 'any'){
+                const mt = (window.FILTER && typeof FILTER.parseMinutes === 'function') ? FILTER.parseMinutes(r.time) : (parseInt(String(r.time||'').replace(/[^0-9]/g,''),10) || null);
+                if(mt === null || mt > Number(selectedTime)) return false;
+            }
+
+            // difficulty
+            if(selectedDifficulty && selectedDifficulty !== 'any'){
+                if(((r.difficulty||'')||'').toLowerCase() !== String(selectedDifficulty).toLowerCase()) return false;
+            }
+
+            // tag list
+            if(tagList.length){
+                const rtags = (window.FILTER && typeof FILTER.normalizeTags === 'function') ? FILTER.normalizeTags(r.tags) : (r.tags||'').toString().split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+                if(tagMode && tagMode.value === 'all'){
+                    const allOk = tagList.every(t => rtags.includes(t));
+                    if(!allOk) return false;
+                } else {
+                    const anyOk = tagList.some(t => rtags.includes(t));
+                    if(!anyOk) return false;
+                }
+            }
+
+            return true;
+        }
+
+        let list = all.filter(matchesRecipe);
+
+        // Sorting
+        const sortVal = (sortSelect && sortSelect.value) ? sortSelect.value : 'none';
+        if(sortVal === 'alpha'){
+            list.sort((a,b)=> (a.title||'').localeCompare((b.title||'')));
+        } else if(sortVal === 'time'){
+            const p = (v)=> (window.FILTER && typeof FILTER.parseMinutes === 'function') ? (FILTER.parseMinutes(v) || 0) : (parseInt(String(v||'').replace(/[^0-9]/g,''),10) || 0);
+            list.sort((a,b)=> p(a.time) - p(b.time));
+        } else if(sortVal === 'difficulty'){
+            const rank = s=>{ const m = (s||'').toLowerCase(); if(m==='easy') return 1; if(m==='vegetarian') return 2; if(m==='medium') return 3; if(m==='hard') return 4; return 5; };
+            list.sort((a,b)=> rank(a.difficulty) - rank(b.difficulty));
+        }
+
+        // If we're rendering into the homepage #recipes container, use pagination
+        if(resultsEl.id === 'recipes'){
+            _sc_currentList = list;
+            _sc_visible = _sc_pageSize;
+            _sc_renderVisible(resultsEl);
+            _sc_updateLoadMoreVisibility();
+        } else {
+            if(window.FILTER) FILTER.renderList(resultsEl, list);
+            else renderFallback(list, resultsEl);
+        }
     }
 
     // expose for initial rendering from inline script
     window.doSearchAndRender = doSearchAndRender;
     console.info('search-client: loaded and doSearchAndRender available');
+
+    // Client state for homepage pagination and shared helpers
+    let _sc_currentList = [];
+    let _sc_visible = 4;
+    const _sc_pageSize = 4;
+
+    function _sc_renderVisible(resultsEl){
+        if(!resultsEl) return;
+        const list = Array.isArray(_sc_currentList) ? _sc_currentList : [];
+        resultsEl.innerHTML = '';
+        if(!list.length){
+            resultsEl.innerHTML = '<p style="color:var(--muted)">No results found.</p>';
+            return;
+        }
+        const slice = list.slice(0, _sc_visible);
+        if(window.FILTER && typeof FILTER.buildCard === 'function'){
+            slice.forEach(r=> resultsEl.appendChild(FILTER.buildCard(r)));
+        } else {
+            slice.forEach(r=> resultsEl.insertAdjacentHTML('beforeend', `\
+                <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
+                    <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
+                    <div class="card-body">\
+                        <div style="font-weight:700">${r.title}</div>\
+                        <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>\
+                        <div style="color:var(--muted);font-size:14px">${r.desc}</div>\
+                    </div>\
+                </a>\
+            `));
+        }
+    }
+
+    function _sc_updateLoadMoreVisibility(){
+        const loadMoreBtn = document.getElementById('loadMore');
+        if(!loadMoreBtn) return;
+        if(_sc_currentList.length > _sc_visible) loadMoreBtn.style.display = '';
+        else loadMoreBtn.style.display = 'none';
+    }
+
+    function searchClientLoadMore(){
+        _sc_visible += _sc_pageSize;
+        const resultsEl = ensureResultsContainer();
+        if(resultsEl && resultsEl.id === 'recipes'){
+            _sc_renderVisible(resultsEl);
+            _sc_updateLoadMoreVisibility();
+        }
+    }
+
+    function initHomepageSearchClient(){
+        // generate tag chips
+        try{
+            const tagsRow = document.getElementById('tagsRow');
+            if(tagsRow){
+                const set = new Set();
+                (window.RECIPES || []).forEach(r=> String(r.tags||'').split(',').map(t=>t.trim()).forEach(t=>{ if(t) set.add(t.toLowerCase()); }));
+                const tags = Array.from(set).sort();
+                tagsRow.innerHTML = '';
+                tags.forEach(t=>{
+                    const s = document.createElement('button');
+                    s.type = 'button'; s.className = 'tag'; s.textContent = t;
+                    s.addEventListener('click', ()=>{
+                        const tagFilter = document.getElementById('tagFilter');
+                        const cur = (tagFilter && tagFilter.value) ? tagFilter.value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean) : [];
+                        const idx = cur.indexOf(t);
+                        if(idx === -1) cur.push(t); else cur.splice(idx,1);
+                        if(tagFilter) tagFilter.value = cur.join(',');
+                        doSearchAndRender(document.getElementById('q') ? document.getElementById('q').value : '');
+                    });
+                    tagsRow.appendChild(s);
+                });
+            }
+        }catch(e){ console.warn('search-client: initHomepage tag generation failed', e); }
+
+        // wire Load more
+        const loadMoreBtn = document.getElementById('loadMore');
+        if(loadMoreBtn){
+            loadMoreBtn.addEventListener('click', function(){ searchClientLoadMore(); });
+        }
+
+        // initial render
+        const q = (new URLSearchParams(location.search)).get('q') || '';
+        doSearchAndRender(q);
+    }
+
+    // expose helpers
+    window.searchClientLoadMore = searchClientLoadMore;
+    window.initHomepageSearchClient = initHomepageSearchClient;
 
     // wire up form behaviour
     const form = document.querySelector('form.search');
