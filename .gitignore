@@ -2,7 +2,7 @@
 .venv/
 
 # Uploaded images / user data
-uploads/
+"Recipe Uploads"/
 
 # Python cache / compiled
 __pycache__/

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # add_and_publish_recipe.sh
-# Usage: ./add_and_publish_recipe.sh path/to/image.jpg [--slug my-slug] [--no-regenerate] [--no-push]
+# Usage: ./add_and_publish_recipe.sh uploads/path/to/image.jpg [--slug my-slug] [--no-regenerate] [--no-push]
 #
 # Runs the OCR generator, updates recipes-data.js from recipes.json, optionally regenerates
 # all static recipe pages, and commits + pushes via deploy.sh (unless --no-push supplied).
@@ -10,7 +10,7 @@ set -euo pipefail
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ "$#" -lt 1 ]; then
-  echo "Usage: $0 path/to/image.jpg [--slug my-slug] [--no-regenerate] [--no-push]"
+  echo "Usage: $0 uploads/path/to/image.jpg [--slug my-slug] [--no-regenerate] [--no-push]"
   exit 1
 fi
 
@@ -19,6 +19,13 @@ shift || true
 SLUG=""
 REGENERATE_PAGES=1
 PUSH=1
+
+# If user passed just a filename or a path not already under 'Recipe Uploads',
+# prepend the directory so callers can provide either the full path or just
+# the uploaded filename.
+if [[ "$IMAGE" != "Recipe Uploads"* && "$IMAGE" != "Recipe Uploads/*" && ! "$IMAGE" =~ ^/ ]]; then
+  IMAGE="Recipe Uploads/$IMAGE"
+fi
 
 while [ "$#" -gt 0 ]; do
   case "$1" in

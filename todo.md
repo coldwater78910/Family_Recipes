@@ -17,8 +17,7 @@ This file lists design tasks, feature work, infra items and the current status. 
 
 ## Next actions
 
-1. Fix mobile search bar (doesnt respond currently)
-2. Fix footer in the Categories page, as the footer is right underneath the content instead of being fixed to the bottome of the webpage
+1. 
 
 
 cd ~/Desktop/"Recipes HTML"

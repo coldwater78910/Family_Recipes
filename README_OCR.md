@@ -29,11 +29,11 @@ Dependencies
 How to run
 ----------
 
-1. Put a screenshot (jpg/png) somewhere in the project or pass full path.
+1. Put a screenshot (jpg/png) into the `Recipe Uploads` folder (or pass a full path).
 2. Run:
 
 ```bash
-python3 generate_from_screenshot.py path/to/screenshot.jpg
+python3 generate_from_screenshot.py "Recipe Uploads/path/to/screenshot.jpg"
 ```
 
 Optional: pass `--slug my-slug` to force a filename.

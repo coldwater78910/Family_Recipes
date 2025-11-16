@@ -1,0 +1,16 @@
+cd ~/Desktop/"Recipes HTML" - #To change Filepath#
+./add_and_publish_recipe.sh my-screenshot.jpg - #To upload a recipe#
+
+python3 generate_recipes.py - #Regenerate all static recipe pages from recipes.json
+
+./run-server.sh - #Create venv, install deps and start the Flask upload server
+python3 server.py - #Run the Flask server directly (for debugging)
+
+python3 -m venv .venv - #Create a virtual environment in the repo
+source .venv/bin/activate - #Activate the virtual environment (macOS / zsh)
+python3 -m pip install --upgrade pip setuptools wheel - #Update pip and build tools
+
+./deploy.sh "Optional commit message" - #Run the deploy helper to commit & push the site
+./set_site_password.sh - #Interactive helper to create js/auth-config.js (site password)
+
+npm test --silent - #Run JS tests (if you use npm test); repo contains tests/ filter tests

@@ -21,7 +21,8 @@ from flask import Flask, request, jsonify, send_from_directory, abort, Response
 import urllib.parse
 
 ROOT = Path(__file__).resolve().parent
-UPLOAD_DIR = ROOT / 'uploads'
+# Use a human-friendly folder name for uploads
+UPLOAD_DIR = ROOT / 'Recipe Uploads'
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 app = Flask(__name__, static_folder=str(ROOT), static_url_path='')
