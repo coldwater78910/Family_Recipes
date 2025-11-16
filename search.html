@@ -10,10 +10,17 @@
         .container{max-width:900px;margin:28px auto;padding:24px}
         header{display:flex;align-items:center;gap:12px}
         .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f4a261);display:inline-block}
-    .search{margin-top:12px;display:flex;gap:8px}
+    .search{margin-top:12px;display:flex;gap:8px;position:relative;z-index:2}
     /* Ensure mobile browsers don't auto-zoom and controls are large enough for touch */
     .search input{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e6e9;font-size:16px;-webkit-appearance:none;appearance:none}
     .search button{font-size:16px;-webkit-appearance:none;appearance:none}
+
+    /* Mobile stacking: make controls full-width and stacked for small viewports */
+    @media (max-width:860px){
+        .search{flex-direction:column;align-items:stretch;gap:10px}
+        .search input{width:100%;box-sizing:border-box}
+        .search button{width:100%;box-sizing:border-box}
+    }
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:18px}
         .card{background:var(--card);border-radius:12px;overflow:hidden;display:block;text-decoration:none;color:inherit}
         .thumb{height:140px;background-size:cover;background-position:center}
@@ -64,6 +71,53 @@
                 </a>
             `).join('');
         }
+    </script>
+    <script>
+        // Enhance the search form: perform client-side filtering and push URL state
+        (function(){
+            const form = document.querySelector('form.search');
+            const input = document.getElementById('q');
+            const resultsEl = document.getElementById('results');
+
+            function doSearchAndRender(qv){
+                const qterm = (qv||'').trim().toLowerCase();
+                const list = qterm ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(qterm) || (r.tags||'').toLowerCase().includes(qterm)) : (window.RECIPES || []);
+                if(window.FILTER) FILTER.renderList(resultsEl, list);
+                else {
+                    resultsEl.innerHTML = list.map(r=> `
+                        <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
+                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                            <div class="card-body">
+                                <div style="font-weight:700">${r.title}</div>
+                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+            }
+
+            if(form){
+                form.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    const qv = input.value || '';
+                    // update URL without reload
+                    const params = new URLSearchParams(location.search);
+                    if(qv.trim()) params.set('q', qv.trim()); else params.delete('q');
+                    const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
+                    history.pushState({}, '', newUrl);
+                    doSearchAndRender(qv);
+                });
+
+                // handle back/forward
+                window.addEventListener('popstate', function(){
+                    const params = new URLSearchParams(location.search);
+                    const qv = params.get('q') || '';
+                    input.value = qv;
+                    doSearchAndRender(qv);
+                });
+            }
+        })();
     </script>
 </body>
 </html>

@@ -18,7 +18,3 @@ This file lists design tasks, feature work, infra items and the current status. 
 ## Next actions
 
 1. 
-
-
-cd ~/Desktop/"Recipes HTML"
-./deploy.sh

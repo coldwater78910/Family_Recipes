@@ -10,7 +10,7 @@ python3 -m venv .venv - #Create a virtual environment in the repo
 source .venv/bin/activate - #Activate the virtual environment (macOS / zsh)
 python3 -m pip install --upgrade pip setuptools wheel - #Update pip and build tools
 
-./deploy.sh "Optional commit message" - #Run the deploy helper to commit & push the site
+./deploy.sh - #Run the deploy helper to commit & push the site
 ./set_site_password.sh - #Interactive helper to create js/auth-config.js (site password)
 
 npm test --silent - #Run JS tests (if you use npm test); repo contains tests/ filter tests
