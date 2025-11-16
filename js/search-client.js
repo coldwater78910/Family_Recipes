@@ -5,6 +5,9 @@
 
     // Ensure a results container exists for the renderer to mount into.
     function ensureResultsContainer(){
+        // If this script is used on the homepage, prefer the existing recipes
+        // container so search results replace the featured list in-place.
+        if(document.getElementById('recipes')) return document.getElementById('recipes');
         let resultsEl = document.getElementById('results');
         if(resultsEl) return resultsEl;
         try{
