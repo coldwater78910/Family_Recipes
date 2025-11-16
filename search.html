@@ -10,8 +10,10 @@
         .container{max-width:900px;margin:28px auto;padding:24px}
         header{display:flex;align-items:center;gap:12px}
         .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f4a261);display:inline-block}
-        .search{margin-top:12px;display:flex;gap:8px}
-        .search input{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e6e9}
+    .search{margin-top:12px;display:flex;gap:8px}
+    /* Ensure mobile browsers don't auto-zoom and controls are large enough for touch */
+    .search input{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e6e9;font-size:16px;-webkit-appearance:none;appearance:none}
+    .search button{font-size:16px;-webkit-appearance:none;appearance:none}
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:18px}
         .card{background:var(--card);border-radius:12px;overflow:hidden;display:block;text-decoration:none;color:inherit}
         .thumb{height:140px;background-size:cover;background-position:center}
