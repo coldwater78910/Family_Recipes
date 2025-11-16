@@ -50,5 +50,26 @@
             if(input) input.value = qv;
             doSearchAndRender(qv);
         });
+        
+            // Also perform live filtering as the user types (debounced) to improve mobile UX
+            function debounce(fn, wait){
+                let t;
+                return function(...args){
+                    clearTimeout(t);
+                    t = setTimeout(()=> fn.apply(this, args), wait);
+                };
+            }
+        
+            if(input){
+                const live = debounce(function(){
+                    const qv = input.value || '';
+                    const params = new URLSearchParams(location.search);
+                    if(qv.trim()) params.set('q', qv.trim()); else params.delete('q');
+                    const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
+                    history.replaceState({}, '', newUrl);
+                    doSearchAndRender(qv);
+                }, 220);
+                input.addEventListener('input', live);
+            }
     }
 })();
