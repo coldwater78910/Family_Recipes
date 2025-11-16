@@ -50,74 +50,31 @@
     <script src="recipes-data.js"></script>
     <script src="recipes-slug-map.js"></script>
     <script src="js/filter-render.js"></script>
+    <script src="js/search-client.js"></script>
     <script>
+        // initialize input value from URL and render initial results using the extracted helper
         function qs(name){ const params = new URLSearchParams(location.search); return params.get(name) || ''; }
         const q = qs('q');
         document.getElementById('q').value = q;
-        const results = (q && q.trim()) ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(q.toLowerCase()) || (r.tags||'').toLowerCase().includes(q.toLowerCase())) : (window.RECIPES || []);
-        // use shared renderer to display results
-        if(window.FILTER) FILTER.renderList(document.getElementById('results'), results);
+        if(typeof window.doSearchAndRender === 'function') window.doSearchAndRender(q);
         else {
-            // fallback: simple rendering
-            const el = document.getElementById('results');
-            el.innerHTML = results.map(r=> `
-                <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
-                    <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
-                    <div class="card-body">
-                        <div style="font-weight:700">${r.title}</div>
-                        <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
-                        <div style="color:var(--muted);font-size:14px">${r.desc}</div>
-                    </div>
-                </a>
-            `).join('');
+            // fallback if the helper didn't load: simple inline render
+            const results = (q && q.trim()) ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(q.toLowerCase()) || (r.tags||'').toLowerCase().includes(q.toLowerCase())) : (window.RECIPES || []);
+            if(window.FILTER) FILTER.renderList(document.getElementById('results'), results);
+            else {
+                const el = document.getElementById('results');
+                el.innerHTML = results.map(r=> `
+                    <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
+                        <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                        <div class="card-body">
+                            <div style="font-weight:700">${r.title}</div>
+                            <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                            <div style="color:var(--muted);font-size:14px">${r.desc}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
         }
-    </script>
-    <script>
-        // Enhance the search form: perform client-side filtering and push URL state
-        (function(){
-            const form = document.querySelector('form.search');
-            const input = document.getElementById('q');
-            const resultsEl = document.getElementById('results');
-
-            function doSearchAndRender(qv){
-                const qterm = (qv||'').trim().toLowerCase();
-                const list = qterm ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(qterm) || (r.tags||'').toLowerCase().includes(qterm)) : (window.RECIPES || []);
-                if(window.FILTER) FILTER.renderList(resultsEl, list);
-                else {
-                    resultsEl.innerHTML = list.map(r=> `
-                        <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
-                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
-                            <div class="card-body">
-                                <div style="font-weight:700">${r.title}</div>
-                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
-                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>
-                            </div>
-                        </a>
-                    `).join('');
-                }
-            }
-
-            if(form){
-                form.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    const qv = input.value || '';
-                    // update URL without reload
-                    const params = new URLSearchParams(location.search);
-                    if(qv.trim()) params.set('q', qv.trim()); else params.delete('q');
-                    const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
-                    history.pushState({}, '', newUrl);
-                    doSearchAndRender(qv);
-                });
-
-                // handle back/forward
-                window.addEventListener('popstate', function(){
-                    const params = new URLSearchParams(location.search);
-                    const qv = params.get('q') || '';
-                    input.value = qv;
-                    doSearchAndRender(qv);
-                });
-            }
-        })();
     </script>
 </body>
 </html>
