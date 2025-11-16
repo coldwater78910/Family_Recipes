@@ -68,7 +68,27 @@
     // we don't conflict with the inline behaviour.
     const isHomepage = !!document.getElementById('recipes');
     if(isHomepage){
-        console.info('search-client: homepage detected — not attaching submit/input handlers to avoid conflicts');
+        console.info('search-client: homepage detected — attaching safe capture-phase handlers to run doSearchAndRender');
+        // Attach a capture-phase submit handler so we reliably intercept form
+        // submits (including Enter) and avoid navigation to search.html.
+        if(form){
+            form.addEventListener('submit', function(e){
+                try{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const qv = (input && input.value) ? input.value : '';
+                    doSearchAndRender(qv);
+                }catch(err){ console.warn('search-client: homepage submit handler error', err); }
+            }, {capture:true});
+        }
+        // intercept Enter key on the input as well
+        if(input){
+            input.addEventListener('keydown', function(e){
+                if(e.key === 'Enter'){
+                    try{ e.preventDefault(); e.stopPropagation(); const qv = input.value || ''; doSearchAndRender(qv); }catch(err){ console.warn('search-client: homepage input handler error', err); }
+                }
+            }, {capture:true});
+        }
     }
 
     if(form && !isHomepage){
