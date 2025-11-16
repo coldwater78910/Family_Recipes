@@ -62,7 +62,16 @@
     const form = document.querySelector('form.search');
     const input = document.getElementById('q');
 
-    if(form){
+    // If we're on the homepage (it has a #recipes container), prefer to be
+    // non-invasive: the homepage has its own filtering handlers. In that
+    // case we expose doSearchAndRender but avoid re-wiring submit/input so
+    // we don't conflict with the inline behaviour.
+    const isHomepage = !!document.getElementById('recipes');
+    if(isHomepage){
+        console.info('search-client: homepage detected — not attaching submit/input handlers to avoid conflicts');
+    }
+
+    if(form && !isHomepage){
         form.addEventListener('submit', function(e){
             e.preventDefault();
             const qv = input.value || '';
@@ -92,15 +101,19 @@
             }
         
             if(input){
-                const live = debounce(function(){
-                    const qv = input.value || '';
-                    const params = new URLSearchParams(location.search);
-                    if(qv.trim()) params.set('q', qv.trim()); else params.delete('q');
-                    const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
-                    history.replaceState({}, '', newUrl);
-                    doSearchAndRender(qv);
-                }, 220);
-                input.addEventListener('input', live);
+                // Only attach live input filtering on non-homepage pages to avoid
+                // interfering with the homepage's inline handlers.
+                if(!isHomepage){
+                    const live = debounce(function(){
+                        const qv = input.value || '';
+                        const params = new URLSearchParams(location.search);
+                        if(qv.trim()) params.set('q', qv.trim()); else params.delete('q');
+                        const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
+                        history.replaceState({}, '', newUrl);
+                        doSearchAndRender(qv);
+                    }, 220);
+                    input.addEventListener('input', live);
+                }
             }
     }
 })();
