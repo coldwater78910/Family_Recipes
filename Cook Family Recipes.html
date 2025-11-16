@@ -102,6 +102,28 @@
     <script src="js/auth-config.js"></script>
     <script src="js/auth.js"></script>
 
+    <script>
+        // Initialize homepage search client once recipes data and FILTER are available
+        (function(){
+            function ready(){
+                if(typeof window.initHomepageSearchClient === 'function'){
+                    try{ window.initHomepageSearchClient(); }catch(e){ console.warn('initHomepageSearchClient failed', e); }
+                } else {
+                    // if for some reason the client isn't available yet, retry a few times
+                    let tries = 0;
+                    const t = setInterval(()=>{
+                        tries++;
+                        if(typeof window.initHomepageSearchClient === 'function'){
+                            clearInterval(t);
+                            try{ window.initHomepageSearchClient(); }catch(e){ console.warn('initHomepageSearchClient failed', e); }
+                        } else if(tries > 10){ clearInterval(t); }
+                    }, 300);
+                }
+            }
+            if(document.readyState === 'complete' || document.readyState === 'interactive') ready(); else document.addEventListener('DOMContentLoaded', ready);
+        })();
+    </script>
+
     <!-- ===== FOOTER: copyright and small print ===== -->
     <footer>
             © <span id="year"></span>&nbsp;Cook Family Recipes — Simple, tested home cooking.
