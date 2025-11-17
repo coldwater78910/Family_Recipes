@@ -24,7 +24,7 @@
     const card = document.createElement('div');
     Object.assign(card.style,{background:'#fff',padding:'22px',borderRadius:'12px',maxWidth:'420px',width:'90%',boxShadow:'0 10px 40px rgba(0,0,0,0.3)',color:'#111'});
     card.innerHTML = `
-      <h2 style="margin:0 0 12px 0;font-size:20px">Enter site password</h2>
+      <h2 style="margin:0 0 12px 0;font-size:20px;color:#000">Enter site password</h2>
       <p style="margin:0 0 12px 0;color:#333">This site is private. Enter the password to continue.</p>
       <input id="site-auth-input" type="password" placeholder="Password" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;font-size:16px;">
       <div style="display:flex;gap:8px;justify-content:flex-end">
