@@ -165,7 +165,7 @@ TPL = '''<!doctype html>
         <div class="brand">
           <img src="Icon.jpg" class="logo" alt="Cook Family Recipes logo">
           <div>
-            <div class="brand-title">Cook Family Recipes</div>
+            <div class="brand-title"><a href="Cook Family Recipes.html">Cook Family Recipes</a></div>
             <div class="brand-sub">{title}</div>
           </div>
         </div>
@@ -178,7 +178,7 @@ TPL = '''<!doctype html>
       </header>
     </div>
 
-    <a class="back-link" href="recipes.html">← Back to recipes</a>
+    <button class="back-link btn" onclick="location.href='recipes.html'" type="button">← Back to recipes</button>
 
     <div class="recipe-content">
       <h1 class="page-title">{title}</h1>
