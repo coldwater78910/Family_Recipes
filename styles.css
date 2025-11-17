@@ -220,13 +220,14 @@ footer{
     /* visual styling */
     color:var(--muted);
     font-size:13px;
-    text-align:center;
     background:transparent; /* allow the background image to show through */
-    /* make footer taller so content sits lower visually */
-    min-height:96px;
-    padding:14px 16px 20px;
-    /* Use block layout with centered text for consistent centering of inline content */
-    display:block;
+    /* increase min-height so the copy sits visually lower, and align content to bottom */
+    min-height:120px;
+    padding:20px 16px 22px;
+    display:flex;
+    align-items:flex-end; /* position footer content toward the bottom */
+    justify-content:center; /* center horizontally */
+    text-align:center;
 }
 .load-more{background:transparent;border:1px solid #eee;padding:10px 14px;border-radius:10px;cursor:pointer}
 
