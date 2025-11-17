@@ -49,15 +49,19 @@
         if(!list.length){ container.innerHTML = '<p style="color:var(--muted)">No photos available.</p>'; return; }
         container.innerHTML = '';
         list.forEach(r=>{
-          const href = `recipe.html?title=${encodeURIComponent(r.title)}`;
+          // Prefer static page from SLUG_MAP when available, otherwise fall back to recipe.html?title=
+          const slugMap = (window.SLUG_MAP || {});
+          const staticPage = slugMap[r.title];
+          const href = staticPage ? staticPage : `recipe.html?title=${encodeURIComponent(r.title)}`;
           const el = document.createElement('a');
-          el.className = 'portfolio-item card';
+          // make the card image-first: large thumbnail, small caption underneath
+          el.className = 'portfolio-item';
           el.href = href;
           el.innerHTML = `
             <div class="portfolio-thumb" role="img" aria-label="${r.title}" style="background-image:url('${r.img}')"></div>
             <div class="portfolio-caption">
               <div class="card-title">${r.title}</div>
-              <div class="small-muted">${(r.desc||'').slice(0,120)}</div>
+              <div class="small-muted">${(r.desc||'').slice(0,100)}</div>
             </div>
           `;
           container.appendChild(el);

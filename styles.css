@@ -363,14 +363,17 @@ footer{
 }
 
 /* Portfolio-specific layout: image + small caption box */
-.portfolio-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:12px}
-.portfolio-item{display:flex;gap:12px;align-items:center;padding:12px;background:var(--card);border-radius:12px;border:1px solid rgba(0,0,0,0.04);text-decoration:none;color:var(--text-dark)}
-.portfolio-thumb{width:160px;height:110px;border-radius:10px;background-size:cover;background-position:center;flex:0 0 auto}
-.portfolio-caption{display:flex;flex-direction:column;gap:6px;min-width:0}
-.portfolio-caption .card-title{font-weight:700;color:var(--text-dark)}
-.portfolio-caption .small-muted{color:var(--muted);font-size:14px}
+.portfolio-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+
+/* Image-first portfolio cards: large photo with concise caption underneath */
+.portfolio-item{display:block;text-decoration:none;color:inherit;border-radius:12px;overflow:hidden}
+.portfolio-item:hover .portfolio-thumb{transform:scale(1.03)}
+.portfolio-thumb{width:100%;height:180px;border-radius:12px;background-size:cover;background-position:center;display:block;transition:transform 200ms cubic-bezier(.2,.9,.2,1)}
+.portfolio-caption{padding:10px 8px;background:var(--card);color:var(--text-dark);border-radius:0 0 12px 12px}
+.portfolio-caption .card-title{font-weight:700;color:var(--text-dark);margin-bottom:4px}
+.portfolio-caption .small-muted{color:var(--muted);font-size:13px}
 
 @media (max-width:640px){
-    .portfolio-item{flex-direction:column;align-items:flex-start}
-    .portfolio-thumb{width:100%;height:160px}
+    .portfolio-thumb{height:160px}
+    .portfolio-list{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 }
