@@ -347,15 +347,14 @@ footer{
 
 /* Mobile footer adjustments: stack and center content for small viewports */
 @media (max-width:860px){
+    /* Use block layout on small screens to avoid anonymous flex items
+       which can split inline text into multiple stacked lines. Center text
+       and reduce padding so the footer remains compact. */
     footer{
-        min-height:88px; /* slightly smaller than desktop */
-        padding:12px 10px; /* reduce padding on mobile */
-        align-items:center; /* vertical align to center of stacked content */
-        justify-content:center;
-        flex-direction:column; /* stack content vertically */
+        min-height:88px;
+        padding:12px 10px;
+        display:block;
         text-align:center;
     }
-    /* ensure the year/copyright doesn't float left on some browsers */
-    footer > * { width:100%; display:block; }
-    footer span#year{ display:inline-block; margin-bottom:6px; }
+    footer span#year{ display:inline; margin-right:6px; }
 }
