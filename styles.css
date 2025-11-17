@@ -344,3 +344,18 @@ footer{
     .brand-title{font-size:18px}
     .brand-sub{font-size:11px}
 }
+
+/* Mobile footer adjustments: stack and center content for small viewports */
+@media (max-width:860px){
+    footer{
+        min-height:88px; /* slightly smaller than desktop */
+        padding:12px 10px; /* reduce padding on mobile */
+        align-items:center; /* vertical align to center of stacked content */
+        justify-content:center;
+        flex-direction:column; /* stack content vertically */
+        text-align:center;
+    }
+    /* ensure the year/copyright doesn't float left on some browsers */
+    footer > * { width:100%; display:block; }
+    footer span#year{ display:inline-block; margin-bottom:6px; }
+}
