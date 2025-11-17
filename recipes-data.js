@@ -6,7 +6,7 @@ const RECIPES = [
     time: "Prep: 5 min; Cook: 5 min; Total: 10 min",
     difficulty: "easy",
     cuisine: "Various",
-    img: "recipe-images/simple-sandwich.jpg",
+    img: "recipe-images/simple-sandwich.JPG",
     desc: "A quick and easy sandwich with fresh veggies and cheese.",
     ingredients: [
       "4 slices of bread",
