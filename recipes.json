@@ -1,7 +1,11 @@
 [
   {
     "title": "Chicken Curry",
-    "tags": ["dinner","curry","easy"],
+    "tags": [
+      "dinner",
+      "curry",
+      "easy"
+    ],
     "time": "45 min",
     "difficulty": "Medium",
     "servings": 4,
@@ -38,6 +42,36 @@
       "Add in the tin of diced tomatoes and tomato puree, and cook down for 5 to 10 minutes.",
       "Add in your tin of coconut cream, bay leaf and cloves.",
       "Leave lid partially off and simmer until cooked down to the preferred consistency."
+    ]
+  },
+  {
+    "title": "Simple Sandwich",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
+      "4 slices of bread",
+      "4 leaves of lettuce",
+      "4 slices of tomato",
+      "4 slices of cheese",
+      "2 slices of onion",
+      "12 slices of cucumber",
+      "Salt",
+      "Pepper",
+      "Season with a generous amount of salt and pepper",
+      "Cut in half, and enjoy"
+    ],
+    "steps": [
+      "OaRwn>",
+      "2oN",
+      "Butter your bread",
+      "Place 2 leaves of lettuce on 2 slices of bread",
+      "Place 2 slices of cheese on each slice of bread with lettuce",
+      "Place 2 slices of tomato",
+      "Separate the rings of onion and place them on the bread",
+      "Place 6 slices of cucumber on each slice of bread with the rest of the"
     ]
   }
 ]
