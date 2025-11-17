@@ -7,6 +7,7 @@
 window.SLUG_MAP = window.SLUG_MAP || {
     "Chicken Curry": "chicken-curry.html",
     "Simple Sandwich": "simple-sandwich.html",
+    "Homemade Woolworths rice": "homemade-woolworths-rice.html",
 };
 
 // Keep backwards compatibility if other scripts reassign window.SLUG_MAP

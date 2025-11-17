@@ -74,6 +74,41 @@ const RECIPES = [
       "Separate the rings of onion and place them on the bread",
       "Place 6 slices of cucumber on each slice of bread with the rest of the"
     ]
+  },
+  {
+    "title": "Homemade Woolworths rice",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
+      "1 cup of rice",
+      "6 cups of water",
+      "100g of peas",
+      "100g of corn",
+      "1 onion",
+      "3 tablespoons of Maggi Aromé All-Purpose Seasoning"
+    ],
+    "steps": [
+      "oa AF ONS",
+      "GOON",
+      "Rinse rice in cold water until water is clear",
+      "Place rice in a pot with 6 cups of water",
+      "Heat rice until water begins to boil and starch bubbles begin to seep out from",
+      "under the lid, boil for 12 minutes.",
+      "While rice is cooking, boil peas and corn in salted water",
+      "Pull out peas and corn when they are almost finished cooking, and put them",
+      "one side",
+      "At this point your rice should be cooked, drain off excess water, and put the",
+      "rice to one side",
+      "Heat up your pan while you finely dice your onion, almost mincing it",
+      "Drizzle oil into the pan once heated place in your diced onion",
+      "When onion is translucent and has reduced, add in your peas and corn",
+      "10. Add in your rice, and mix well",
+      "11.Cook for 5 minutes, and drizzle over 3 tablespoons of Maggi",
+      "12. Stir well, and enjoy"
+    ]
   }
 ];
 
