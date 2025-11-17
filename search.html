@@ -60,16 +60,23 @@
                     const list = qterm ? (window.RECIPES || []).filter(r=> (r.title||'').toLowerCase().includes(qterm) || (r.tags||'').toLowerCase().includes(qterm)) : (window.RECIPES || []);
                     if(window.FILTER){ if(resultsEl) FILTER.renderList(resultsEl, list); }
                     else if(resultsEl){
-                        resultsEl.innerHTML = list.map(r=> `\
-                            <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
-                                <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
-                                <div class="card-body">\
-                                    <div class="card-title">${r.title}</div>\
-                                    <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>\
-                                    <div class="small-muted">${r.desc}</div>\
-                                </div>\
-                            </a>\
-                        `).join('');
+                        resultsEl.innerHTML = list.map(r=> {
+                            let totalTime = r.time;
+                            if (r.time && r.time.includes('Total:')) {
+                                const match = r.time.match(/Total:\s*([^;]+)/);
+                                if (match) totalTime = match[1].trim();
+                            }
+                            return `
+                                <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
+                                    <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                                    <div class="card-body">
+                                        <div class="card-title">${r.title}</div>
+                                        <div class="meta"><span>${totalTime}</span><span>${r.difficulty}</span></div>
+                                        <div class="small-muted">${r.desc}</div>
+                                    </div>
+                                </a>
+                            `;
+                        }).join('');
                     }
                 }catch(e){
                     console.warn('search fallback render failed', e);

@@ -55,12 +55,18 @@
           const el = document.createElement('a');
           el.className = 'portfolio-item';
           el.href = href;
+          // Extract total time from r.time
+          let totalTime = r.time;
+          if (r.time && r.time.includes('Total:')) {
+            const match = r.time.match(/Total:\s*([^;]+)/);
+            if (match) totalTime = match[1].trim();
+          }
           el.innerHTML = `
             <div class="portfolio-thumb" role="img" aria-label="${r.title}" style="background-image:url('${r.img}')"></div>
             <div class="portfolio-caption">
               <div class="card-title">${r.title}</div>
               <div class="small-muted">
-                <span><strong>${r.time || ''}</strong></span><br>
+                <span><strong>${totalTime || ''}</strong></span><br>
                 <span>${r.difficulty ? `<strong>Difficulty:</strong> ${r.difficulty}` : ''}</span>
               </div>
               <div class="small-muted" style="margin-top:4px;">${(r.desc||'').slice(0,100)}</div>

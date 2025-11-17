@@ -67,11 +67,17 @@
         a.dataset.tags = (recipe.tags || '').toString();
         a.dataset.time = recipe.time || '';
         a.dataset.difficulty = recipe.difficulty || '';
+        // Extract total time from recipe.time
+        let totalTime = recipe.time;
+        if (recipe.time && recipe.time.includes('Total:')) {
+            const match = recipe.time.match(/Total:\s*([^;]+)/);
+            if (match) totalTime = match[1].trim();
+        }
         a.innerHTML = `
             <div class="thumb" style="background-image:url('${recipe.img}');" role="img" aria-label="${recipe.title}"></div>
             <div class="card-body">
                 <div class="card-title">${recipe.title}</div>
-                <div class="meta"><span>${recipe.time}</span><span>${recipe.difficulty}</span></div>
+                <div class="meta"><span>${totalTime}</span><span>${recipe.difficulty}</span></div>
                 <div class="small-muted">${recipe.desc || ''}</div>
             </div>
         `;
