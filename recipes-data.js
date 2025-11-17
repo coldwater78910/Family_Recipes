@@ -38,7 +38,7 @@ const RECIPES = [
     "difficulty": "Medium",
     "servings": 4,
     "img": "recipe-images/chicken-curry.jpg",
-    "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
+    "desc": "Simple chicken curry and rice",
     "ingredients": [
       "3 chicken breasts",
       "1 tin of coconut cream",
