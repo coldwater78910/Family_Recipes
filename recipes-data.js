@@ -7,7 +7,7 @@ const RECIPES = [
         "tags": "dinner,curry,easy",
         "time": "45 min",
         "difficulty": "Medium",
-        "img": "https://source.unsplash.com/800x600/?chicken,curry",
+        "img": "Recipe Images/chicken-curry.jpg",
         "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
         "ingredients": [
             "3 chicken breasts",
