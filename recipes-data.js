@@ -1,19 +1,43 @@
-/* Auto-generated from recipes.json */
+
 const RECIPES = [
-  // ...existing code...
   {
-    "title": "Chicken Curry",
-    "tags": [
-      "dinner",
-      "curry",
-      "easy"
+    title: "Simple Sandwich",
+    tags: ["sandwich", "quick", "easy"],
+    time: "Prep: 5 min; Cook: 5 min; Total: 10 min",
+    difficulty: "easy",
+    cuisine: "Various",
+    img: "recipe-images/simple-sandwich.jpg",
+    desc: "A quick and easy sandwich with fresh veggies and cheese.",
+    ingredients: [
+      "4 slices of bread",
+      "4 leaves of lettuce",
+      "4 slices of tomato",
+      "4 slices of cheese",
+      "2 slices of onion",
+      "12 slices of cucumber",
+      "Salt",
+      "Pepper",
+      "Season with a generous amount of salt and pepper",
+      "Cut in half, and enjoy"
     ],
-    "time": "45 min",
-    "difficulty": "Medium",
-    "servings": 4,
-    "img": "recipe-images/chicken-curry.jpg",
-    "desc": "Simple chicken curry and rice",
-    "ingredients": [
+    steps: [
+      "Butter your bread",
+      "Place 2 leaves of lettuce on 2 slices of bread",
+      "Place 2 slices of cheese on each slice of bread with lettuce",
+      "Place 2 slices of tomato",
+      "Separate the rings of onion and place them on the bread",
+      "Place 6 slices of cucumber on each slice of bread with the rest of the ingredients"
+    ]
+  },
+  {
+    title: "Chicken Curry",
+    tags: ["dinner", "curry", "easy"],
+    time: "45 min",
+    difficulty: "Medium",
+    servings: 4,
+    img: "recipe-images/chicken-curry.jpg",
+    desc: "Simple chicken curry and rice",
+    ingredients: [
       "3 chicken breasts",
       "1 tin of coconut cream",
       "1 tin of diced tomatoes",
@@ -31,7 +55,7 @@ const RECIPES = [
       "1 1/2 teaspoons of curry powder",
       "1 teaspoon of sugar"
     ],
-    "steps": [
+    steps: [
       "Cut the chicken breasts into strips and place in a bowl.",
       "Pour a dash of oil over the chicken breasts.",
       "Add all the spices (besides cloves and bay leaves), garlic and lemon juice into the bowl with the chicken.",
@@ -47,43 +71,14 @@ const RECIPES = [
     ]
   },
   {
-    "title": "Simple Sandwich",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [
-      "4 slices of bread",
-      "4 leaves of lettuce",
-      "4 slices of tomato",
-      "4 slices of cheese",
-      "2 slices of onion",
-      "12 slices of cucumber",
-      "Salt",
-      "Pepper",
-      "Season with a generous amount of salt and pepper",
-      "Cut in half, and enjoy"
-    ],
-    "steps": [
-      "OaRwn>",
-      "2oN",
-      "Butter your bread",
-      "Place 2 leaves of lettuce on 2 slices of bread",
-      "Place 2 slices of cheese on each slice of bread with lettuce",
-      "Place 2 slices of tomato",
-      "Separate the rings of onion and place them on the bread",
-      "Place 6 slices of cucumber on each slice of bread with the rest of the"
-    ]
-  },
-  {
-    "title": "Homemade Woolworths rice",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [
+    title: "Homemade Woolworths rice",
+    tags: ["rice", "side", "easy"],
+    time: "Prep: 5-15 minutes; Cook: 30± minutes; Total: 35-45 minutes",
+    difficulty: "easy",
+    cuisine: "Various",
+    img: "recipe-images/homemade-woolworths-rice.png",
+    desc: "Homemade rice with peas, corn, and onion, seasoned with Maggi.",
+    ingredients: [
       "1 cup of rice",
       "6 cups of water",
       "100g of peas",
@@ -91,26 +86,21 @@ const RECIPES = [
       "1 onion",
       "3 tablespoons of Maggi Aromé All-Purpose Seasoning"
     ],
-    "steps": [
-      "oa AF ONS",
-      "GOON",
+    steps: [
       "Rinse rice in cold water until water is clear",
       "Place rice in a pot with 6 cups of water",
-      "Heat rice until water begins to boil and starch bubbles begin to seep out from",
-      "under the lid, boil for 12 minutes.",
+      "Heat rice until water begins to boil and starch bubbles begin to seep out from under the lid, boil for 12 minutes.",
       "While rice is cooking, boil peas and corn in salted water",
-      "Pull out peas and corn when they are almost finished cooking, and put them",
-      "one side",
-      "At this point your rice should be cooked, drain off excess water, and put the",
-      "rice to one side",
+      "Pull out peas and corn when they are almost finished cooking, and put them one side",
+      "At this point your rice should be cooked, drain off excess water, and put the rice to one side",
       "Heat up your pan while you finely dice your onion, almost mincing it",
       "Drizzle oil into the pan once heated place in your diced onion",
       "When onion is translucent and has reduced, add in your peas and corn",
-      "10. Add in your rice, and mix well",
-      "11.Cook for 5 minutes, and drizzle over 3 tablespoons of Maggi",
-      "12. Stir well, and enjoy"
+      "Add in your rice, and mix well",
+      "Cook for 5 minutes, and drizzle over 3 tablespoons of Maggi",
+      "Stir well, and enjoy"
     ]
   }
 ];
 
-if(typeof window !== "undefined") window.RECIPES = RECIPES;
+if (typeof window !== "undefined") window.RECIPES = RECIPES;
