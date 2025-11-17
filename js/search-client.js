@@ -214,6 +214,34 @@
         // initial render
         const q = (new URLSearchParams(location.search)).get('q') || '';
         doSearchAndRender(q);
+        // If the render didn't produce any visible cards in the homepage container,
+        // fall back to mounting the canonical RECIPES so the featured area isn't empty.
+        try{
+            const resultsEl = ensureResultsContainer();
+            setTimeout(()=>{
+                try{
+                    if(resultsEl && resultsEl.id === 'recipes' && resultsEl.children.length === 0){
+                        if(window.FILTER && typeof FILTER.mountRecipesFromData === 'function'){
+                            console.info('search-client: fallback mounting RECIPES into #recipes');
+                            FILTER.mountRecipesFromData(resultsEl, window.RECIPES || []);
+                        } else if(window.RECIPES && window.RECIPES.length){
+                            console.info('search-client: fallback rendering RECIPES into #recipes (no FILTER)');
+                            resultsEl.innerHTML = '';
+                            (window.RECIPES || []).forEach(r=> resultsEl.insertAdjacentHTML('beforeend', `\
+                                <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
+                                    <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
+                                    <div class="card-body">\
+                                        <div style="font-weight:700">${r.title}</div>\
+                                        <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>\
+                                        <div style="color:var(--muted);font-size:14px">${r.desc}</div>\
+                                    </div>\
+                                </a>\
+                            `));
+                        }
+                    }
+                }catch(e){ console.warn('search-client: fallback mount error', e); }
+            }, 30);
+        }catch(e){ /* ignore */ }
     }
 
     // expose helpers

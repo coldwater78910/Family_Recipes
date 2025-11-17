@@ -1,0 +1,127 @@
+(function(){
+    // Client-side search helper. Exposes doSearchAndRender on window and
+    // wires form submit + popstate handling so the search UI works without
+    // full page reloads (better mobile experience).
+
+    // Ensure a results container exists for the renderer to mount into.
+    function ensureResultsContainer(){
+        // If this script is used on the homepage, prefer the existing recipes
+        // container so search results replace the featured list in-place.
+        if(document.getElementById('recipes')) return document.getElementById('recipes');
+        let resultsEl = document.getElementById('results');
+        if(resultsEl) return resultsEl;
+        try{
+            const container = document.querySelector('.container') || document.body;
+            const form = document.querySelector('form.search');
+            resultsEl = document.createElement('div');
+            resultsEl.id = 'results';
+            resultsEl.className = 'grid';
+            resultsEl.setAttribute('aria-live', 'polite');
+            if(form && form.parentNode){
+                form.parentNode.insertBefore(resultsEl, form.nextSibling);
+            } else {
+                container.appendChild(resultsEl);
+            }
+            console.info('search-client: created #results container');
+        } catch (err){
+            console.warn('search-client: failed to create results container', err);
+        }
+        return document.getElementById('results');
+    }
+
+    function renderFallback(list, resultsEl){
+        resultsEl.innerHTML = list.map(r=> `
+            <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">
+                <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                <div class="card-body">
+                    <div style="font-weight:700">${r.title}</div>
+                    <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                    <div style="color:var(--muted);font-size:14px">${r.desc}</div>
+                </div>
+            </a>
+        `).join('');
+    }
+
+    function doSearchAndRender(qv){
+        const resultsEl = ensureResultsContainer();
+        const qterm = (qv||'').toString().trim().toLowerCase();
+        const all = (window.RECIPES || []).slice();
+
+        if(!resultsEl){
+            console.warn('doSearchAndRender: no results element available');
+            return;
+        }
+
+        // Read common filter controls (homepage may provide these)
+        const timeFilter = document.getElementById('timeFilter');
+        const difficultyFilter = document.getElementById('difficultyFilter');
+        const tagFilter = document.getElementById('tagFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const tagMode = document.getElementById('tagMode');
+
+        const selectedTime = (timeFilter && timeFilter.value) ? timeFilter.value : 'any';
+        const selectedDifficulty = (difficultyFilter && difficultyFilter.value) ? difficultyFilter.value : 'any';
+        const rawTag = (tagFilter && tagFilter.value) ? tagFilter.value : '';
+        const tagList = rawTag.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+
+        // Matching function uses FILTER helpers when available
+        function matchesRecipe(r){
+            const title = (r.title||'');
+            const tags = (r.tags||'').toString();
+            // text match
+            if(qterm){
+                const titleOk = title.toLowerCase().includes(qterm) || (window.FILTER && FILTER.fuzzyMatch(title, qterm));
+                const tagsOk = tags.toLowerCase().includes(qterm) || (window.FILTER && FILTER.fuzzyMatch(tags, qterm));
+                if(!(titleOk || tagsOk)) return false;
+            }
+
+            // time filter
+            if(selectedTime === 'over60'){
+                const mt = (window.FILTER && typeof FILTER.parseMinutes === 'function') ? FILTER.parseMinutes(r.time) : (parseInt(String(r.time||'').replace(/[^0-9]/g,''),10) || null);
+                if(mt === null || mt <= 60) return false;
+            } else if(selectedTime !== 'any'){
+                const mt = (window.FILTER && typeof FILTER.parseMinutes === 'function') ? FILTER.parseMinutes(r.time) : (parseInt(String(r.time||'').replace(/[^0-9]/g,''),10) || null);
+                if(mt === null || mt > Number(selectedTime)) return false;
+            }
+
+            // difficulty
+            if(selectedDifficulty && selectedDifficulty !== 'any'){
+                if(((r.difficulty||'')||'').toLowerCase() !== String(selectedDifficulty).toLowerCase()) return false;
+            }
+
+            // tag list
+            if(tagList.length){
+                const rtags = (window.FILTER && typeof FILTER.normalizeTags === 'function') ? FILTER.normalizeTags(r.tags) : (r.tags||'').toString().split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+                if(tagMode && tagMode.value === 'all'){
+                    const allOk = tagList.every(t => rtags.includes(t));
+                    if(!allOk) return false;
+                } else {
+                    const anyOk = tagList.some(t => rtags.includes(t));
+                    if(!anyOk) return false;
+                }
+            }
+
+            return true;
+        }
+
+        let list = all.filter(matchesRecipe);
+
+        // Sorting
+        const sortVal = (sortSelect && sortSelect.value) ? sortSelect.value : 'none';
+        if(sortVal === 'alpha'){
+            list.sort((a,b)=> (a.title||'').localeCompare((b.title||'')));
+        } else if(sortVal === 'time'){
+            const p = (v)=> (window.FILTER && typeof FILTER.parseMinutes === 'function') ? (FILTER.parseMinutes(v) || 0) : (parseInt(String(v||'').replace(/[^0-9]/g,''),10) || 0);
+            list.sort((a,b)=> p(a.time) - p(b.time));
+        } else if(sortVal === 'difficulty'){
+            const rank = s=>{ const m = (s||'').toLowerCase(); if(m==='easy') return 1; if(m==='vegetarian') return 2; if(m==='medium') return 3; if(m==='hard') return 4; return 5; };
+            list.sort((a,b)=> rank(a.difficulty) - rank(b.difficulty));
+        }
+
+        if(window.FILTER) FILTER.renderList(resultsEl, list);
+        else renderFallback(list, resultsEl);
+    }
+
+    // expose for initial rendering from inline script
+    window.doSearchAndRender = doSearchAndRender;
+    console.info('search-client: loaded and doSearchAndRender available');
