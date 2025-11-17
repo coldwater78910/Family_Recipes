@@ -43,43 +43,8 @@
                 <h1 id="hero-title">Find your next favorite meal</h1>
                 <p class="lead">Browse simple, tested recipes with clear steps and pictures. Filter by ingredient, cuisine or difficulty.</p>
 
-                <form class="search" role="search" aria-label="Search recipes" action="search.html" method="get">
-                    <input id="q" name="q" type="search" placeholder="Search recipes, e.g. 'lemon chicken' or 'vegan'">
-                    <button id="btn" type="submit">Search</button>
-                </form>
-
-                <div style="margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                    <!-- New filter controls: time, difficulty, and tags -->
-                    <label style="font-size:14px;color:var(--muted);">Time
-                        <select id="timeFilter" aria-label="Filter by maximum time">
-                            <option value="any">Any</option>
-                            <option value="15">Under 15 min</option>
-                            <option value="30">Under 30 min</option>
-                            <option value="60">Under 60 min</option>
-                            <option value="over60">Over 60 min</option>
-                        </select>
-                    </label>
-
-                    <label style="font-size:14px;color:var(--muted);">Difficulty
-                        <select id="difficultyFilter" aria-label="Filter by difficulty">
-                            <option value="any">Any</option>
-                            <option value="Easy">Easy</option>
-                            <option value="Vegetarian">Vegetarian</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Hard">Hard</option>
-                        </select>
-                    </label>
-
-                    <label style="font-size:14px;color:var(--muted);">Tags
-                        <input id="tagFilter" placeholder="comma-separated tags (e.g. seafood,quick)" style="min-width:220px" aria-label="Filter by tags">
-                    </label>
-
-                    <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-                        <!-- tag chips will be generated here from recipes-data.js -->
-                        <div id="tagsRow" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"></div>
-                        <button id="clearFilters" type="button" style="margin-left:8px;background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:10px;font-size:13px;color:var(--muted);">Clear filters</button>
-                    </div>
-                </div>
+                <p style="margin-top:12px" class="lead">Use the full search page to explore all recipes and filters.</p>
+                <p style="margin-top:8px"><a href="search.html" class="button">Search all recipes</a></p>
             </div>
 
     </section>
@@ -98,31 +63,8 @@
     <script src="recipes-data.js"></script>
     <script src="recipes-slug-map.js"></script>
     <script src="js/filter-render.js"></script>
-    <script src="js/search-client.js?v=1763660000"></script>
     <script src="js/auth-config.js"></script>
     <script src="js/auth.js"></script>
-
-    <script>
-        // Initialize homepage search client once recipes data and FILTER are available
-        (function(){
-            function ready(){
-                if(typeof window.initHomepageSearchClient === 'function'){
-                    try{ window.initHomepageSearchClient(); }catch(e){ console.warn('initHomepageSearchClient failed', e); }
-                } else {
-                    // if for some reason the client isn't available yet, retry a few times
-                    let tries = 0;
-                    const t = setInterval(()=>{
-                        tries++;
-                        if(typeof window.initHomepageSearchClient === 'function'){
-                            clearInterval(t);
-                            try{ window.initHomepageSearchClient(); }catch(e){ console.warn('initHomepageSearchClient failed', e); }
-                        } else if(tries > 10){ clearInterval(t); }
-                    }, 300);
-                }
-            }
-            if(document.readyState === 'complete' || document.readyState === 'interactive') ready(); else document.addEventListener('DOMContentLoaded', ready);
-        })();
-    </script>
 
     <!-- ===== FOOTER: copyright and small print ===== -->
     <footer>
@@ -130,301 +72,33 @@
         </footer>
     </div>
 
-    <!-- ===== SCRIPTS: small JS for year and client-side filtering ===== -->
+    <!-- Lightweight homepage script: mount recipes and set year (search moved to search.html) -->
     <script>
         // Set year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Paging and filtering
-        const input = document.getElementById('q');
-        const btn = document.getElementById('btn');
-        const loadMoreBtn = document.getElementById('loadMore');
-        const timeFilter = document.getElementById('timeFilter');
-        const difficultyFilter = document.getElementById('difficultyFilter');
-        const tagFilter = document.getElementById('tagFilter');
-        // New controls
-        // sort select (alpha / time / difficulty)
-        let sortSelect = document.getElementById('sortSelect');
-        if(!sortSelect){
-            const s = document.createElement('select');
-            s.id = 'sortSelect';
-            s.innerHTML = '<option value="none">Sort: Default</option><option value="alpha">Alphabetical</option><option value="time">Cooking time</option><option value="difficulty">Difficulty</option>';
-            s.style.marginLeft = '8px';
-            document.querySelector('.search').appendChild(s);
-            sortSelect = s;
-        }
-        // tag mode (any/all)
-        let tagMode = document.getElementById('tagMode');
-        if(!tagMode){
-            const lbl = document.createElement('label');
-            lbl.style.marginLeft = '8px';
-            lbl.style.fontSize = '13px';
-            lbl.style.color = 'var(--muted)';
-            lbl.innerHTML = 'Tags: <select id="tagMode"><option value="any">Any</option><option value="all">All</option></select>';
-            document.querySelector('.search').appendChild(lbl);
-            tagMode = document.getElementById('tagMode');
-        }
-
-        // tag chips container (generated from recipes-data.js)
-    let tagsRow = document.getElementById('tagsRow');
-        if(!tagsRow){
-            tagsRow = document.createElement('div');
-            tagsRow.id = 'tagsRow';
-            tagsRow.style.marginTop = '8px';
-            tagsRow.style.display = 'flex';
-            tagsRow.style.gap = '8px';
-            tagsRow.style.flexWrap = 'wrap';
-            document.querySelector('.hero-card').appendChild(tagsRow);
-        }
-    const allCards = (window.FILTER) ? FILTER.mountRecipesFromData('#recipes', window.RECIPES || []) : Array.from(document.querySelectorAll('#recipes .card'));
-        const pageSize = 4;
-        let visible = pageSize;
-        let currentTerm = '';
-
-        function parseMinutes(value){
-            // value might be numeric string like "30" or "30 min"; normalize to integer minutes
-            if(!value) return null;
-            const n = parseInt(String(value).trim().replace(/[^0-9]/g,''), 10);
-            return Number.isFinite(n) ? n : null;
-        }
-
-        // Simple Levenshtein distance for fuzzy matching
-        function levenshtein(a, b){
-            if(a === b) return 0;
-            if(a.length === 0) return b.length;
-            if(b.length === 0) return a.length;
-            const matrix = [];
-            for(let i=0;i<=b.length;i++){ matrix[i]=[i]; }
-            for(let j=0;j<=a.length;j++){ matrix[0][j]=j; }
-            for(let i=1;i<=b.length;i++){
-                for(let j=1;j<=a.length;j++){
-                    if(b.charAt(i-1) === a.charAt(j-1)) matrix[i][j] = matrix[i-1][j-1];
-                    else matrix[i][j] = Math.min(matrix[i-1][j-1]+1, matrix[i][j-1]+1, matrix[i-1][j]+1);
+        // Ensure the featured recipes area is populated from the canonical RECIPES data.
+        (function(){
+            try{
+                const container = document.getElementById('recipes');
+                if(!container) return;
+                if(window.FILTER && typeof FILTER.mountRecipesFromData === 'function'){
+                    FILTER.mountRecipesFromData('#recipes', window.RECIPES || []);
+                } else if(window.RECIPES && window.RECIPES.length){
+                    container.innerHTML = '';
+                    (window.RECIPES || []).forEach(r=> container.insertAdjacentHTML('beforeend', `\
+                        <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
+                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
+                            <div class="card-body">\
+                                <div style="font-weight:700">${r.title}</div>\
+                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>\
+                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>\
+                            </div>\
+                        </a>\
+                    `));
                 }
-            }
-            return matrix[b.length][a.length];
-        }
-
-        function fuzzyMatch(text, term){
-            if(!text || !term) return false;
-            const a = String(text).toLowerCase();
-            const b = String(term).toLowerCase();
-            // Short terms should use simple includes to avoid noise
-            if(b.length < 3) return a.includes(b);
-            if(a.includes(b)) return true;
-            const distance = levenshtein(a, b);
-            const maxAllowed = Math.max(1, Math.floor(Math.max(a.length, b.length) * 0.35));
-            return distance <= maxAllowed;
-        }
-
-        function matches(card, term, maxMinutes, difficulty, tagList, selectedTime){
-            const t = (term||'').trim().toLowerCase();
-
-            // Title / free-text / tag search (if term present)
-            if(t){
-                const title = (card.dataset.title||'');
-                const tags = (card.dataset.tags||'');
-                const titleOk = title.toLowerCase().includes(t) || fuzzyMatch(title, t);
-                const tagsOk = tags.toLowerCase().includes(t) || fuzzyMatch(tags, t);
-                if(!(titleOk || tagsOk)){
-                    return false;
-                }
-            }
-
-            // Time filter
-            if(selectedTime === 'over60'){
-                const cardTime = parseMinutes(card.dataset.time);
-                if(cardTime === null || cardTime <= 60) return false;
-            } else if(maxMinutes !== null){
-                const cardTime = parseMinutes(card.dataset.time);
-                if(cardTime === null || cardTime > Number(maxMinutes)) return false;
-            }
-
-            // Difficulty filter
-            if(difficulty && difficulty !== 'any'){
-                const cardDiff = (card.dataset.difficulty||'').toLowerCase();
-                if(cardDiff !== String(difficulty).toLowerCase()) return false;
-            }
-
-                // Tag list filter (any-match or all-match depending on tagMode)
-                if(Array.isArray(tagList) && tagList.length){
-                    const cardTags = (card.dataset.tags||'').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
-                    const mode = (tagMode && tagMode.value) ? tagMode.value : 'any';
-                    if(mode === 'all'){
-                        // require every requested tag to be present on the card
-                        const allMatch = tagList.every(tag => cardTags.includes(tag));
-                        if(!allMatch) return false;
-                    } else {
-                        // default: any match
-                        const anyMatch = tagList.some(tag => cardTags.includes(tag));
-                        if(!anyMatch) return false;
-                    }
-                }
-
-            return true;
-        }
-
-        function render(){
-            // Read current filter values
-            const selectedTime = (timeFilter && timeFilter.value) ? timeFilter.value : 'any';
-            const selectedDifficulty = (difficultyFilter && difficultyFilter.value) ? difficultyFilter.value : 'any';
-            const rawTag = (tagFilter && tagFilter.value) ? tagFilter.value : '';
-            const tagList = rawTag.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
-
-            const maxMinutes = selectedTime === 'any' ? null : Number(selectedTime);
-
-            // filter the cards first
-            let matched = allCards.filter(c=> matches(c, currentTerm, maxMinutes, selectedDifficulty, tagList, selectedTime));
-
-            // apply sorting
-            const sortVal = (sortSelect && sortSelect.value) ? sortSelect.value : 'none';
-            if(sortVal === 'alpha'){
-                matched.sort((a,b)=> (a.dataset.title||'').localeCompare((b.dataset.title||'')));
-            } else if(sortVal === 'time'){
-                matched.sort((a,b)=> (parseMinutes(a.dataset.time)||0) - (parseMinutes(b.dataset.time)||0));
-            } else if(sortVal === 'difficulty'){
-                // simple ordering: Easy < Medium < Hard < Vegetarian
-                const rank = s=>{ const m = (s||'').toLowerCase(); if(m==='easy') return 1; if(m==='vegetarian') return 2; if(m==='medium') return 3; if(m==='hard') return 4; return 5; };
-                matched.sort((a,b)=> rank(a.dataset.difficulty) - rank(b.dataset.difficulty));
-            }
-            // Rebuild the recipes container in the sorted/filtered order so visual order matches the sort
-            const recipesContainer = document.getElementById('recipes');
-            if(recipesContainer){
-                // remove existing children (we will append matched items in order)
-                recipesContainer.innerHTML = '';
-                matched.slice(0, visible).forEach(c=>{
-                    recipesContainer.appendChild(c);
-                    // ensure visible
-                    c.style.display = '';
-                });
-            }
-            if(matched.length > visible){
-                loadMoreBtn.style.display = '';
-            } else {
-                loadMoreBtn.style.display = 'none';
-            }
-            // update URL to reflect current filters
-            updateURL();
-        }
-
-        function applyFilter(term){
-            currentTerm = term || '';
-            visible = pageSize;
-            render();
-        }
-
-        // wire changes
-        loadMoreBtn.addEventListener('click', ()=>{ visible += pageSize; render(); });
-        btn.addEventListener('click', (e)=>{ e.preventDefault(); applyFilter(input.value); });
-        input.addEventListener('keydown', e=>{ if(e.key === 'Enter'){ e.preventDefault(); applyFilter(input.value); } });
-
-    // Filters controls: react to change/input
-    if(timeFilter) timeFilter.addEventListener('change', ()=> { visible = pageSize; render(); });
-    if(difficultyFilter) difficultyFilter.addEventListener('change', ()=> { visible = pageSize; render(); });
-    if(tagFilter) tagFilter.addEventListener('input', ()=> { visible = pageSize; render(); });
-    if(sortSelect) sortSelect.addEventListener('change', ()=>{ visible = pageSize; render(); });
-    if(tagMode) tagMode.addEventListener('change', ()=>{ visible = pageSize; render(); });
-
-        // Clear filters button
-        const clearBtn = document.getElementById('clearFilters');
-        function clearFilters(){
-            if(input) input.value = '';
-            if(timeFilter) timeFilter.value = 'any';
-            if(difficultyFilter) difficultyFilter.value = 'any';
-            if(tagFilter) tagFilter.value = '';
-            visible = pageSize;
-            applyFilter('');
-        }
-        if(clearBtn) clearBtn.addEventListener('click', clearFilters);
-
-        // Make all visible .tag elements clickable to toggle tags into the tag filter
-        document.querySelectorAll('.tag').forEach(tagEl => {
-            tagEl.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const text = (tagEl.textContent || '').trim().toLowerCase();
-                if(!text) return;
-                const current = (tagFilter && tagFilter.value) ? tagFilter.value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean) : [];
-                const i = current.indexOf(text);
-                if(i === -1){
-                    current.push(text);
-                } else {
-                    current.splice(i,1); // toggle off
-                }
-                if(tagFilter) tagFilter.value = current.join(',');
-                visible = pageSize;
-                render();
-            });
-            // ensure pointer cursor for any tags added dynamically
-            tagEl.style.cursor = 'pointer';
-        });
-
-        // URL-sync helpers
-        function updateURL(){
-            const params = new URLSearchParams();
-            if(input && input.value) params.set('q', input.value);
-            if(timeFilter && timeFilter.value && timeFilter.value !== 'any') params.set('time', timeFilter.value);
-            if(difficultyFilter && difficultyFilter.value && difficultyFilter.value !== 'any') params.set('difficulty', difficultyFilter.value);
-            if(tagFilter && tagFilter.value) params.set('taglist', tagFilter.value);
-            if(sortSelect && sortSelect.value && sortSelect.value !== 'none') params.set('sort', sortSelect.value);
-            if(tagMode && tagMode.value && tagMode.value !== 'any') params.set('tagMode', tagMode.value);
-            const newUrl = location.pathname + (params.toString() ? ('?' + params.toString()) : '');
-            history.replaceState(null, '', newUrl);
-        }
-
-        // read URL params and pre-fill controls
-        (function prefillFromURL(){
-            const params = new URLSearchParams(location.search);
-            if(params.get('time') && timeFilter) timeFilter.value = params.get('time');
-            if(params.get('difficulty') && difficultyFilter) difficultyFilter.value = params.get('difficulty');
-            if(params.get('taglist') && tagFilter) tagFilter.value = params.get('taglist');
-            if(params.get('q')) input.value = params.get('q');
-            if(params.get('sort') && sortSelect) sortSelect.value = params.get('sort');
-            if(params.get('tagMode') && tagMode) tagMode.value = params.get('tagMode');
+            }catch(e){ console.warn('homepage: failed to mount RECIPES', e); }
         })();
-
-        // Generate tag chips from recipes-data.js canonical source (window.RECIPES)
-        (function generateTagChips(){
-            // ensure tagsRow exists (we add a placeholder in the HTML now)
-            if(!tagsRow){
-                tagsRow = document.createElement('div');
-                tagsRow.id = 'tagsRow';
-                tagsRow.style.display = 'flex';
-                tagsRow.style.gap = '8px';
-                tagsRow.style.flexWrap = 'wrap';
-                document.querySelector('.hero-card').appendChild(tagsRow);
-            }
-            const set = new Set();
-            (window.RECIPES || []).forEach(r=> String(r.tags||'').split(',').map(t=>t.trim()).forEach(t=>{ if(t) set.add(t.toLowerCase()); }));
-            const tags = Array.from(set).sort();
-            tagsRow.innerHTML = '';
-            tags.forEach(t=>{
-                // avoid duplicate visible chips by checking existing textContent (extra safety)
-                if(Array.from(tagsRow.children).some(c=> (c.textContent||'').trim().toLowerCase() === t)) return;
-                const s = document.createElement('button');
-                s.type = 'button';
-                s.className = 'tag';
-                s.textContent = t;
-                // mark active if present in tagFilter
-                const current = (tagFilter && tagFilter.value) ? tagFilter.value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean) : [];
-                if(current.includes(t)) s.classList.add('active');
-                s.addEventListener('click', ()=>{
-                    const cur = (tagFilter && tagFilter.value) ? tagFilter.value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean) : [];
-                    const idx = cur.indexOf(t);
-                    if(idx === -1){ cur.push(t); s.classList.add('active'); }
-                    else { cur.splice(idx,1); s.classList.remove('active'); }
-                    if(tagFilter) tagFilter.value = cur.join(',');
-                    visible = pageSize; render();
-                });
-                tagsRow.appendChild(s);
-            });
-        })();
-
-        // initial render so prefilled controls and sorting are applied on load
-        render();
-
-        // Initial render
-        applyFilter(input.value);
     </script>
 </body>
 </html>
