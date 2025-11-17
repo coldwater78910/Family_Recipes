@@ -231,6 +231,10 @@ footer{
 }
 .load-more{background:transparent;border:1px solid #eee;padding:10px 14px;border-radius:10px;cursor:pointer}
 
+/* Standard site button used across pages */
+.button{display:inline-block;background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+.button:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 30px rgba(16,24,40,0.12)}
+
 /* Ensure primary interactive controls show pointer cursor for clarity */
 .search button, #clearFilters, .load-more {
     cursor: pointer;
