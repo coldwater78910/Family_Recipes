@@ -181,7 +181,6 @@ TPL = '''<!doctype html>
     <a class="back-link" href="recipes.html">← Back to recipes</a>
 
     <div class="recipe-content">
-      <div class="recipe-thumb" style="background-image:url('{img}');" aria-label="{title}"></div>
       <h1 class="page-title">{title}</h1>
       <div class="recipe-info">
         <div class="meta">

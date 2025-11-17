@@ -1,6 +1,33 @@
 /* Auto-generated from recipes.json */
 const RECIPES = [
   {
+    "title": "Simple Sandwich",
+    "tags": "sandwich,quick,easy",
+    "time": "Prep: 5 min; Cook: 5 min; Total: 10 min",
+    "difficulty": "easy",
+    "cuisine": "Various",
+    "img": "recipe-images/simple-sandwich.jpg",
+    "desc": "A quick and easy sandwich with fresh veggies and cheese.",
+    "ingredients": [
+      "4 slices of bread",
+      "4 leaves of lettuce",
+      "4 slices of tomato",
+      "4 slices of cheese",
+      "2 slices of onion",
+      "12 slices of cucumber",
+      "Salt",
+      "Pepper"
+    ],
+    "steps": [
+      "Butter your bread",
+      "Place 2 leaves of lettuce on 2 slices of bread",
+      "Place 2 slices of cheese on each slice of bread with lettuce",
+      "Place 2 slices of tomato",
+      "Separate the rings of onion and place them on the bread",
+      "Place 6 slices of cucumber on each slice of bread with the rest of the ingredients"
+    ]
+  },
+  {
     "title": "Chicken Curry",
     "tags": [
       "dinner",
