@@ -84,7 +84,7 @@ const RECIPES = [
   },
   {
     title: "Homemade Woolworths rice",
-    tags: ["rice", "side", "easy"],
+    tags: ["rice", "dinner", "easy"],
     time: "Prep: 5-15 minutes; Cook: 30± minutes; Total: 35-45 minutes",
     difficulty: "easy",
     cuisine: "Various",
