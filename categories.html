@@ -42,9 +42,14 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Build category counts from RECIPES
+        // `r.tags` may be an array (preferred) or a comma-separated string; handle both
         const counts = {};
         (window.RECIPES || []).forEach(r=>{
-            (r.tags||'').split(',').map(t=>t.trim()).forEach(tag=>{
+            const tags = Array.isArray(r.tags)
+                ? r.tags
+                : (typeof r.tags === 'string' ? r.tags.split(',') : []);
+            tags.forEach(t=>{
+                const tag = (t || '').trim();
                 if(!tag) return;
                 counts[tag] = (counts[tag] || 0) + 1;
             });
