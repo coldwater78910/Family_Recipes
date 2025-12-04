@@ -40,17 +40,20 @@ fi
 echo "[deploy.sh] Staging changes..."
 git add -A
 
-# Include `js/auth-config.js` in every deploy when possible.
+# Manage `js/auth-config.js` for the site password if requested.
 # Behavior (in order):
-# 1) If `js/auth-config.js` exists locally, force-add it and include it in the commit.
-# 2) Else if `SITE_PASSWORD_HASH` env var is set, write the file from that value and add it.
-# 3) Otherwise prompt interactively for a password, hash it locally and write the file.
-# Note: this will add the password hash to your git history. For CI-based deployments set
-# SITE_PASSWORD_HASH in the CI environment instead of prompting.
-echo "[deploy.sh] Ensuring js/auth-config.js is included in deploy (if available)."
+# 1) If `js/auth-config.js` exists locally, leave it alone (do NOT add it to the commit by default).
+# 2) Else if `SITE_PASSWORD_HASH` env var is set, write the file from that value (but do NOT add it
+#    to the commit by default).
+# 3) Otherwise prompt interactively for a password and write the file locally (again not added by default).
+# To explicitly include the generated/installed `js/auth-config.js` in the commit set
+# `COMMIT_AUTH_CONFIG=true` in the environment. This avoids accidentally adding secrets to git history.
+# For CI-based deployments set `SITE_PASSWORD_HASH` in CI. If your CI environment wants the file
+# committed into history (not recommended), set `COMMIT_AUTH_CONFIG=true` there as well.
+# Note: `gh` and other GitHub CLI tools can use `GITHUB_TOKEN` when available in CI.
+echo "[deploy.sh] Managing js/auth-config.js (won't be committed unless COMMIT_AUTH_CONFIG=true)."
 if [ -f js/auth-config.js ]; then
-  echo "[deploy.sh] Local js/auth-config.js found; force-adding to commit..."
-  git add -f js/auth-config.js
+  echo "[deploy.sh] Local js/auth-config.js found; leaving it in place (not adding to commit)."
 else
   if [ -n "${SITE_PASSWORD_HASH:-}" ]; then
     echo "[deploy.sh] SITE_PASSWORD_HASH env var set; writing js/auth-config.js..."
@@ -59,7 +62,6 @@ else
 window.SITE_PASSWORD_HASH = '${SITE_PASSWORD_HASH}';
 EOF
     chmod 600 js/auth-config.js || true
-    git add -f js/auth-config.js
   else
     # interactive prompt (skipped in non-interactive environments)
     if [ -t 0 ]; then
@@ -77,13 +79,22 @@ EOF
 window.SITE_PASSWORD_HASH = '${HASH}';
 EOF
         chmod 600 js/auth-config.js || true
-        git add -f js/auth-config.js
       else
         echo "[deploy.sh] No password entered; skipping auth-config generation."
       fi
     else
       echo "[deploy.sh] Non-interactive shell and no SITE_PASSWORD_HASH; skipping auth-config generation."
     fi
+  fi
+fi
+
+# Optionally include the auth-config file in the commit if explicitly requested.
+if [ -n "${COMMIT_AUTH_CONFIG:-}" ] && [ "${COMMIT_AUTH_CONFIG}" = "true" ]; then
+  if [ -f js/auth-config.js ]; then
+    echo "[deploy.sh] COMMIT_AUTH_CONFIG=true detected; force-adding js/auth-config.js to commit."
+    git add -f js/auth-config.js
+  else
+    echo "[deploy.sh] COMMIT_AUTH_CONFIG=true but no js/auth-config.js present; nothing to add."
   fi
 fi
 
