@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Recipe • Cook Family Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Icon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="Icon.jpg">
+</head>
+<body class="recipe-page">
+    <div class="container">
+        <header>
+            <a href="Cook Family Recipes.html" class="brand">
+                <img src="Icon.jpg" class="logo" alt="Cook Family Recipes logo">
+                <div>
+                    <div class="brand-title">Cook Family Recipes</div>
+                    <div class="brand-sub">Recipe Details</div>
+                </div>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="Cook Family Recipes.html">Home</a>
+                <a href="recipes.html">Recipes</a>
+                <a href="categories.html">Categories</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="about.html">About</a>
+            </nav>
+        </header>
+        <button class="back-link btn btn-inline" onclick="location.href='recipes.html'" type="button">
+            	← Back to recipes
+        </button>
+        <div id="main">
+            
+                <div class="recipe-thumb" style="background-image:url('')" aria-label="aes the a"></div>
+                <h1 style="margin-top:12px">aes the a</h1>
+                <div class="meta"><span></span><span></span></div>
+                <div class="tags"></div>
+                <div class="content">
+                    <p></p>
+                    
+                </div>
+    
+        </div>
+    </div>
+
+    <script src="recipes-data.js"></script>
+    <script>
+        function qs(name){ const params = new URLSearchParams(location.search); return params.get(name) || ''; }
+        const title = qs('title');
+        const recipe = (window.RECIPES || []).find(r=> r.title === title) || (window.RECIPES || [])[0] || null;
+        const main = document.getElementById('main');
+        if(!recipe){
+            main.innerHTML = '<p style="color:var(--muted)">Recipe not found.</p>';
+        } else {
+            main.innerHTML = `
+                <div class="recipe-thumb" style="background-image:url('${recipe.img}')" aria-label="${recipe.title}"></div>
+                <h1 style="margin-top:12px">${recipe.title}</h1>
+                <div class="meta"><span>${recipe.time}</span><span>${recipe.difficulty}</span></div>
+                <div class="tags">${(recipe.tags||'').split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('')}</div>
+                <div class="content">
+                    <p>${recipe.desc || ''}</p>
+                    ${ (recipe.steps && recipe.steps.length) ? (`<h3>Steps</h3><ol>${recipe.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`) : '' }
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
