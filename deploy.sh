@@ -36,9 +36,7 @@ if ! git remote get-url origin >/dev/null 2>&1; then
   fi
 fi
 
-# Stage all changes
-echo "[deploy.sh] Staging changes..."
-git add -A
+
 
 # Manage `js/auth-config.js` for the site password if requested.
 # Behavior (in order):
@@ -95,6 +93,18 @@ if [ -n "${COMMIT_AUTH_CONFIG:-}" ] && [ "${COMMIT_AUTH_CONFIG}" = "true" ]; the
     git add -f js/auth-config.js
   else
     echo "[deploy.sh] COMMIT_AUTH_CONFIG=true but no js/auth-config.js present; nothing to add."
+  fi
+fi
+
+# Now stage all changes *after* we've decided whether to include auth-config.
+echo "[deploy.sh] Staging changes..."
+git add -A
+
+# If the caller did NOT explicitly ask to commit the auth-config, make sure it is not staged.
+if [ "${COMMIT_AUTH_CONFIG:-}" != "true" ]; then
+  if git ls-files --error-unmatch -- "js/auth-config.js" >/dev/null 2>&1; then
+    echo "[deploy.sh] Removing js/auth-config.js from the index to avoid committing secrets."
+    git reset -- "js/auth-config.js" || true
   fi
 fi
 
