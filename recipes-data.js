@@ -10,7 +10,7 @@ const RECIPES = [
     "time": "45 min",
     "difficulty": "Medium",
     "servings": 4,
-    "img": "recipe-images/chicken-curry.jpg",
+    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/chicken-curry.jpg",
     "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
     "ingredients": [
       "3 chicken breasts",
@@ -50,7 +50,7 @@ const RECIPES = [
     "tags": [],
     "time": "10 minutes",
     "difficulty": "Easy",
-    "img": "recipe-images/simple-sandwich.JPG",
+    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/simple-sandwich.JPG",
     "desc": "Quick and fresh sandwich with crisp vegetables",
     "ingredients": [
       "4 slices of bread",
@@ -78,7 +78,7 @@ const RECIPES = [
     "tags": [],
     "time": "30 minutes",
     "difficulty": "Easy",
-    "img": "recipe-images/woolworths-rice.JPG",
+    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/woolworths-rice.JPG",
     "desc": "Homemade version of the popular store-bought mixed rice",
     "ingredients": [
       "1 cup of rice",
@@ -111,7 +111,7 @@ const RECIPES = [
     "tags": [],
     "time": "20 minutes",
     "difficulty": "Easy",
-    "img": "recipe-images/ramen.jpg",
+    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/ramen.jpg",
     "desc": "Quick and delicious noodle dish",
     "ingredients": [
       "2eggs",
