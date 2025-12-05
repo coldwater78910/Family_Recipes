@@ -173,17 +173,20 @@
         }
         
         const text = item.dataset.original;
-        // Match leading numbers and fractions, handling various formats
-        const match = text.match(/^([0-9]+(?:\s+[0-9]+\/[0-9]+)?|[0-9]+\/[0-9]+)\s/);
+        // Match leading numbers and fractions, plus optional unit word (gram, ml, etc.)
+        const match = text.match(/^([0-9]+(?:\s+[0-9]+\/[0-9]+)?|[0-9]+\/[0-9]+)(?:\s+\w+)?\s/);
         
         if (match) {
-          const originalAmount = match[0].trim();
+          const originalFullMatch = match[0]; // e.g., "228 gram " or "1 "
+          const originalAmount = match[1];    // e.g., "228" or "1"
           const originalValue = parseAmount(originalAmount);
           const scaledValue = originalValue * scale;
           const formattedValue = formatAmount(scaledValue);
           
-          // Replace only the leading amount in the text
-          item.textContent = text.replace(originalAmount, formattedValue);
+          // Replace the full match (number + optional unit + space) with formatted number + same unit + space
+          const unitPart = originalFullMatch.slice(originalAmount.length).trimEnd();
+          const replacement = formattedValue + (unitPart ? ' ' + unitPart + ' ' : ' ');
+          item.textContent = text.replace(originalFullMatch, replacement);
         }
       });
     }
