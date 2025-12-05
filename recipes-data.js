@@ -164,56 +164,26 @@ const RECIPES = [
     ]
   },
   {
-    "title": "aes the a",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": []
-  },
-  {
-    "title": "aes the a",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": []
-  },
-  {
-    "title": "aes the a",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": []
-  },
-  {
     "title": "Welsh Cakes",
     "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": [
+    "time": "30 minutes",
+    "difficulty": "Medium",
+    "img": "Recipe Uploads/Welsh-cakes.png",
+    "desc": "Traditional Welsh griddle cakes with dried fruit and spice",
+    "ingredients": [
       "228g of Self-raising flour",
       "80g of Butter",
       "34g of Lard",
-      "58g of Currents",
+      "58g of Currants",
       "86g of castor Sugar",
       "1 egg",
-      "Mixed Spice",
+      "Mixed Spice"
+    ],
+    "steps": [
       "Rub in butter with flour add sugar, fruit, mixed spice and egg",
-      "Roll out dough on a floured board to about 2 a centimetre thick",
-      "Use cookie cutter to cut out circles and cook them on medium heat for 4-5",
-      "minutes each side (When touched during cooking they should feel springy, but",
-      "not wet to the touch)",
+      "Roll out dough on a floured board to about 2 centimetres thick",
+      "Use cookie cutter to cut out circles and cook them on medium heat for 4-5 minutes each side",
+      "When touched during cooking they should feel springy, but not wet to the touch",
       "Dust with castor sugar and enjoy"
     ]
   }
