@@ -113,10 +113,10 @@ const RECIPES = [
   {
     "title": "Two minute noodle Ramen",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "20 minutes",
+    "difficulty": "Easy",
     "img": "recipe-images/ramen.JPG",
-    "desc": "",
+    "desc": "Quick and delicious noodle dish",
     "ingredients": [
       "2eggs",
       "2 packets of two-minute noodles",
