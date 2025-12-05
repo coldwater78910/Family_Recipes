@@ -155,8 +155,6 @@ TPL = '''<!doctype html>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="Icon.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="Icon.jpg">
-  <script src="js/auth-config.js"></script>
-  <script src="js/auth.js"></script>
 </head>
 <body>
   <div class="container">
