@@ -115,7 +115,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "recipe-images/ramen.jpg",
+    "img": "recipe-images/ramen.JPG",
     "desc": "",
     "ingredients": [
       "2eggs",
