@@ -307,8 +307,8 @@ footer{
 /* Prevent the recipe content from overlapping the header. Previously this used a large
     negative top margin to pull content up under a header image; since header thumbnails
     were removed, reset that behavior and add a modest top padding for separation. */
-.recipe-content { margin-top: 0; padding-top: 1rem; }
-.recipe-thumb{height:300px;background-size:cover;background-position:center;border-radius:12px}
+.recipe-content { margin-top: 0; }
+.recipe-thumb{height:300px;background-size:cover;background-position:center;border-radius:12px;margin-bottom:1rem}
 .content{margin-top:14px;line-height:1.6}
 .servings-control {
     margin: 1rem 0;
