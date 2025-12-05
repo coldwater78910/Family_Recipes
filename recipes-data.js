@@ -164,32 +164,12 @@ const RECIPES = [
     ]
   },
   {
-    "title": "aes the a",
+    "title": "Welsh Cakes",
     "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": []
-  },
-  {
-    "title": "aes the a",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
-    "ingredients": [],
-    "steps": []
-  },
-  {
-    "title": "aes the a",
-    "tags": [],
-    "time": "",
-    "difficulty": "",
-    "img": "",
-    "desc": "",
+    "time": "30 minutes",
+    "difficulty": "Medium",
+    "img": "Recipe Uploads/Welsh-cakes.JPG",
+    "desc": "Traditional Welsh griddle cakes with dried fruit",
     "ingredients": [],
     "steps": []
   }
