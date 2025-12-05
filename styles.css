@@ -346,7 +346,8 @@ footer{
 .card-title{font-weight:700}
 .page-title{margin-top:22px}
 .small-muted{color:var(--muted);font-size:14px}
-.back-link{display:inline-block;margin-bottom:12px;color:var(--muted);text-decoration:none;position:relative;z-index:3;pointer-events:auto;padding:6px 8px;border-radius:6px}
+.back-link{display:inline-block;margin-bottom:12px;background:var(--accent);color:var(--text-dark);text-decoration:none;position:relative;z-index:3;pointer-events:auto;padding:8px 12px;border-radius:8px;border:none;font-weight:600;cursor:pointer;transition:transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease}
+.back-link:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(16,24,40,0.12)}
 
 @media (max-width:860px){
     .hero{grid-template-columns:1fr}
