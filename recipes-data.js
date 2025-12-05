@@ -48,10 +48,10 @@ const RECIPES = [
   {
     "title": "Simple Sandwich",
     "tags": [],
-    "time": "10 minutes",
-    "difficulty": "Easy",
-    "img": "recipe-images/simple-sandwich.JPG",
-    "desc": "Quick and fresh sandwich with crisp vegetables",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "4 slices of bread",
       "4 leaves of lettuce",
@@ -78,10 +78,10 @@ const RECIPES = [
   {
     "title": "Homemade Woolworths rice",
     "tags": [],
-    "time": "30 minutes",
-    "difficulty": "Easy",
-    "img": "recipe-images/woolworths-rice.JPG",
-    "desc": "Homemade version of the popular store-bought mixed rice",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "1 cup of rice",
       "6 cups of water",
@@ -113,10 +113,10 @@ const RECIPES = [
   {
     "title": "Two minute noodle Ramen",
     "tags": [],
-    "time": "20 minutes",
-    "difficulty": "Easy",
-    "img": "recipe-images/ramen.jpg",
-    "desc": "Quick and delicious noodle dish",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "2eggs",
       "2 packets of two-minute noodles",
@@ -162,6 +162,16 @@ const RECIPES = [
       "side of the bowel to the eggs",
       "‘And Enjoy"
     ]
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
   }
 ];
 
