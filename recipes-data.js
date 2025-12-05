@@ -1,14 +1,58 @@
-
+/* Auto-generated from recipes.json */
 const RECIPES = [
   {
-    title: "Simple Sandwich",
-    tags: ["sandwich", "quick", "easy"],
-    time: "Prep: 5 min; Cook: 5 min; Total: 10 min",
-    difficulty: "easy",
-    cuisine: "Various",
-    img: "recipe-images/simple-sandwich.JPG",
-    desc: "A quick and easy sandwich with fresh veggies and cheese.",
-    ingredients: [
+    "title": "Chicken Curry",
+    "tags": [
+      "dinner",
+      "curry",
+      "easy"
+    ],
+    "time": "45 min",
+    "difficulty": "Medium",
+    "servings": 4,
+    "img": "recipe-images/chicken-curry.jpg",
+    "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
+    "ingredients": [
+      "3 chicken breasts",
+      "1 tin of coconut cream",
+      "1 tin of diced tomatoes",
+      "1 tin of tomato puree",
+      "1 Onion",
+      "1 1/2 teaspoons of crushed garlic",
+      "Dash of oil",
+      "1 1/2 teaspoons of chicken spice",
+      "1 teaspoon of coriander",
+      "3 cloves",
+      "1 bay leaf",
+      "1/4 teaspoon of cinnamon",
+      "1 teaspoon of cumin",
+      "Squeeze of lemon juice or 1/2 a lemon",
+      "1 1/2 teaspoons of curry powder",
+      "1 teaspoon of sugar"
+    ],
+    "steps": [
+      "Cut the chicken breasts into strips and place in a bowl.",
+      "Pour a dash of oil over the chicken breasts.",
+      "Add all the spices (besides cloves and bay leaves), garlic and lemon juice into the bowl with the chicken.",
+      "Cover with a plate and let marinade for 30+ minutes.",
+      "Begin heating your pot while you dice your onion.",
+      "After 5 minutes your pot should be thoroughly heated, add a dash of oil to the pot and let heat.",
+      "Add your onion in and cook till it's translucent.",
+      "Add in your sugar (be careful not to caramelize the onions or burn the sugar).",
+      "Add in your marinated chicken breast, and sauté until outside is browned.",
+      "Add in the tin of diced tomatoes and tomato puree, and cook down for 5 to 10 minutes.",
+      "Add in your tin of coconut cream, bay leaf and cloves.",
+      "Leave lid partially off and simmer until cooked down to the preferred consistency."
+    ]
+  },
+  {
+    "title": "Simple Sandwich",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
       "4 slices of bread",
       "4 leaves of lettuce",
       "4 slices of tomato",
@@ -20,77 +64,25 @@ const RECIPES = [
       "Season with a generous amount of salt and pepper",
       "Cut in half, and enjoy"
     ],
-    steps: [
+    "steps": [
+      "OaRwn>",
+      "2oN",
       "Butter your bread",
       "Place 2 leaves of lettuce on 2 slices of bread",
       "Place 2 slices of cheese on each slice of bread with lettuce",
       "Place 2 slices of tomato",
       "Separate the rings of onion and place them on the bread",
-      "Place 6 slices of cucumber on each slice of bread with the rest of the ingredients"
+      "Place 6 slices of cucumber on each slice of bread with the rest of the"
     ]
   },
   {
-    title: "Chicken Curry",
-    tags: ["dinner", "curry", "easy"],
-    time: "45 min",
-    difficulty: "Medium",
-    servings: 4,
-    img: "recipe-images/chicken-curry.jpg",
-    desc: "Simple chicken curry and rice",
-    ingredients: [
-      "3 chicken breasts",
-      "1 tin of coconut cream",
-      "1 tin of diced tomatoes",
-      "1 Onion",
-      "1 1/2 teaspoons of crushed garlic",
-      "Oil",
-      "1 1/2 teaspoons of chicken spice",
-      "1 teaspoon of coriander",
-      "3 cloves",
-      "1 bay leaf",
-      "1/4 teaspoon of cinnamon",
-      "1 teaspoon of cumin",
-      "Squeeze of lemon juice or 1/2 a lemon",
-      "1 1/2 teaspoons of curry powder",
-      "1 teaspoon of sugar",
-      "2 potatoes, peeled and cubed",
-      "1 cup rice",
-      "A spring onion (for garnish)"
-    ],
-    steps: [
-      "Curry:",
-      "Cut the chicken breasts into strips and place in a bowl.",
-      "Pour a dash of oil over the chicken breasts.",
-      "Add all the spices, garlic and lemon juice into the bowl with the chicken. (besides cloves and bay leaves)",
-      "Cover with a plate and let marinade for 30+ minutes.",
-      "Begin heating your pot while you dice your onion.",
-      "After 5 minutes your pot should be thoroughly heated, add a dash of oil to the pot and let heat.",
-      "Add your onion in and cook till it's translucent.",
-      "Add in your sugar (be careful not to caramelize the onions or burn the sugar).",
-      "Add in your marinated chicken breast, and sauté until outside is browned.",
-      "Add in the tin of diced tomatoes, and cook down for 5 to 10 minutes.",
-      "Add in your tin of coconut cream, bay leaf and cloves.",
-      "Add the cubed potatoes and cook until tender.",
-      "Once potatoes are tender and curry has thickened, taste and adjust seasoning as needed.",
-      "Rice:",
-      "Rinse the rice in cold water until the water runs clear.",
-      "Place rice in a pot with 6 cups of water bring to a boil.",
-      "When starch bubbles begin to seep out from under the lid, boil for 14 minutes.",
-      "After the 14 minutes, drain off the excess water and set the rice aside.",
-      "Serve the curry over rice and garnish with sliced spring onion.",
-      "Notes:",
-      "For marinades, any amount of time for it to sit and absorb is better than no time."
-    ]
-  },
-  {
-    title: "Homemade Woolworths rice",
-    tags: ["rice", "dinner", "easy"],
-    time: "Prep: 5-15 minutes; Cook: 30± minutes; Total: 35-45 minutes",
-    difficulty: "easy",
-    cuisine: "Various",
-    img: "recipe-images/homemade-woolworths-rice.png",
-    desc: "Homemade rice with peas, corn, and onion, seasoned with Maggi.",
-    ingredients: [
+    "title": "Homemade Woolworths rice",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
       "1 cup of rice",
       "6 cups of water",
       "100g of peas",
@@ -98,21 +90,79 @@ const RECIPES = [
       "1 onion",
       "3 tablespoons of Maggi Aromé All-Purpose Seasoning"
     ],
-    steps: [
+    "steps": [
+      "oa AF ONS",
+      "GOON",
       "Rinse rice in cold water until water is clear",
       "Place rice in a pot with 6 cups of water",
-      "Heat rice until water begins to boil and starch bubbles begin to seep out from under the lid, boil for 12 minutes.",
+      "Heat rice until water begins to boil and starch bubbles begin to seep out from",
+      "under the lid, boil for 12 minutes.",
       "While rice is cooking, boil peas and corn in salted water",
-      "Pull out peas and corn when they are almost finished cooking, and put them one side",
-      "At this point your rice should be cooked, drain off excess water, and put the rice to one side",
+      "Pull out peas and corn when they are almost finished cooking, and put them",
+      "one side",
+      "At this point your rice should be cooked, drain off excess water, and put the",
+      "rice to one side",
       "Heat up your pan while you finely dice your onion, almost mincing it",
       "Drizzle oil into the pan once heated place in your diced onion",
       "When onion is translucent and has reduced, add in your peas and corn",
-      "Add in your rice, and mix well",
-      "Cook for 5 minutes, and drizzle over 3 tablespoons of Maggi",
-      "Stir well, and enjoy"
+      "10. Add in your rice, and mix well",
+      "11.Cook for 5 minutes, and drizzle over 3 tablespoons of Maggi",
+      "12. Stir well, and enjoy"
+    ]
+  },
+  {
+    "title": "Two minute noodle Ramen",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
+      "2eggs",
+      "2 packets of two-minute noodles",
+      "Yacup of stock",
+      "%of an onion",
+      "413 of a tomato",
+      "2 teaspoons of soy sauce",
+      "2 tablespoons of mayonnaise",
+      "Lemon juice",
+      "Yateaspoon of garlic/garlic flakes",
+      "1 spring onion",
+      "1 chicken fillet"
+    ],
+    "steps": [
+      "Chicken",
+      "Cut your chicken fillt/s into thin strips and put into a bowl, add your preferred",
+      "chicken spice, a dash of oil, and a drizzle of lemon juice, cover and set aside",
+      "Sauce",
+      "Ina small bow! put 2 of your spice packets from the two-minute noodles, and",
+      "garlic, add a touch of water (just enough to dissolve the spice and heat the",
+      "garlic)",
+      "‘Then add your soy sauce, mayonnaise, and 2 teaspoons of lemon juice",
+      "Mix well until all is combined",
+      "Toppings",
+      "Boil your eggs to your preference, and chill in ice water when done",
+      "Dice your onion and tomato into small cubes",
+      "Finely chop your spring onion.",
+      "Put alLaf the toppings into their own containers/bowels.",
+      "Noodles & Finishing touches",
+      "Cook your noodles until almost done, then drain the water",
+      "Heat up a pan and cook your chicken (You don't need to add oil to the pan)",
+      "‘Take the cooked chicken out the pan and place in a container",
+      "In the same pan put in your noodles, sauce and half of the cut onions and",
+      "tomato",
+      "Once the sauce, tomatoes and onion are fully incorporated into the noodles",
+      "take them out and place in your bowel",
+      "Plating",
+      "‘Add in the half a cup of hot stock",
+      "Cut each of the eggs in half and place on top of the noodles on one side of",
+      "the bowel",
+      "‘Take the slices of chicken and place it in the middle",
+      "Now you can put the rest of the diced tomatoes and onion on the opposite",
+      "side of the bowel to the eggs",
+      "‘And Enjoy"
     ]
   }
 ];
 
-if (typeof window !== "undefined") window.RECIPES = RECIPES;
+if(typeof window !== "undefined") window.RECIPES = RECIPES;
