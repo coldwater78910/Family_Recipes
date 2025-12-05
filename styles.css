@@ -303,12 +303,12 @@ footer{
 .card:focus-visible { box-shadow: 0 0 0 4px rgba(231,111,81,0.09), 0 20px 40px rgba(16,24,40,0.18); }
 
 /* Recipe page specifics */
-.recipe-header { margin-bottom: 2rem; }
+.recipe-header { margin-bottom: 0; }
 /* Prevent the recipe content from overlapping the header. Previously this used a large
     negative top margin to pull content up under a header image; since header thumbnails
     were removed, reset that behavior and add a modest top padding for separation. */
 .recipe-content { margin-top: 0; }
-.recipe-thumb{height:300px;background-size:cover;background-position:center;border-radius:12px;margin-bottom:1rem}
+.recipe-thumb{display:block;height:300px;background-size:cover;background-position:center;border-radius:12px;margin-bottom:1rem}
 .content{margin-top:14px;line-height:1.6}
 .servings-control {
     margin: 1rem 0;
