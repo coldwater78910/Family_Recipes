@@ -50,7 +50,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "recipe-images/simple-sandwich.jpg",
+    "img": "recipe-images/simple-sandwich.JPG",
     "desc": "",
     "ingredients": [
       "4 slices of bread",
