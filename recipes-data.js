@@ -168,7 +168,7 @@ const RECIPES = [
     "tags": [],
     "time": "30 minutes",
     "difficulty": "Medium",
-    "img": "Recipe Uploads/Welsh-cakes.png",
+    "img": "",
     "desc": "Traditional Welsh griddle cakes with dried fruit and spice",
     "ingredients": [
       "228g of Self-raising flour",
