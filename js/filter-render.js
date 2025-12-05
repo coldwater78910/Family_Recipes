@@ -74,7 +74,22 @@
             if (match) totalTime = match[1].trim();
         }
         a.innerHTML = `
-            <div class="thumb" style="background-image:url('${recipe.img}');" role="img" aria-label="${recipe.title}"></div>
+                <div class="thumb" role="img" aria-label="${recipe.title}"></div>
+            `;
+            // Set thumbnail background image with fallbacks (explicit img, common fields, or inferred path)
+            const thumbEl = a.querySelector('.thumb');
+            (function setThumb(){
+                // prefer explicit fields
+                const candidates = [recipe.img, recipe.image, recipe.thumbnail, recipe.photo];
+                let src = candidates.find(s => s && String(s).trim());
+                if(!src){
+                    // infer from title -> recipe-images/<slug-base>.jpg
+                    const base = (mapped || slugify(recipe.title)).replace(/\.html$/, '').replace(/[^a-z0-9\-]+/g,'');
+                    src = `recipe-images/${base}.jpg`;
+                }
+                // apply as background-image (escape single quotes)
+                thumbEl.style.backgroundImage = `url('${String(src).replace(/'/g,"\\'")}')`;
+            })();
             <div class="card-body">
                 <div class="card-title">${recipe.title}</div>
                 <div class="meta"><span>${totalTime}</span><span>${recipe.difficulty}</span></div>
