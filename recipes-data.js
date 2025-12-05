@@ -162,16 +162,6 @@ const RECIPES = [
       "side of the bowel to the eggs",
       "‘And Enjoy"
     ]
-  },
-  {
-    "title": "Welsh Cakes",
-    "tags": [],
-    "time": "30 minutes",
-    "difficulty": "Medium",
-    "img": "Recipe Uploads/Welsh-cakes.JPG",
-    "desc": "Traditional Welsh griddle cakes with dried fruit",
-    "ingredients": [],
-    "steps": []
   }
 ];
 
