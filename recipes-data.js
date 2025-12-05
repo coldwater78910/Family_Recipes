@@ -162,6 +162,60 @@ const RECIPES = [
       "side of the bowel to the eggs",
       "‘And Enjoy"
     ]
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
+    "title": "Welsh Cakes",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": [
+      "228g of Self-raising flour",
+      "80g of Butter",
+      "34g of Lard",
+      "58g of Currents",
+      "86g of castor Sugar",
+      "1 egg",
+      "Mixed Spice",
+      "Rub in butter with flour add sugar, fruit, mixed spice and egg",
+      "Roll out dough on a floured board to about 2 a centimetre thick",
+      "Use cookie cutter to cut out circles and cook them on medium heat for 4-5",
+      "minutes each side (When touched during cooking they should feel springy, but",
+      "not wet to the touch)",
+      "Dust with castor sugar and enjoy"
+    ]
   }
 ];
 
