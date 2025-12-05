@@ -115,7 +115,7 @@ const RECIPES = [
     "tags": [],
     "time": "20 minutes",
     "difficulty": "Easy",
-    "img": "recipe-images/ramen.JPG",
+    "img": "recipe-images/ramen.jpg",
     "desc": "Quick and delicious noodle dish",
     "ingredients": [
       "2eggs",
