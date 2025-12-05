@@ -47,7 +47,15 @@ def slugify(s):
 
 def ocr_image(path):
     img = Image.open(path)
-    text = pytesseract.image_to_string(img)
+    # Ensure the image is in a format pytesseract supports (convert to RGB if needed)
+    if img.mode not in ('RGB', 'L'):
+        img = img.convert('RGB')
+    # Create a temporary file with .png extension to avoid pytesseract extension issues
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as tmp:
+        img.save(tmp.name, 'PNG')
+        text = pytesseract.image_to_string(Image.open(tmp.name))
+        os.unlink(tmp.name)
     return text
 
 
