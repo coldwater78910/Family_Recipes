@@ -48,10 +48,10 @@ const RECIPES = [
   {
     "title": "Simple Sandwich",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "10 minutes",
+    "difficulty": "Easy",
     "img": "recipe-images/simple-sandwich.JPG",
-    "desc": "",
+    "desc": "Quick and fresh sandwich with crisp vegetables",
     "ingredients": [
       "4 slices of bread",
       "4 leaves of lettuce",
@@ -78,10 +78,10 @@ const RECIPES = [
   {
     "title": "Homemade Woolworths rice",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "30 minutes",
+    "difficulty": "Easy",
     "img": "recipe-images/woolworths-rice.JPG",
-    "desc": "",
+    "desc": "Homemade version of the popular store-bought mixed rice",
     "ingredients": [
       "1 cup of rice",
       "6 cups of water",
