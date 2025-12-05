@@ -65,8 +65,6 @@ const RECIPES = [
       "Cut in half, and enjoy"
     ],
     "steps": [
-      "OaRwn>",
-      "2oN",
       "Butter your bread",
       "Place 2 leaves of lettuce on 2 slices of bread",
       "Place 2 slices of cheese on each slice of bread with lettuce",
@@ -91,8 +89,6 @@ const RECIPES = [
       "3 tablespoons of Maggi Aromé All-Purpose Seasoning"
     ],
     "steps": [
-      "oa AF ONS",
-      "GOON",
       "Rinse rice in cold water until water is clear",
       "Place rice in a pot with 6 cups of water",
       "Heat rice until water begins to boil and starch bubbles begin to seep out from",
