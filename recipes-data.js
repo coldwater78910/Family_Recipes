@@ -80,7 +80,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "recipe-images/woolworths-rice.jpg",
+    "img": "recipe-images/woolworths-rice.JPG",
     "desc": "",
     "ingredients": [
       "1 cup of rice",
