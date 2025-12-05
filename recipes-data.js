@@ -50,7 +50,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "",
+    "img": "recipe-images/simple-sandwich.jpg",
     "desc": "",
     "ingredients": [
       "4 slices of bread",
@@ -80,7 +80,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "",
+    "img": "recipe-images/woolworths-rice.jpg",
     "desc": "",
     "ingredients": [
       "1 cup of rice",
@@ -115,7 +115,7 @@ const RECIPES = [
     "tags": [],
     "time": "",
     "difficulty": "",
-    "img": "",
+    "img": "recipe-images/ramen.jpg",
     "desc": "",
     "ingredients": [
       "2eggs",
