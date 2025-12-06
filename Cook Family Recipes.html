@@ -61,15 +61,6 @@
     <!-- include canonical recipes data so we can generate tag chips and support URL-sync -->
     <script src="recipes-data.js"></script>
     <script src="recipes-slug-map.js"></script>
-    <script>
-        // Inline favorites configuration
-        const FAVORITE_RECIPES = [
-          "Chicken Curry",
-          "Homemade Woolworths rice",
-          "Two minute noodle Ramen",
-          "Welsh Cakes"
-        ];
-    </script>
     <script src="js/filter-render.js"></script>
 
     <!-- ===== FOOTER: copyright and small print ===== -->
@@ -78,7 +69,8 @@
         </footer>
     </div>
 
-    <!-- Lightweight homepage script: mount recipes and set year (search moved to search.html) -->
+    <!-- Load favorites config and initialize homepage -->
+    <script src="favorites-config.js"></script>
     <script>
         function initHomepage() {
             const container = document.getElementById('recipes');
@@ -90,10 +82,6 @@
             
             const favoritesTitles = window.FAVORITE_RECIPES || [];
             const allRecipes = window.RECIPES || [];
-            
-            // Add status info
-            const status = `<p>RECIPES: ${allRecipes.length}, FAVORITES: ${favoritesTitles.length}</p>`;
-            container.innerHTML = status;
             
             // Filter recipes to only show favorites, in order of the config
             const filteredRecipes = [];
@@ -107,9 +95,8 @@
                 }
             }
             
-            container.innerHTML += `<p>Filtered: ${filteredRecipes.length}</p>`;
-            
-            // Render each recipe
+            // Clear container and render recipes
+            container.innerHTML = '';
             for(let i = 0; i < filteredRecipes.length; i++) {
                 const r = filteredRecipes[i];
                 const link = document.createElement('a');
@@ -127,8 +114,12 @@
             }
         }
         
-        // Use setTimeout to ensure all external scripts have loaded
-        setTimeout(initHomepage, 100);
+        // Run initialization when DOM is ready
+        if(document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHomepage);
+        } else {
+            initHomepage();
+        }
     </script>
 </body>
 </html>
