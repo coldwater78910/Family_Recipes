@@ -73,25 +73,22 @@
     <!-- Lightweight homepage script: mount recipes and set year (search moved to search.html) -->
     <script>
         function initHomepage() {
-            console.log('[homepage] initHomepage called');
-            console.log('[homepage] window.RECIPES:', window.RECIPES ? window.RECIPES.length + ' recipes' : 'undefined');
-            console.log('[homepage] window.FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
+            const container = document.getElementById('recipes');
+            if(!container) return;
+            
+            // Put test message first
+            container.innerHTML = '<p style="color:red; font-weight:bold">SCRIPT IS RUNNING</p>';
             
             // Set year
             const yearEl = document.getElementById('year');
             if(yearEl) yearEl.textContent = new Date().getFullYear();
             
-            const container = document.getElementById('recipes');
-            if(!container) {
-                console.error('[homepage] Container #recipes not found');
-                return;
-            }
-            
             const favoritesTitles = window.FAVORITE_RECIPES || [];
             const allRecipes = window.RECIPES || [];
             
-            console.log('[homepage] favoritesTitles:', favoritesTitles);
-            console.log('[homepage] allRecipes:', allRecipes.length);
+            // Add status info
+            const status = `<p>RECIPES: ${allRecipes.length}, FAVORITES: ${favoritesTitles.length}</p>`;
+            container.innerHTML += status;
             
             // Filter recipes to only show favorites, in order of the config
             const filteredRecipes = [];
@@ -105,10 +102,7 @@
                 }
             }
             
-            console.log('[homepage] filteredRecipes:', filteredRecipes.length);
-            
-            // Clear container
-            container.innerHTML = '';
+            container.innerHTML += `<p>Filtered: ${filteredRecipes.length}</p>`;
             
             // Render each recipe
             for(let i = 0; i < filteredRecipes.length; i++) {
@@ -126,8 +120,6 @@
                 `;
                 container.appendChild(link);
             }
-            
-            console.log('[homepage] Rendered ' + container.children.length + ' cards');
         }
         
         // Call on DOMContentLoaded to ensure all scripts are loaded
