@@ -72,71 +72,70 @@
 
     <!-- Lightweight homepage script: mount recipes and set year (search moved to search.html) -->
     <script>
-        console.log('[homepage] Script started');
-        console.log('[homepage] FAVORITE_RECIPES at start:', window.FAVORITE_RECIPES);
-        console.log('[homepage] RECIPES at start:', window.RECIPES ? window.RECIPES.length : 'undefined');
-        
-        // Set year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Ensure the featured recipes area is populated from the canonical RECIPES data,
-        // filtered by FAVORITE_RECIPES list from favorites-config.js
-        (function(){
-            try{
-                console.log('[homepage] Mounting recipes...');
-                const container = document.getElementById('recipes');
-                if(!container) {
-                    console.error('[homepage] Container #recipes not found');
-                    return;
-                }
-                
-                console.log('[homepage] FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
-                console.log('[homepage] RECIPES available:', window.RECIPES ? window.RECIPES.length : 0);
-                
-                // Get list of favorite recipe titles from config
-                const favoritesTitles = window.FAVORITE_RECIPES || [];
-                const allRecipes = window.RECIPES || [];
-                
-                console.log('[homepage] favoritesTitles:', favoritesTitles);
-                console.log('[homepage] allRecipes count:', allRecipes.length);
-                
-                // Filter recipes to only show favorites, in order of the config
-                const filteredRecipes = favoritesTitles
-                    .map(title => allRecipes.find(r => r.title === title))
-                    .filter(r => r !== undefined);
-                
-                console.log('[homepage] filteredRecipes count:', filteredRecipes.length);
-                console.log('[homepage] filteredRecipes:', filteredRecipes.map(r => r.title));
-                
-                // Use FILTER if available, otherwise inline rendering
-                if(window.FILTER && typeof window.FILTER.mountRecipesFromData === 'function'){
-                    console.log('[homepage] Using FILTER.mountRecipesFromData');
-                    window.FILTER.mountRecipesFromData('#recipes', filteredRecipes);
-                } else {
-                    // Fallback inline rendering
-                    console.log('[homepage] Using fallback rendering');
-                    container.innerHTML = '';
-                    filteredRecipes.forEach(r=> {
-                        const link = document.createElement('a');
-                        link.className = 'card';
-                        link.href = 'recipe.html?title=' + encodeURIComponent(r.title);
-                        link.innerHTML = `
-                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
-                            <div class="card-body">
-                                <div style="font-weight:700">${r.title}</div>
-                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
-                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>
-                            </div>
-                        `;
-                        container.appendChild(link);
-                    });
-                }
-                console.log('[homepage] Done mounting recipes. Container children:', container.children.length);
-            }catch(e){ 
-                console.error('[homepage] Exception:', e); 
-                console.error('[homepage] Stack:', e.stack);
+        function initHomepage() {
+            console.log('[homepage] initHomepage called');
+            console.log('[homepage] window.RECIPES:', window.RECIPES ? window.RECIPES.length + ' recipes' : 'undefined');
+            console.log('[homepage] window.FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
+            
+            // Set year
+            const yearEl = document.getElementById('year');
+            if(yearEl) yearEl.textContent = new Date().getFullYear();
+            
+            const container = document.getElementById('recipes');
+            if(!container) {
+                console.error('[homepage] Container #recipes not found');
+                return;
             }
-        })();
+            
+            const favoritesTitles = window.FAVORITE_RECIPES || [];
+            const allRecipes = window.RECIPES || [];
+            
+            console.log('[homepage] favoritesTitles:', favoritesTitles);
+            console.log('[homepage] allRecipes:', allRecipes.length);
+            
+            // Filter recipes to only show favorites, in order of the config
+            const filteredRecipes = [];
+            for(let i = 0; i < favoritesTitles.length; i++) {
+                const title = favoritesTitles[i];
+                for(let j = 0; j < allRecipes.length; j++) {
+                    if(allRecipes[j].title === title) {
+                        filteredRecipes.push(allRecipes[j]);
+                        break;
+                    }
+                }
+            }
+            
+            console.log('[homepage] filteredRecipes:', filteredRecipes.length);
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            // Render each recipe
+            for(let i = 0; i < filteredRecipes.length; i++) {
+                const r = filteredRecipes[i];
+                const link = document.createElement('a');
+                link.className = 'card';
+                link.href = 'recipe.html?title=' + encodeURIComponent(r.title);
+                link.innerHTML = `
+                    <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                    <div class="card-body">
+                        <div style="font-weight:700">${r.title}</div>
+                        <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                        <div style="color:var(--muted);font-size:14px">${r.desc}</div>
+                    </div>
+                `;
+                container.appendChild(link);
+            }
+            
+            console.log('[homepage] Rendered ' + container.children.length + ' cards');
+        }
+        
+        // Call on DOMContentLoaded to ensure all scripts are loaded
+        if(document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHomepage);
+        } else {
+            initHomepage();
+        }
     </script>
 </body>
 </html>
