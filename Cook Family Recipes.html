@@ -84,28 +84,39 @@
                 
                 // Get list of favorite recipe titles from config
                 const favoritesTitles = window.FAVORITE_RECIPES || [];
+                const allRecipes = window.RECIPES || [];
                 
                 // Filter recipes to only show favorites, in order of the config
-                const filteredRecipes = favoritesTitles.map(title => 
-                    (window.RECIPES || []).find(r => r.title === title)
-                ).filter(r => r !== undefined);
+                const filteredRecipes = favoritesTitles
+                    .map(title => allRecipes.find(r => r.title === title))
+                    .filter(r => r !== undefined);
                 
-                if(window.FILTER && typeof FILTER.mountRecipesFromData === 'function'){
-                    FILTER.mountRecipesFromData('#recipes', filteredRecipes);
-                } else if(filteredRecipes && filteredRecipes.length){
+                // Use FILTER if available, otherwise inline rendering
+                if(window.FILTER && typeof window.FILTER.mountRecipesFromData === 'function'){
+                    window.FILTER.mountRecipesFromData('#recipes', filteredRecipes);
+                } else {
+                    // Fallback inline rendering
                     container.innerHTML = '';
-                    filteredRecipes.forEach(r=> container.insertAdjacentHTML('beforeend', `\
-                        <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
-                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
-                            <div class="card-body">\
-                                <div style="font-weight:700">${r.title}</div>\
-                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>\
-                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>\
-                            </div>\
-                        </a>\
-                    `));
+                    filteredRecipes.forEach(r=> {
+                        const link = document.createElement('a');
+                        link.className = 'card';
+                        link.href = 'recipe.html?title=' + encodeURIComponent(r.title);
+                        link.innerHTML = `
+                            <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
+                            <div class="card-body">
+                                <div style="font-weight:700">${r.title}</div>
+                                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                                <div style="color:var(--muted);font-size:14px">${r.desc}</div>
+                            </div>
+                        `;
+                        container.appendChild(link);
+                    });
                 }
-            }catch(e){ console.warn('homepage: failed to mount RECIPES', e); }
+            }catch(e){ 
+                console.error('homepage: failed to mount RECIPES', e); 
+                console.log('FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
+                console.log('RECIPES count:', (window.RECIPES || []).length);
+            }
         })();
     </script>
 </body>
