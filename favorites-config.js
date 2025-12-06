@@ -14,7 +14,6 @@
 
 const FAVORITE_RECIPES = [
   "Chicken Curry",
-  "Simple Sandwich",
   "Homemade Woolworths rice",
   "Two minute noodle Ramen",
   "Welsh Cakes"
