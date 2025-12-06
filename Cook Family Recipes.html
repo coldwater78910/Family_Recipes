@@ -61,6 +61,7 @@
     <!-- include canonical recipes data so we can generate tag chips and support URL-sync -->
     <script src="recipes-data.js"></script>
     <script src="recipes-slug-map.js"></script>
+    <script src="favorites-config.js"></script>
     <script src="js/filter-render.js"></script>
 
     <!-- ===== FOOTER: copyright and small print ===== -->
@@ -74,16 +75,26 @@
         // Set year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Ensure the featured recipes area is populated from the canonical RECIPES data.
+        // Ensure the featured recipes area is populated from the canonical RECIPES data,
+        // filtered by FAVORITE_RECIPES list from favorites-config.js
         (function(){
             try{
                 const container = document.getElementById('recipes');
                 if(!container) return;
+                
+                // Get list of favorite recipe titles from config
+                const favoritesTitles = window.FAVORITE_RECIPES || [];
+                
+                // Filter recipes to only show favorites, in order of the config
+                const filteredRecipes = favoritesTitles.map(title => 
+                    (window.RECIPES || []).find(r => r.title === title)
+                ).filter(r => r !== undefined);
+                
                 if(window.FILTER && typeof FILTER.mountRecipesFromData === 'function'){
-                    FILTER.mountRecipesFromData('#recipes', window.RECIPES || []);
-                } else if(window.RECIPES && window.RECIPES.length){
+                    FILTER.mountRecipesFromData('#recipes', filteredRecipes);
+                } else if(filteredRecipes && filteredRecipes.length){
                     container.innerHTML = '';
-                    (window.RECIPES || []).forEach(r=> container.insertAdjacentHTML('beforeend', `\
+                    filteredRecipes.forEach(r=> container.insertAdjacentHTML('beforeend', `\
                         <a class="card" href="recipe.html?title=${encodeURIComponent(r.title)}">\
                             <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>\
                             <div class="card-body">\
