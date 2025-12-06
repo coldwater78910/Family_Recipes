@@ -72,6 +72,10 @@
 
     <!-- Lightweight homepage script: mount recipes and set year (search moved to search.html) -->
     <script>
+        console.log('[homepage] Script started');
+        console.log('[homepage] FAVORITE_RECIPES at start:', window.FAVORITE_RECIPES);
+        console.log('[homepage] RECIPES at start:', window.RECIPES ? window.RECIPES.length : 'undefined');
+        
         // Set year
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -79,23 +83,38 @@
         // filtered by FAVORITE_RECIPES list from favorites-config.js
         (function(){
             try{
+                console.log('[homepage] Mounting recipes...');
                 const container = document.getElementById('recipes');
-                if(!container) return;
+                if(!container) {
+                    console.error('[homepage] Container #recipes not found');
+                    return;
+                }
+                
+                console.log('[homepage] FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
+                console.log('[homepage] RECIPES available:', window.RECIPES ? window.RECIPES.length : 0);
                 
                 // Get list of favorite recipe titles from config
                 const favoritesTitles = window.FAVORITE_RECIPES || [];
                 const allRecipes = window.RECIPES || [];
+                
+                console.log('[homepage] favoritesTitles:', favoritesTitles);
+                console.log('[homepage] allRecipes count:', allRecipes.length);
                 
                 // Filter recipes to only show favorites, in order of the config
                 const filteredRecipes = favoritesTitles
                     .map(title => allRecipes.find(r => r.title === title))
                     .filter(r => r !== undefined);
                 
+                console.log('[homepage] filteredRecipes count:', filteredRecipes.length);
+                console.log('[homepage] filteredRecipes:', filteredRecipes.map(r => r.title));
+                
                 // Use FILTER if available, otherwise inline rendering
                 if(window.FILTER && typeof window.FILTER.mountRecipesFromData === 'function'){
+                    console.log('[homepage] Using FILTER.mountRecipesFromData');
                     window.FILTER.mountRecipesFromData('#recipes', filteredRecipes);
                 } else {
                     // Fallback inline rendering
+                    console.log('[homepage] Using fallback rendering');
                     container.innerHTML = '';
                     filteredRecipes.forEach(r=> {
                         const link = document.createElement('a');
@@ -112,10 +131,10 @@
                         container.appendChild(link);
                     });
                 }
+                console.log('[homepage] Done mounting recipes. Container children:', container.children.length);
             }catch(e){ 
-                console.error('homepage: failed to mount RECIPES', e); 
-                console.log('FAVORITE_RECIPES:', window.FAVORITE_RECIPES);
-                console.log('RECIPES count:', (window.RECIPES || []).length);
+                console.error('[homepage] Exception:', e); 
+                console.error('[homepage] Stack:', e.stack);
             }
         })();
     </script>
