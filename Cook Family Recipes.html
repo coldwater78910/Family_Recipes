@@ -76,9 +76,6 @@
             const container = document.getElementById('recipes');
             if(!container) return;
             
-            // Put test message first
-            container.innerHTML = '<p style="color:red; font-weight:bold">SCRIPT IS RUNNING</p>';
-            
             // Set year
             const yearEl = document.getElementById('year');
             if(yearEl) yearEl.textContent = new Date().getFullYear();
@@ -88,7 +85,7 @@
             
             // Add status info
             const status = `<p>RECIPES: ${allRecipes.length}, FAVORITES: ${favoritesTitles.length}</p>`;
-            container.innerHTML += status;
+            container.innerHTML = status;
             
             // Filter recipes to only show favorites, in order of the config
             const filteredRecipes = [];
@@ -122,12 +119,8 @@
             }
         }
         
-        // Call on DOMContentLoaded to ensure all scripts are loaded
-        if(document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initHomepage);
-        } else {
-            initHomepage();
-        }
+        // Use setTimeout to ensure all external scripts have loaded
+        setTimeout(initHomepage, 100);
     </script>
 </body>
 </html>
