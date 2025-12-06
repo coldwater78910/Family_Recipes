@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <p>Checking if scripts load...</p>
+    <div id="output"></div>
+    
+    <script src="recipes-data.js"></script>
+    <script src="favorites-config.js"></script>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        // Test 1: Check if RECIPES exists
+        const test1 = window.RECIPES ? `✓ RECIPES loaded (${window.RECIPES.length} recipes)` : '✗ RECIPES not found';
+        output.innerHTML += '<p>' + test1 + '</p>';
+        
+        // Test 2: Check if FAVORITE_RECIPES exists
+        const test2 = window.FAVORITE_RECIPES ? `✓ FAVORITE_RECIPES loaded: ${JSON.stringify(window.FAVORITE_RECIPES)}` : '✗ FAVORITE_RECIPES not found';
+        output.innerHTML += '<p>' + test2 + '</p>';
+        
+        // Test 3: Try filtering
+        if(window.RECIPES && window.FAVORITE_RECIPES) {
+            const filtered = [];
+            for(let i = 0; i < window.FAVORITE_RECIPES.length; i++) {
+                const title = window.FAVORITE_RECIPES[i];
+                for(let j = 0; j < window.RECIPES.length; j++) {
+                    if(window.RECIPES[j].title === title) {
+                        filtered.push(window.RECIPES[j].title);
+                        break;
+                    }
+                }
+            }
+            output.innerHTML += '<p>✓ Filtered recipes: ' + JSON.stringify(filtered) + '</p>';
+        }
+    </script>
+</body>
+</html>
