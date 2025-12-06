@@ -61,7 +61,15 @@
     <!-- include canonical recipes data so we can generate tag chips and support URL-sync -->
     <script src="recipes-data.js"></script>
     <script src="recipes-slug-map.js"></script>
-    <script src="favorites-config.js"></script>
+    <script>
+        // Inline favorites configuration
+        const FAVORITE_RECIPES = [
+          "Chicken Curry",
+          "Homemade Woolworths rice",
+          "Two minute noodle Ramen",
+          "Welsh Cakes"
+        ];
+    </script>
     <script src="js/filter-render.js"></script>
 
     <!-- ===== FOOTER: copyright and small print ===== -->
