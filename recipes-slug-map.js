@@ -10,8 +10,8 @@ window.SLUG_MAP = window.SLUG_MAP || {
     "Homemade Woolworths rice": "homemade-woolworths-rice.html",
     "Two minute noodle Ramen": "two-minute-noodle-ramen.html",
     "aes the a": "aes-the-a.html",
+    "Malva Pudding": "malva-pudding.html",
     "Welsh Cakes": "welsh-cakes.html",
-    "@® Katia Mamacos": "katia-mamacos.html",
 };
 
 // Keep backwards compatibility if other scripts reassign window.SLUG_MAP
