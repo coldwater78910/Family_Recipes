@@ -10,7 +10,7 @@ const RECIPES = [
     "time": "45 min",
     "difficulty": "Medium",
     "servings": 4,
-    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/chicken-curry.jpg",
+    "img": "recipe-images/chicken-curry.jpg",
     "desc": "Classic, comforting chicken curry with warm spices and coconut cream.",
     "ingredients": [
       "3 chicken breasts",
@@ -48,10 +48,10 @@ const RECIPES = [
   {
     "title": "Simple Sandwich",
     "tags": [],
-    "time": "10 minutes",
-    "difficulty": "Easy",
-    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/simple-sandwich.JPG",
-    "desc": "Quick and fresh sandwich with crisp vegetables",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "4 slices of bread",
       "4 leaves of lettuce",
@@ -65,6 +65,8 @@ const RECIPES = [
       "Cut in half, and enjoy"
     ],
     "steps": [
+      "OaRwn>",
+      "2oN",
       "Butter your bread",
       "Place 2 leaves of lettuce on 2 slices of bread",
       "Place 2 slices of cheese on each slice of bread with lettuce",
@@ -76,10 +78,10 @@ const RECIPES = [
   {
     "title": "Homemade Woolworths rice",
     "tags": [],
-    "time": "30 minutes",
-    "difficulty": "Easy",
-    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/woolworths-rice.JPG",
-    "desc": "Homemade version of the popular store-bought mixed rice",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "1 cup of rice",
       "6 cups of water",
@@ -89,6 +91,8 @@ const RECIPES = [
       "3 tablespoons of Maggi Aromé All-Purpose Seasoning"
     ],
     "steps": [
+      "oa AF ONS",
+      "GOON",
       "Rinse rice in cold water until water is clear",
       "Place rice in a pot with 6 cups of water",
       "Heat rice until water begins to boil and starch bubbles begin to seep out from",
@@ -109,10 +113,10 @@ const RECIPES = [
   {
     "title": "Two minute noodle Ramen",
     "tags": [],
-    "time": "20 minutes",
-    "difficulty": "Easy",
-    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/ramen.jpg",
-    "desc": "Quick and delicious noodle dish",
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
     "ingredients": [
       "2eggs",
       "2 packets of two-minute noodles",
@@ -160,27 +164,109 @@ const RECIPES = [
     ]
   },
   {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
+    "title": "aes the a",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [],
+    "steps": []
+  },
+  {
     "title": "Welsh Cakes",
     "tags": [],
-    "time": "30 minutes",
-    "difficulty": "Medium",
+    "time": "",
+    "difficulty": "",
     "img": "",
-    "desc": "Traditional Welsh griddle cakes with dried fruit and spice",
-    "ingredients": [
+    "desc": "",
+    "ingredients": [],
+    "steps": [
       "228g of Self-raising flour",
       "80g of Butter",
       "34g of Lard",
-      "58g of Currants",
+      "58g of Currents",
       "86g of castor Sugar",
       "1 egg",
-      "Mixed Spice"
+      "Mixed Spice",
+      "Rub in butter with flour add sugar, fruit, mixed spice and egg",
+      "Roll out dough on a floured board to about 2 a centimetre thick",
+      "Use cookie cutter to cut out circles and cook them on medium heat for 4-5",
+      "minutes each side (When touched during cooking they should feel springy, but",
+      "not wet to the touch)",
+      "Dust with castor sugar and enjoy"
+    ]
+  },
+  {
+    "title": "@® Katia Mamacos",
+    "tags": [],
+    "time": "",
+    "difficulty": "",
+    "img": "",
+    "desc": "",
+    "ingredients": [
+      "Pudding",
+      "+ 1 tbsp butter room temperature",
+      "+ cup brown sugar",
+      "+ 4 tbsp apricot jam",
+      "‘large egg",
+      "+ Toup milk",
+      "2 tbsp vinegar",
+      "2 tsp vanilla essence",
+      "+ 1 cup all-purpose flour",
+      "+ 1 tsp baking soda",
+      "+ Yatsp salt",
+      "Sauce",
+      "+ 2 tbsp butter",
+      "+ 125 micream",
+      "+ 4 tbsp brown sugar",
+      "+ 2 tbsp water"
     ],
     "steps": [
-      "Rub in butter with flour add sugar, fruit, mixed spice and egg",
-      "Roll out dough on a floured board to about 2 centimetres thick",
-      "Use cookie cutter to cut out circles and cook them on medium heat for 4-5 minutes each side",
-      "When touched during cooking they should feel springy, but not wet to the touch",
-      "Dust with castor sugar and enjoy"
+      "Pudding",
+      "1. Preheat the oven to 180°C (350°F). Ovens are temperamental, so if you know yours",
+      "needs a bit more (or less) of a push, feel free to adjust.",
+      "2. Ina large mixing bowl add your first 4 ingredients - butter, sugar, jam and egg. Beat",
+      "until it lightens and gets a bit fluffier. If you only have a fork, the fluffy part isn’t",
+      "make-or-break.",
+      "3. Ina large measuring cup or a bowl, add milk, then vinegar and vanilla essence. Whisk",
+      "lightly.",
+      "4, Inanother measuring cup/bowl, add bicarb to flour and give it a quick stir.",
+      "5. Alternating between the milk mixture and the flour, add to the large mixing bow! and",
+      "mix well as you go along.",
+      "6. Pou!",
+      "have been a bit smaller).",
+      "t0 a lightly greased oven-proof dish (ours was 30x15cm, but it could definitely",
+      "7. Bake for 45 minutes, or until a knife comes out with spongy crumbs stuck to it (it's",
+      "not likely to come out clean) rather than uncooked batter. The pudding will stay in its",
+      "mold and rest for a bit once the sauce is poured over.",
+      "Sauce",
+      "1. Add all sauce ingredients together in a pot and bring to a boil.",
+      "2. Let it simmer, stirring constantly, for 3 minutes. This time will give the sauce a richer,",
+      "deeper taste.",
+      "3. Stab the pudding a few times with a fork to help the sauce sink in so that it doesn’t",
+      "pool at the sides and soak in only there. Then pour the sauce over slowly, being sure",
+      "you're not leaving any part dry."
     ]
   }
 ];

@@ -61,22 +61,14 @@
         <p></p>
         <div class="servings-control">
           <label for="servings">Servings:</label>
-          <button type="button" class="adjust-servings" data-adjust="-24">−</button>
-          <input type="number" id="servings" value="24" min="24" max="96" data-original="24">
-          <button type="button" class="adjust-servings" data-adjust="24">+</button>
+          <button type="button" class="adjust-servings" data-adjust="-1">−</button>
+          <input type="number" id="servings" value="4" min="1" max="24" data-original="4">
+          <button type="button" class="adjust-servings" data-adjust="1">+</button>
         </div>
         <h3>Ingredients</h3>
-        <ul class="ingredients-list" data-original-servings="24">
-          <li>228 grams of Self-raising flour</li>
-          <li>80 grams of Butter</li>
-          <li>34 grams of Lard</li>
-          <li>58 grams of Currants</li>
-          <li>86 grams of castor Sugar</li>
-          <li>1 egg</li>
-          <li>Mixed Spice</li>
-        </ul>
+        <ul class="ingredients-list" data-original-servings="4"></ul>
         <h3>Steps</h3>
-        <ol><li>Rub in butter with flour add sugar, fruit, mixed spice and egg</li><li>Roll out dough on a floured board to about 2 a centimetre thick</li><li>Use cookie cutter to cut out circles and cook them on medium heat for 4-5</li><li>minutes each side (When touched during cooking they should feel springy, but</li><li>not wet to the touch)</li><li>Dust with castor sugar and enjoy</li></ol>
+        <ol><li>228g of Self-raising flour</li><li>80g of Butter</li><li>34g of Lard</li><li>58g of Currents</li><li>86g of castor Sugar</li><li>1 egg</li><li>Mixed Spice</li><li>Rub in butter with flour add sugar, fruit, mixed spice and egg</li><li>Roll out dough on a floured board to about 2 a centimetre thick</li><li>Use cookie cutter to cut out circles and cook them on medium heat for 4-5</li><li>minutes each side (When touched during cooking they should feel springy, but</li><li>not wet to the touch)</li><li>Dust with castor sugar and enjoy</li></ol>
       </div>
     </div>
 
@@ -173,20 +165,17 @@
         }
         
         const text = item.dataset.original;
-        // Match leading numbers and fractions, plus optional unit word (gram, ml, etc.)
-        const match = text.match(/^([0-9]+(?:\s+[0-9]+\/[0-9]+)?|[0-9]+\/[0-9]+)(?:\s+\w+)?\s/);
+        // Match leading numbers and fractions, handling various formats
+        const match = text.match(/^([0-9]+(?:\s+[0-9]+\/[0-9]+)?|[0-9]+\/[0-9]+)\s/);
         
         if (match) {
-          const originalFullMatch = match[0]; // e.g., "228 gram " or "1 "
-          const originalAmount = match[1];    // e.g., "228" or "1"
+          const originalAmount = match[0].trim();
           const originalValue = parseAmount(originalAmount);
           const scaledValue = originalValue * scale;
           const formattedValue = formatAmount(scaledValue);
           
-          // Replace the full match (number + optional unit + space) with formatted number + same unit + space
-          const unitPart = originalFullMatch.slice(originalAmount.length).trimEnd();
-          const replacement = formattedValue + (unitPart ? ' ' + unitPart + ' ' : ' ');
-          item.textContent = text.replace(originalFullMatch, replacement);
+          // Replace only the leading amount in the text
+          item.textContent = text.replace(originalAmount, formattedValue);
         }
       });
     }
@@ -199,8 +188,8 @@
       // Handle direct input changes
       servingsInput.addEventListener('input', (e) => {
         let newValue = parseInt(e.target.value);
-        if (!newValue || newValue < 24) newValue = 24;
-        if (newValue > 96) newValue = 96;
+        if (!newValue || newValue < 1) newValue = 1;
+        if (newValue > 24) newValue = 24;
         e.target.value = newValue;
         updateIngredients(newValue);
       });
@@ -211,8 +200,8 @@
           const adjustment = parseInt(button.dataset.adjust);
           let newValue = parseInt(servingsInput.value) + adjustment;
           
-          if (newValue < 24) newValue = 24;
-          if (newValue > 96) newValue = 96;
+          if (newValue < 1) newValue = 1;
+          if (newValue > 24) newValue = 24;
           servingsInput.value = newValue;
           updateIngredients(newValue);
         });

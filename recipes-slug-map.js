@@ -11,6 +11,7 @@ window.SLUG_MAP = window.SLUG_MAP || {
     "Two minute noodle Ramen": "two-minute-noodle-ramen.html",
     "aes the a": "aes-the-a.html",
     "Welsh Cakes": "welsh-cakes.html",
+    "@® Katia Mamacos": "katia-mamacos.html",
 };
 
 // Keep backwards compatibility if other scripts reassign window.SLUG_MAP
