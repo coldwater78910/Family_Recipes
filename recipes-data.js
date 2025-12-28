@@ -182,8 +182,8 @@ const RECIPES = [
       "not wet to the touch)",
       "Dust with castor sugar and enjoy"
     ]
-  },
-  {
+
   }
+];
 
 if(typeof window !== "undefined") window.RECIPES = RECIPES;
