@@ -160,6 +160,48 @@ const RECIPES = [
     ]
   },
   {
+    "title": "Malva Pudding",
+    "tags": [
+      "dessert",
+      "south-african"
+    ],
+    "time": "1 hr 5 mins",
+    "difficulty": "Easy",
+    "servings": 8,
+    "img": "https://coldwater78910.github.io/Family_Recipes/recipe-images/malva-pudding.jpg",
+    "desc": "This malva pudding recipe is simple and delicious, an absolute classic. To be enjoyed with ice cream, whipped cream or custard.",
+    "ingredients": [
+      "Pudding:",
+      "1 tbsp butter (room temperature)",
+      "1 cup brown sugar",
+      "4 tbsp apricot jam",
+      "1 large egg",
+      "1 cup milk",
+      "2 tbsp vinegar",
+      "2 tsp vanilla essence",
+      "1 cup all-purpose flour",
+      "1 tsp baking soda",
+      "1/2 tsp salt",
+      "Sauce:",
+      "2 tbsp butter",
+      "125 ml cream",
+      "4 tbsp brown sugar",
+      "2 tbsp water"
+    ],
+    "steps": [
+      "Preheat the oven to 180°C (350°F).",
+      "In a large mixing bowl add the butter, brown sugar, apricot jam and egg. Beat until it lightens and gets a bit fluffier.",
+      "In a large measuring cup or a bowl, add milk, then vinegar and vanilla essence. Whisk lightly.",
+      "In another measuring cup/bowl, add baking soda to flour and give it a quick stir.",
+      "Alternating between the milk mixture and the flour, add to the large mixing bowl and mix well as you go along.",
+      "Pour into a lightly greased oven-proof dish and bake for 45 minutes, or until a knife comes out with spongy crumbs stuck to it.",
+      "Let the pudding rest for a bit once the sauce is poured over.",
+      "Add all sauce ingredients together in a pot and bring to a boil.",
+      "Let it simmer, stirring constantly, for 3 minutes to deepen the taste.",
+      "Stab the pudding a few times with a fork to help the sauce sink in, then pour the sauce over slowly so you're not leaving any part dry."
+    ]
+  },
+  {
     "title": "Welsh Cakes",
     "tags": [],
     "time": "",
