@@ -61,9 +61,9 @@
         <p></p>
         <div class="servings-control">
           <label for="servings">Servings:</label>
-          <button type="button" class="adjust-servings" data-adjust="-1">−</button>
-          <input type="number" id="servings" value="8" min="1" max="24" data-original="8">
-          <button type="button" class="adjust-servings" data-adjust="1">+</button>
+          <button type="button" class="adjust-servings" data-adjust="-8">−</button>
+          <input type="number" id="servings" value="8" min="8" max="32" data-original="8">
+          <button type="button" class="adjust-servings" data-adjust="8">+</button>
         </div>
         <h2>Ingredients</h2>
         <ul class="ingredients-list" data-original-servings="8">
@@ -218,8 +218,8 @@
       // Handle direct input changes
       servingsInput.addEventListener('input', (e) => {
         let newValue = parseInt(e.target.value);
-        if (!newValue || newValue < 1) newValue = 1;
-        if (newValue > 24) newValue = 24;
+        if (!newValue || newValue < 8) newValue = 8;
+        if (newValue > 32) newValue = 32;
         e.target.value = newValue;
         updateIngredients(newValue);
       });
@@ -229,9 +229,9 @@
         button.addEventListener('click', () => {
           const adjustment = parseInt(button.dataset.adjust);
           let newValue = parseInt(servingsInput.value) + adjustment;
-          
-          if (newValue < 1) newValue = 1;
-          if (newValue > 24) newValue = 24;
+
+          if (newValue < 8) newValue = 8;
+          if (newValue > 32) newValue = 32;
           servingsInput.value = newValue;
           updateIngredients(newValue);
         });
