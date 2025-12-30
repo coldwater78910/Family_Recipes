@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Spice Blends page — shows spice blends and their uses -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cook Family Recipes • Spice Blends</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Icon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="Icon.jpg">
+</head>
+<body>
+    <div class="container">
+        <header style="display:flex;justify-content:space-between;align-items:center">
+            <a href="Cook Family Recipes.html" class="brand">
+                <img src="Icon.jpg" class="logo" alt="Cook Family Recipes logo">
+                <div>
+                    <div class="brand-title">Cook Family Recipes</div>
+                    <div class="brand-sub">Spice Blends</div>
+                </div>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="Cook Family Recipes.html">Home</a>
+                <a href="recipes.html">Recipes</a>
+                <a href="spice-blends.html">Spice Blends</a>
+                <a href="categories.html">Categories</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="about.html">About</a>
+            </nav>
+        </header>
+
+        <h1 style="margin-top:22px">Spice Blends</h1>
+
+        <p style="margin-top:12px;color:#666">Coming soon - A collection of homemade spice blends to enhance your cooking.</p>
+
+        <div class="list" id="spiceBlendsList">
+            <!-- Spice blend items will be rendered here -->
+        </div>
+
+        <footer>© <span id="year"></span>&nbsp;Cook Family Recipes</footer>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
