@@ -102,7 +102,10 @@
                 const r = filteredRecipes[i];
                 const link = document.createElement('a');
                 link.className = 'card';
-                link.href = 'recipe.html?title=' + encodeURIComponent(r.title);
+                // Use SLUG_MAP to get the correct recipe file, just like recipes.html does
+                const mapped = (window.SLUG_MAP && window.SLUG_MAP[r.title]) ? window.SLUG_MAP[r.title] : null;
+                const slug = mapped || r.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + '.html';
+                link.href = slug;
                 link.innerHTML = `
                     <div class="thumb" style="background-image:url('${r.img}')" role="img" aria-label="${r.title}"></div>
                     <div class="card-body">
