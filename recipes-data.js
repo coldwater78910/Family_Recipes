@@ -48,8 +48,8 @@ const RECIPES = [
   {
     "title": "Simple Sandwich",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "10 mins",
+    "difficulty": "Easy",
     "img": "recipe-images/simple-sandwich.JPG",
     "desc": "A simple fresh sandwich, perfect for a quick lunch or picnic.",
     "ingredients": [
