@@ -211,8 +211,7 @@ const RECIPES = [
       "Rub in butter with flour add sugar, fruit, mixed spice and egg",
       "Roll out dough on a floured board to about 2 a centimetre thick",
       "Use cookie cutter to cut out circles and cook them on medium heat for 4-5",
-      "minutes each side (When touched during cooking they should feel springy, but",
-      "not wet to the touch)",
+      "minutes each side (When touched during cooking they should feel springy, but not wet to the touch)",
       "Dust with castor sugar and enjoy"
     ]
 
