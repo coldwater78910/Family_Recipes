@@ -51,7 +51,7 @@ const RECIPES = [
     "time": "",
     "difficulty": "",
     "img": "recipe-images/simple-sandwich.JPG",
-    "desc": "",
+    "desc": "A simple fresh sandwich, perfect for a quick lunch or picnic.",
     "ingredients": [
       "4 slices of bread",
       "4 leaves of lettuce",
@@ -76,10 +76,10 @@ const RECIPES = [
   {
     "title": "Homemade Woolworths rice",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "30 mins",
+    "difficulty": "Easy",
     "img": "recipe-images/woolworths-rice.JPG",
-    "desc": "",
+    "desc": "A simple and delicious homemade version of the popular Woolworths rice. Perfect as a side dish or a quick meal on its own.",
     "ingredients": [
       "1 cup of rice",
       "6 cups of water",
@@ -106,10 +106,10 @@ const RECIPES = [
   {
     "title": "Two minute noodle Ramen",
     "tags": [],
-    "time": "",
-    "difficulty": "",
+    "time": "35 mins",
+    "difficulty": "Easy",
     "img": "recipe-images/ramen.jpg",
-    "desc": "",
+    "desc": "A quick and easy ramen recipe that's perfect for a fast meal. With a flavorful broth and delicious toppings, this ramen is sure to satisfy your cravings.",
     "ingredients": [
       "2 eggs",
       "2 packets of two-minute noodles",
@@ -198,7 +198,7 @@ const RECIPES = [
     "time": "",
     "difficulty": "",
     "img": "recipe-images/welsh-cakes.jpg",
-    "desc": "",
+    "desc": "A traditional Welsh treat, these Welsh cakes are soft, sweet, and perfect for tea time they're sure to become a family favorite.",
     "ingredients": [],
     "steps": [
       "228g of Self-raising flour",
