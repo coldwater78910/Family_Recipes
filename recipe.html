@@ -37,24 +37,96 @@
 
     <script src="recipes-data.js"></script>
     <script>
+        // helper to read querystring
         function qs(name){ const params = new URLSearchParams(location.search); return params.get(name) || ''; }
         const title = qs('title');
         const recipe = (window.RECIPES || []).find(r=> r.title === title) || (window.RECIPES || [])[0] || null;
         const main = document.getElementById('main');
-        if(!recipe){
-            main.innerHTML = '<p style="color:var(--muted)">Recipe not found.</p>';
-        } else {
+
+        function renderRecipeToMain(r){
+            if(!r){
+                main.innerHTML = '<p style="color:var(--muted)">Recipe not found.</p>';
+                return;
+            }
             main.innerHTML = `
-                <div class="recipe-thumb" style="background-image:url('${recipe.img}')" aria-label="${recipe.title}"></div>
-                <h1 style="margin-top:12px">${recipe.title}</h1>
-                <div class="meta"><span>${recipe.time}</span><span>${recipe.difficulty}</span></div>
-                <div class="tags">${(recipe.tags||'').split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('')}</div>
+                <div class="recipe-thumb" style="background-image:url('${r.img}')" aria-label="${r.title}"></div>
+                <h1 style="margin-top:12px">${r.title}</h1>
+                <div class="meta"><span>${r.time}</span><span>${r.difficulty}</span></div>
+                <div class="tags">${(r.tags||'').split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('')}</div>
                 <div class="content">
-                    <p>${recipe.desc || ''}</p>
-                    ${ (recipe.steps && recipe.steps.length) ? (`<h3>Steps</h3><ol>${recipe.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`) : '' }
+                    <p>${r.desc || ''}</p>
+                    ${ (r.steps && r.steps.length) ? (`<h3>Steps</h3><ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`) : '' }
                 </div>
             `;
         }
+
+        // open printable window and trigger print
+        function downloadRecipePdf(){
+            if(!recipe) return alert('Recipe not found');
+            const win = window.open('', '_blank');
+            const styles = `
+                <style>
+                    body{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; padding:20px; color:#111 }
+                    .recipe-thumb{ width:100%; height:220px; background-size:cover; background-position:center; margin-bottom:12px }
+                    h1{ margin:0 0 8px 0 }
+                    .meta{ color:#666; margin-bottom:8px }
+                    .tags{ margin-bottom:12px }
+                    .content ol{ padding-left:1.2em }
+                    img{ max-width:100%; height:auto }
+                    @media print{ img{ max-width:100% } }
+                </style>
+            `;
+
+            // Use an <img> tag for the thumbnail so it prints reliably
+            const thumb = recipe.img ? `<img src="${recipe.img}" alt="${recipe.title} thumbnail">` : '';
+            const tags = (recipe.tags||'').split(',').map(t=>`<span style="display:inline-block;background:#efefef;padding:4px 8px;margin-right:6px;border-radius:4px">${t.trim()}</span>`).join('');
+            const stepsHtml = (recipe.steps && recipe.steps.length) ? (`<h3>Steps</h3><ol>${recipe.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`) : '';
+
+            const doc = `
+                <html><head><meta charset="utf-8"><title>${recipe.title}</title>${styles}</head>
+                <body>
+                    <h1>${recipe.title}</h1>
+                    <div class="meta">${recipe.time || ''} ${recipe.difficulty ? ' • ' + recipe.difficulty : ''}</div>
+                    <div class="thumb">${thumb}</div>
+                    <div class="tags">${tags}</div>
+                    <div class="content">
+                        <p>${recipe.desc || ''}</p>
+                        ${stepsHtml}
+                    </div>
+                </body></html>
+            `;
+
+            win.document.open();
+            win.document.write(doc);
+            win.document.close();
+            // wait a bit for images to load then print
+            const tryPrint = ()=>{
+                try{
+                    win.focus();
+                    win.print();
+                }catch(e){ console.warn('print failed', e) }
+            };
+            setTimeout(tryPrint, 500);
+        }
+
+        // Initial render
+        renderRecipeToMain(recipe);
+    </script>
+
+    <!-- Download button placed after scripts so it's available in the header area -->
+    <script>
+        // add download button near the back-link
+        (function(){
+            const back = document.querySelector('.back-link');
+            if(!back) return;
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-inline';
+            btn.type = 'button';
+            btn.textContent = 'Download PDF';
+            btn.style.marginLeft = '12px';
+            btn.addEventListener('click', downloadRecipePdf);
+            back.after(btn);
+        })();
     </script>
 </body>
 </html>
