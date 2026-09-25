@@ -256,7 +256,15 @@ footer{
     justify-content:center; /* center horizontally */
     text-align:center;
 }
-.load-more{background:transparent;border:1px solid #eee;padding:10px 14px;border-radius:10px;cursor:pointer}
+#loadMore.load-more,
+.load-more {
+    background: transparent;
+    border: 1px solid #eee;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff !important;
+}
 
 /* Standard site button used across pages */
 .button{display:inline-block;background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
