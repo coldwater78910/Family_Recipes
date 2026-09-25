@@ -252,6 +252,63 @@ const RECIPES = [
     ]
   },
   {
+    "title": "Dombolo (Steamed Dumplings)",
+    "tags": [
+      "bread",
+      "dumpling",
+      "steamed"
+    ],
+    "time": "35 mins",
+    "difficulty": "Medium",
+    "servings": 4,
+    "img": "",
+    "desc": "Soft steamed dumplings, perfect placed on top of stew or mince to soak up all the flavour.",
+    "ingredients": [
+      "4 cups - flour",
+      "50ml - oil/butter",
+      "1 Tblsp - Baking Powder",
+      "2 tsp - salt",
+      "1/4 cup - sugar",
+      "1 cup - water, or enough to make a soft sticky dough"
+    ],
+    "steps": [
+      "Mix all ingredients together in a mixing bowl.",
+      "Add 1 cup of water, or enough that the mixture becomes a soft, kind of sticky mass of dough when kneaded. Let it rise for up to an hour, reshape into small balls, then let it rise again.",
+      "Place the balls on top of a stew or mince in a pot with the lid on.",
+      "Cook slowly on a low heat for about 20 minutes until the dombolo are cooked and puffed up. They should be steamed and full of flavour."
+    ]
+  },
+  {
+    "title": "Napolitana sauce",
+    "tags": [
+      "sauce",
+      "tomato",
+      "italian"
+    ],
+    "time": "2 hrs 30 mins",
+    "difficulty": "Medium",
+    "servings": 8,
+    "img": "",
+    "desc": "A rich roasted tomato sauce with garlic, onions, peppers and herbs, slow cooked until thick and full of flavour.",
+    "ingredients": [
+      "3kg - tomatoes",
+      "1 - head of garlic, cut in half",
+      "2 - red onions",
+      "2 - red peppers",
+      "2 - sticks of celery",
+      "2 - carrots",
+      "Fresh oregano, thyme and rosemary"
+    ],
+    "steps": [
+      "Place in a roasting pan and grill in the oven at the highest heat until the tomatoes blacken (1-2 hours).",
+      "Remove the blackened outer parts of the tomato skins, garlic skins, thyme and rosemary stalks.",
+      "Blitz all the ingredients in a blender until smooth.",
+      "Deglaze the roasting pan and blackened bits with a little hot water (or stock if you have) and pass through a strainer.",
+      "Cook down the sauce until thickened. Add 1 tblsp dried oregano and 2-3 tblsp olive oil (can use regular oil).",
+      "Strain and season."
+    ]
+  },
+  {
     "title": "Sauce Tomat",
     "tags": [
       "sauce",
