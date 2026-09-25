@@ -52,7 +52,9 @@
     };
 
     function slugify(title){
-        return String(title).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + '.html';
+        // Match generator's slug() behaviour: replace each non-alnum char with '-', do not collapse
+        const s = String(title || '').toLowerCase().split('').map(c=> /[a-z0-9]/.test(c) ? c : '-').join('');
+        return s.replace(/(^-|-$)/g,'') + '.html';
     }
 
     // Build a card element from a recipe object
