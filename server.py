@@ -18,6 +18,7 @@ import tempfile
 import base64
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory, abort, Response, send_file
+from flask_cors import CORS
 import json
 import urllib.parse
 
@@ -27,6 +28,8 @@ UPLOAD_DIR = ROOT / 'Recipe Uploads'
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 app = Flask(__name__, static_folder=str(ROOT), static_url_path='')
+# Allow cross-origin requests so the static site (GitHub Pages) can call /export_pdf
+CORS(app)
 
 
 @app.route('/upload', methods=['GET'])
