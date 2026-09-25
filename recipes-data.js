@@ -217,7 +217,7 @@ const RECIPES = [
 
   },
   {
-    "title": "Indonesian Beef Pho - Serves 2",
+    "title": "Indonesian Beef Pho",
     "tags": [
       "dinner",
       "beef",
