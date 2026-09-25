@@ -12,6 +12,10 @@ window.SLUG_MAP = window.SLUG_MAP || {
     "aes the a": "aes-the-a.html",
     "Malva Pudding": "malva-pudding.html",
     "Welsh Cakes": "welsh-cakes.html",
+    "Indonesian Beef Pho - Serves 2": "indonesian-beef-pho.html",
+    "Dombolo (Steamed Dumplings)": "dombolo-steamed-dumplings.html",
+    "Napolitana sauce": "napolitana-sauce.html",
+    "Sauce Tomat": "sauce-tomat.html",
 };
 
 // Keep backwards compatibility if other scripts reassign window.SLUG_MAP

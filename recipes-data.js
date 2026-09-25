@@ -215,6 +215,84 @@ const RECIPES = [
       "Dust with castor sugar and enjoy"
     ]
 
+  },
+  {
+    "title": "Indonesian Beef Pho - Serves 2",
+    "tags": [
+      "dinner",
+      "beef",
+      "soup"
+    ],
+    "time": "40 mins",
+    "difficulty": "Medium",
+    "servings": 2,
+    "img": "",
+    "desc": "A fragrant beef pho-style broth with warming spices, fresh herbs and raw beef gently cooked in the hot stock.",
+    "ingredients": [
+      "250ml - beef stock",
+      "1 - stick cinnamon",
+      "1/2 tsp - black pepper corns",
+      "1 - onion, finely chopped",
+      "1 - Black cardamom (Alcha)",
+      "150ml - Lime cordial",
+      "2 - Star anise",
+      "1 tblsp - ginger",
+      "1 - spring onion, finely sliced",
+      "1 - red chilli, finely chopped",
+      "30ml - fish sauce",
+      "1 - lemon grass stalk",
+      "1/2 tblsp - garlic",
+      "1/2 tblsp - salt",
+      "1 - rump steak/ raw beef steak, thinly sliced"
+    ],
+    "steps": [
+      "Mix stock, lime cordial, black pepper corns, black cardamom, star anise, fish sauce, lemon grass, red chilli, garlic, ginger and cinnamon stick, bring to the boil, drop down to a simmer and let infuse for 20 minutes. Strain and season.",
+      "In a bowl place some bean sprouts, cooked noodles, raw beef and a selection of veg. Gently pour over the broth, pouring it gently onto the raw beef to cook it slightly.",
+      "Dress the bowl with fresh herbs and spring onion."
+    ]
+  },
+  {
+    "title": "Sauce Tomat",
+    "tags": [
+      "sauce",
+      "tomato",
+      "classic"
+    ],
+    "time": "2 hrs 15 mins",
+    "difficulty": "Medium",
+    "servings": 6,
+    "img": "",
+    "desc": "Tomato concasse and a classic tomato sauce base with bacon, stock, herbs and a velvety finish.",
+    "ingredients": [
+      "Tomato Concasse:",
+      "1kg - Tomatoes",
+      "Sauce Tomat:",
+      "40g - Bacon",
+      "40g - Butter",
+      "40g - Flour",
+      "2 Cloves - Garlic",
+      "2 - Onions",
+      "1 - large carrot",
+      "1 - Celery stalk",
+      "300ml - Stock",
+      "2 sprigs of thyme",
+      "2 sprigs of rosemary",
+      "The tomato concasse from above recipe"
+    ],
+    "steps": [
+      "Tomato Concasse: Score the tomato skins with a cross.",
+      "Briefly place the tomatoes in boiling water until the skins start to come away. Remove from the hot water and place in cold water.",
+      "Remove the skin from the tomatoes, remove the seeds and cut the remaining flesh into very small cubes.",
+      "Season with salt and crushed black pepper.",
+      "Sauce Tomat: Render down the fat of the bacon.",
+      "Cut the onion, celery and carrot into small cubes, the same size as the tomato concasse.",
+      "Fry the onion, celery and carrot until lightly browned.",
+      "Add the butter and flour and cook until it forms a blonde-coloured paste.",
+      "Add the stock.",
+      "Add the garlic, tomato concasse and the herbs.",
+      "Simmer partially covered for an hour.",
+      "Strain and season."
+    ]
   }
 ];
 
