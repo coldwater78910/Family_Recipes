@@ -350,6 +350,67 @@ const RECIPES = [
       "Simmer partially covered for an hour.",
       "Strain and season."
     ]
+  },
+  {
+    "title": "Butter Chicken Curry Sauce (Makhani Gravy)",
+    "tags": [
+      "curry",
+      "sauce",
+      "chicken"
+    ],
+    "time": "30 mins",
+    "difficulty": "Medium",
+    "servings": 4,
+    "img": "",
+    "desc": "A rich makhani-style butter chicken sauce — smooth, creamy and spiced.",
+    "ingredients": [
+      "1 cup - Boiled onion paste",
+      "1 tbsp - Ginger paste",
+      "1 tbsp - Garlic paste",
+      "1 tbsp - Coriander powder",
+      "1 tbsp - Cumin powder",
+      "1 tbsp - Turmeric",
+      "1 tbsp - Red chilli powder",
+      "3 cups - Tomato puree",
+      "2 cups - Ghee, cream, or almond/cashew nut puree"
+    ],
+    "steps": [
+      "Fry the boiled onion paste to evaporate some of the moisture.",
+      "Add the ginger and garlic paste, and the powdered spices.",
+      "Add the tomato puree and cook off slightly.",
+      "Cook down until thickened.",
+      "Add the cream (or nut puree) and simmer briefly.",
+      "Serve with cooked chicken and rice or naan."
+    ]
+  },
+  {
+    "title": "Durban Curry Sauce (Labaddar Gravy/ Brown Gravy)",
+    "tags": [
+      "curry",
+      "sauce",
+      "durban"
+    ],
+    "time": "30 mins",
+    "difficulty": "Medium",
+    "servings": 4,
+    "img": "",
+    "desc": "A classic Durban-style brown curry sauce; richly spiced with fried onions and tomatoes.",
+    "ingredients": [
+      "1 cup - Fried onion paste",
+      "1 tbsp - Garlic paste",
+      "1 tbsp - Ginger paste",
+      "1 tbsp - Coriander powder",
+      "1 tbsp - Cumin powder",
+      "1 tbsp - Turmeric",
+      "1 tbsp - Red chilli powder",
+      "3 cups - Chopped tomatoes"
+    ],
+    "steps": [
+      "Heat fried onion paste, then add garlic and ginger paste.",
+      "Add the powdered spices and cook until fragrant.",
+      "Add the chopped tomatoes.",
+      "Cook down to thicken the sauce and adjust seasoning."
+    ]
   }
 ];
 
