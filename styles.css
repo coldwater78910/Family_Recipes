@@ -159,6 +159,7 @@ p.lead{margin:0;color:var(--muted)}
     margin: 20px 0;
     box-shadow: 0 6px 18px rgba(16,24,40,0.06);
     border:1px solid rgba(0,0,0,0.04);
+    color: var(--text-dark);
 }
 
 .time-info {
@@ -171,7 +172,7 @@ p.lead{margin:0;color:var(--muted)}
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--muted);
+    color: var(--text-dark);
 }
 
 .recipe-details {
@@ -185,6 +186,7 @@ p.lead{margin:0;color:var(--muted)}
     display: flex;
     align-items: center;
     gap: 6px;
+    color: var(--text-dark);
 }
 
 .nutrition-info {
@@ -196,7 +198,7 @@ p.lead{margin:0;color:var(--muted)}
 
 .nutrition-info h4 {
     margin: 0 0 12px 0;
-    color: var(--muted);
+    color: var(--text-dark);
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -214,7 +216,7 @@ p.lead{margin:0;color:var(--muted)}
 
 .nutrition-grid span {
     display: block;
-    color: var(--muted);
+    color: var(--text-dark);
     font-size: 13px;
     margin-bottom: 4px;
 }
