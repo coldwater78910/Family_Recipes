@@ -88,6 +88,21 @@ h1,h2,h3,h5,h6{
     color: var(--text-light);
 }
 
+body:has(.recipe-content) h1,
+body:has(.recipe-content) h2,
+body:has(.recipe-content) h3,
+body:has(.recipe-content) h4,
+body:has(.recipe-content) h5,
+body:has(.recipe-content) h6,
+body.recipe-page h1,
+body.recipe-page h2,
+body.recipe-page h3,
+body.recipe-page h4,
+body.recipe-page h5,
+body.recipe-page h6 {
+    color: var(--text-dark);
+}
+
 /* Recipe pages should use a blank background instead of the site-wide dynamic image. */
 body::before{
     content: "";
