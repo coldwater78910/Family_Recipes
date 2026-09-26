@@ -18,22 +18,7 @@
     btn.setAttribute('aria-label', 'Print recipe');
     btn.style.marginLeft = '12px';
     btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5"/><path d="M5 12h14a2 2 0 0 1 2 2v4H3v-4a2 2 0 0 1 2-2z"/><path d="M7 17h10v3H7z"/><path d="M7 8h10"/></svg>';
-    btn.addEventListener('click', async function(){
-      const url = '/export_pdf?title=' + encodeURIComponent(title);
-      // Probe the endpoint: some hosts are static (GitHub Pages) and won't have the server-side route.
-      try{
-        // Try a HEAD request first. Some static hosts will 200 HTML instead.
-        const res = await fetch(url, { method: 'HEAD', mode: 'cors' });
-        const ct = res.headers.get('content-type') || '';
-        if(res.ok && ct.includes('pdf')){
-          window.open(url, '_blank');
-          return;
-        }
-      }catch(e){
-        // network error or CORS — fall back to client-side print
-      }
-
-      // Fallback: open a clean standalone print window without site branding or favicon.
+    btn.addEventListener('click', function(){
       const contentEl = document.querySelector('.recipe-content') || document.body;
       const cleanHtml = `
         <!doctype html>
@@ -61,14 +46,20 @@
         <body>${contentEl.outerHTML}</body>
         </html>
       `;
+
+      const w = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
+      if(!w){ alert('Please allow pop-ups to print this recipe.'); return; }
+
       const blob = new Blob([cleanHtml], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      const w = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
-      if(!w){ URL.revokeObjectURL(url); alert('Please allow pop-ups to print this recipe.'); return; }
       w.document.write(cleanHtml);
       w.document.close();
       w.document.title = title;
-      setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} setTimeout(()=>URL.revokeObjectURL(url), 1500); }, 500);
+
+      setTimeout(() => {
+        try { w.focus(); w.print(); } catch (e) {}
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }, 200);
     });
     return btn;
   }
