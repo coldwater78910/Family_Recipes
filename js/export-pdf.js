@@ -36,11 +36,13 @@
       // Fallback: open printable window from current page content
       const contentEl = document.querySelector('.recipe-content') || document.body;
       const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
-      const doc = `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title>${styles}<style>body{padding:20px;background:#fff;color:#111} .print-button{display:none}</style></head><body>${contentEl.outerHTML}</body></html>`;
+      const doc = `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title>${styles}<style>body{padding:20px;background:#fff;color:#111} .print-button{display:none} button{display:inline-block;margin-bottom:12px;padding:8px 12px;border:none;border-radius:8px;background:#e76f51;color:#fff;font-weight:700;cursor:pointer}</style></head><body><button type="button" onclick="window.print()">Print / Save as PDF</button>${contentEl.outerHTML}</body></html>`;
       const w = window.open('', '_blank', 'noopener,noreferrer');
       if(!w){ alert('Please allow pop-ups to print this recipe.'); return; }
+      w.document.open();
+      w.document.write(doc);
       w.document.close();
-      setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 500);
+      setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){ try{ const btn = w.document.createElement('button'); btn.type='button'; btn.textContent='Print / Save as PDF'; btn.style.cssText='display:inline-block;margin-bottom:12px;padding:8px 12px;border:none;border-radius:8px;background:#e76f51;color:#fff;font-weight:700;cursor:pointer'; btn.onclick = ()=> w.print(); w.document.body.prepend(btn); }catch(inner){ } } }, 500);
     });
     return btn;
   }

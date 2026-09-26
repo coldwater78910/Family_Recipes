@@ -94,6 +94,7 @@
             const doc = `
                 <html><head><meta charset="utf-8"><title>${safeText(recipe.title)}</title>${styles}</head>
                 <body>
+                    <button type="button" onclick="window.print()" style="display:inline-block;margin-bottom:12px;padding:8px 12px;border:none;border-radius:8px;background:#e76f51;color:#fff;font-weight:700;cursor:pointer;">Print / Save as PDF</button>
                     <h1>${safeText(recipe.title)}</h1>
                     <div class="meta">${safeText(recipe.time || '')}${recipe.difficulty ? ' • ' + safeText(recipe.difficulty) : ''}</div>
                     <div class="thumb">${thumb}</div>
@@ -115,8 +116,13 @@
                     win.print();
                 } catch (e) {
                     console.warn('print failed', e);
+                    try {
+                        win.document.body.insertAdjacentHTML('afterend', '<div style="padding:12px;text-align:center"><button onclick="window.print()" style="padding:8px 12px;border:none;border-radius:8px;background:#e76f51;color:#fff;font-weight:700;cursor:pointer;">Print / Save as PDF</button></div>');
+                    } catch (innerError) {
+                        console.warn('fallback print action failed', innerError);
+                    }
                 }
-            }, 400);
+            }, 500);
         }
 
         // Initial render
