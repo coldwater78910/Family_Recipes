@@ -10,6 +10,8 @@
   const title = getTitle();
   if(!title) return;
 
+  document.querySelectorAll('.print-button').forEach((btn) => btn.remove());
+
   function makeButton(){
     const btn = document.createElement('button');
     btn.className = 'btn btn-inline print-button';
