@@ -98,19 +98,21 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <title>${safeText(recipe.title)}</title>
                     <style>
-                        :root{ color-scheme: light; }
+                        :root { color-scheme: light; }
                         html, body { margin: 0; padding: 0; background: #fff; color: #111; }
                         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; padding: 24px; line-height: 1.5; }
-                        *{ box-sizing: border-box; }
-                        h1,h2,h3,h4,h5,h6{ margin: 0 0 12px; color: #111; }
-                        p, li{ color: #111; }
-                        .tag{ display:inline-block; background:#f1f1f1; border-radius:999px; padding:4px 8px; margin:0 6px 8px 0; }
-                        img{ max-width:100%; height:auto; display:block; margin:0 0 16px; }
+                        * { box-sizing: border-box; }
+                        .no-print { display: inline-block; margin-bottom: 16px; padding: 10px 16px; border: none; border-radius: 8px; background: #e76f51; color: #fff; font-weight: 700; cursor: pointer; }
+                        h1,h2,h3,h4,h5,h6 { margin: 0 0 12px; color: #111; }
+                        p, li { color: #111; }
+                        .tag { display:inline-block; background:#f1f1f1; border-radius:999px; padding:4px 8px; margin:0 6px 8px 0; }
+                        img { max-width:100%; height:auto; display:block; margin:0 0 16px; }
                         @page { margin: 0.55in; size: auto; }
-                        @media print { html, body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+                        @media print { .no-print { display: none !important; } html, body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
                     </style>
                 </head>
                 <body>
+                    <button type="button" class="no-print" onclick="window.print()">Print / Save as PDF</button>
                     <h1>${safeText(recipe.title)}</h1>
                     <div class="meta">${safeText(recipe.time || '')}${recipe.difficulty ? ' • ' + safeText(recipe.difficulty) : ''}</div>
                     <div class="thumb">${thumb}</div>
@@ -122,24 +124,22 @@
                 </body></html>
             `;
 
-            const blob = new Blob([doc], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
             const win = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
-            if(!win){ URL.revokeObjectURL(url); return alert('Please allow pop-ups to print this recipe.'); }
+            if(!win){ return alert('Please allow pop-ups to print this recipe.'); }
 
+            win.document.open();
             win.document.write(doc);
             win.document.close();
             win.document.title = recipe.title;
+            win.focus();
 
             setTimeout(() => {
                 try {
-                    win.focus();
                     win.print();
                 } catch (e) {
                     console.warn('print failed', e);
                 }
-                setTimeout(() => URL.revokeObjectURL(url), 1500);
-            }, 500);
+            }, 350);
         }
 
         // Initial render
