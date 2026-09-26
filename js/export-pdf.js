@@ -54,15 +54,22 @@
         </html>
       `;
 
-      const w = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
-      if(!w){ alert('Please allow pop-ups to print this recipe.'); return; }
+      const blob = new Blob([printableHtml], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const w = window.open(url, '_blank', 'noopener,noreferrer,width=900,height=1100');
+      if(!w){ URL.revokeObjectURL(url); alert('Please allow pop-ups to print this recipe.'); return; }
 
-      w.document.open();
-      w.document.write(printableHtml);
-      w.document.close();
-      w.document.title = title;
-      w.focus();
-      setTimeout(() => { try { w.print(); } catch (e) {} }, 350);
+      const tryPrint = () => {
+        try {
+          w.focus();
+          w.document.title = title;
+          w.print();
+        } catch (e) {}
+      };
+
+      w.addEventListener ? w.addEventListener('load', tryPrint, { once: true }) : null;
+      setTimeout(tryPrint, 500);
+      setTimeout(() => URL.revokeObjectURL(url), 2500);
     });
     return btn;
   }

@@ -124,22 +124,24 @@
                 </body></html>
             `;
 
-            const win = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
-            if(!win){ return alert('Please allow pop-ups to print this recipe.'); }
+            const blob = new Blob([doc], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const win = window.open(url, '_blank', 'noopener,noreferrer,width=900,height=1100');
+            if(!win){ URL.revokeObjectURL(url); return alert('Please allow pop-ups to print this recipe.'); }
 
-            win.document.open();
-            win.document.write(doc);
-            win.document.close();
-            win.document.title = recipe.title;
-            win.focus();
-
-            setTimeout(() => {
+            const tryPrint = () => {
                 try {
+                    win.focus();
+                    win.document.title = recipe.title;
                     win.print();
                 } catch (e) {
                     console.warn('print failed', e);
                 }
-            }, 350);
+            };
+
+            win.addEventListener ? win.addEventListener('load', tryPrint, { once: true }) : null;
+            setTimeout(tryPrint, 500);
+            setTimeout(() => URL.revokeObjectURL(url), 2500);
         }
 
         // Initial render
