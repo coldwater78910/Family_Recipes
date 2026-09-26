@@ -63,34 +63,43 @@
         // open printable window and trigger print
         function downloadRecipePdf(){
             if(!recipe) return alert('Recipe not found');
-            const win = window.open('', '_blank');
+            const win = window.open('', '_blank', 'noopener,noreferrer');
+            if(!win){ return alert('Please allow pop-ups to print this recipe.'); }
+
             const styles = `
                 <style>
-                    body{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; padding:20px; color:#111 }
+                    body{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; padding:20px; color:#111; background:#fff }
                     .recipe-thumb{ width:100%; height:220px; background-size:cover; background-position:center; margin-bottom:12px }
                     h1{ margin:0 0 8px 0 }
                     .meta{ color:#666; margin-bottom:8px }
                     .tags{ margin-bottom:12px }
                     .content ol{ padding-left:1.2em }
                     img{ max-width:100%; height:auto }
-                    @media print{ img{ max-width:100% } }
+                    .tag{ display:inline-block; background:#efefef; padding:4px 8px; margin-right:6px; border-radius:4px }
+                    @media print{ body{ padding:0 } img{ max-width:100% } }
                 </style>
             `;
 
-            // Use an <img> tag for the thumbnail so it prints reliably
-            const thumb = recipe.img ? `<img src="${recipe.img}" alt="${recipe.title} thumbnail">` : '';
-            const tags = (recipe.tags||'').split(',').map(t=>`<span style="display:inline-block;background:#efefef;padding:4px 8px;margin-right:6px;border-radius:4px">${t.trim()}</span>`).join('');
-            const stepsHtml = (recipe.steps && recipe.steps.length) ? (`<h3>Steps</h3><ol>${recipe.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`) : '';
+            const safeText = (value = '') => String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+
+            const thumb = recipe.img ? `<img src="${safeText(recipe.img)}" alt="${safeText(recipe.title)} thumbnail">` : '';
+            const tags = (recipe.tags || '').split(',').filter(Boolean).map(tag => `<span class="tag">${safeText(tag.trim())}</span>`).join('');
+            const stepsHtml = (recipe.steps && recipe.steps.length) ? (`<h3>Steps</h3><ol>${recipe.steps.map(s => `<li>${safeText(s)}</li>`).join('')}</ol>`) : '';
 
             const doc = `
-                <html><head><meta charset="utf-8"><title>${recipe.title}</title>${styles}</head>
+                <html><head><meta charset="utf-8"><title>${safeText(recipe.title)}</title>${styles}</head>
                 <body>
-                    <h1>${recipe.title}</h1>
-                    <div class="meta">${recipe.time || ''} ${recipe.difficulty ? ' • ' + recipe.difficulty : ''}</div>
+                    <h1>${safeText(recipe.title)}</h1>
+                    <div class="meta">${safeText(recipe.time || '')}${recipe.difficulty ? ' • ' + safeText(recipe.difficulty) : ''}</div>
                     <div class="thumb">${thumb}</div>
                     <div class="tags">${tags}</div>
                     <div class="content">
-                        <p>${recipe.desc || ''}</p>
+                        <p>${safeText(recipe.desc || '')}</p>
                         ${stepsHtml}
                     </div>
                 </body></html>
@@ -99,14 +108,15 @@
             win.document.open();
             win.document.write(doc);
             win.document.close();
-            // wait a bit for images to load then print
-            const tryPrint = ()=>{
-                try{
+
+            setTimeout(() => {
+                try {
                     win.focus();
                     win.print();
-                }catch(e){ console.warn('print failed', e) }
-            };
-            setTimeout(tryPrint, 500);
+                } catch (e) {
+                    console.warn('print failed', e);
+                }
+            }, 400);
         }
 
         // Initial render
@@ -120,10 +130,11 @@
             const back = document.querySelector('.back-link');
             if(!back) return;
             const btn = document.createElement('button');
-            btn.className = 'btn btn-inline';
+            btn.className = 'btn btn-inline print-button';
             btn.type = 'button';
-            btn.textContent = 'Download PDF';
-            btn.style.marginLeft = '12px';
+            btn.title = 'Print recipe';
+            btn.setAttribute('aria-label', 'Print recipe');
+            btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5"/><path d="M5 12h14a2 2 0 0 1 2 2v4H3v-4a2 2 0 0 1 2-2z"/><path d="M7 17h10v3H7z"/><path d="M7 8h10"/></svg>';
             btn.addEventListener('click', downloadRecipePdf);
             back.after(btn);
         })();

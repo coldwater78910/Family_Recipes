@@ -25,6 +25,39 @@
     box-shadow: 0 12px 30px rgba(16,24,40,0.12);
 }
 
+.print-button {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-left: 12px;
+    background: transparent !important;
+    color: var(--accent) !important;
+    border: 1.5px solid rgba(231, 111, 81, 0.8);
+    box-shadow: none;
+}
+
+.print-button:hover {
+    background: rgba(231, 111, 81, 0.06) !important;
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.12);
+}
+
+.print-button svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 :root{
     --accent:#e76f51;
@@ -55,7 +88,7 @@ h1,h2,h3,h5,h6{
     color: var(--text-light);
 }
 
-/* Fixed background layer using a pseudo-element for consistent behavior across browsers/devices */
+/* Recipe pages should use a blank background instead of the site-wide dynamic image. */
 body::before{
     content: "";
     position:fixed;
@@ -66,6 +99,17 @@ body::before{
     background-size: cover;
     z-index:-1;
     pointer-events:none;
+}
+
+body:has(.recipe-content)::before,
+body.recipe-page::before {
+    display: none;
+}
+
+body:has(.recipe-content),
+body.recipe-page {
+    background: #ffffff;
+    color: var(--text-dark);
 }
 
 /* ensure page content sits above the fixed background layer */

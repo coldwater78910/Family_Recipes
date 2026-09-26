@@ -12,10 +12,12 @@
 
   function makeButton(){
     const btn = document.createElement('button');
-    btn.className = 'btn btn-inline';
+    btn.className = 'btn btn-inline print-button';
     btn.type = 'button';
-    btn.textContent = 'Download PDF';
+    btn.title = 'Print recipe';
+    btn.setAttribute('aria-label', 'Print recipe');
     btn.style.marginLeft = '12px';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5"/><path d="M5 12h14a2 2 0 0 1 2 2v4H3v-4a2 2 0 0 1 2-2z"/><path d="M7 17h10v3H7z"/><path d="M7 8h10"/></svg>';
     btn.addEventListener('click', async function(){
       const url = '/export_pdf?title=' + encodeURIComponent(title);
       // Probe the endpoint: some hosts are static (GitHub Pages) and won't have the server-side route.
@@ -34,10 +36,9 @@
       // Fallback: open printable window from current page content
       const contentEl = document.querySelector('.recipe-content') || document.body;
       const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
-      const doc = `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title>${styles}<style>body{padding:20px}</style></head><body>${contentEl.outerHTML}</body></html>`;
-      const w = window.open('', '_blank');
-      w.document.open();
-      w.document.write(doc);
+      const doc = `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title>${styles}<style>body{padding:20px;background:#fff;color:#111} .print-button{display:none}</style></head><body>${contentEl.outerHTML}</body></html>`;
+      const w = window.open('', '_blank', 'noopener,noreferrer');
+      if(!w){ alert('Please allow pop-ups to print this recipe.'); return; }
       w.document.close();
       setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 500);
     });
