@@ -47,19 +47,19 @@
         </html>
       `;
 
-      const w = window.open('', '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
-      if(!w){ alert('Please allow pop-ups to print this recipe.'); return; }
-
       const blob = new Blob([cleanHtml], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      w.document.write(cleanHtml);
-      w.document.close();
-      w.document.title = title;
+      const w = window.open(url, '_blank', 'noopener,noreferrer,toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0,width=900,height=1100');
+      if(!w){ URL.revokeObjectURL(url); alert('Please allow pop-ups to print this recipe.'); return; }
 
       setTimeout(() => {
-        try { w.focus(); w.print(); } catch (e) {}
+        try {
+          w.focus();
+          w.document.title = title;
+          w.print();
+        } catch (e) {}
         setTimeout(() => URL.revokeObjectURL(url), 1500);
-      }, 200);
+      }, 300);
     });
     return btn;
   }
